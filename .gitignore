@@ -1,14 +1,37 @@
-.env
-.env.*
-!.env.example
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.idea/
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 敏感配置
+.env
+
+# 运行时目录（保留目录结构，忽略内容）
+tmp/*
+!tmp/.gitkeep
+logs/*
+!logs/.gitkeep
+reports/*
+!reports/.gitkeep
+
+# 状态数据库
+state.db
+
+# IDE
 .vscode/
+.idea/
 *.swp
-*.swo
-/tmp/
-*.qcow2
-*.img
+
+# OS
+.DS_Store
+Thumbs.db

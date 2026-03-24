@@ -1,5 +1,10 @@
-tencentcloud-sdk-python
-cos-python-sdk-v5
-beautifulsoup4
-requests
-python-dotenv
+tencentcloud-sdk-python>=3.0.0
+cos-python-sdk-v5>=1.9.0
+beautifulsoup4>=4.12.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+paramiko>=3.4.0
+schedule>=1.2.0
+Jinja2>=3.1.0
+lxml>=5.1.0
+tqdm>=4.66.0
