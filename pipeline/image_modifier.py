@@ -53,30 +53,143 @@ instance-id: ali2tencent-{version}
 local-hostname: ali2tencent-{version}
 """
 
+# 腾讯云导入镜像要求 datasource_list 必须包含 ConfigDrive + TencentCloud
+# 参考：https://cloud.tencent.com/document/product/213/17339
+_QCLOUD_DATASOURCE_CFG = """\
+# 腾讯云导入镜像专用：覆盖 datasource 配置（99_ 前缀确保最后加载，优先级最高）
+datasource_list: [ ConfigDrive, TencentCloud ]
+datasource:
+  ConfigDrive:
+    dsmode: local
+  TencentCloud:
+    metadata_urls: ['http://169.254.0.23', 'http://metadata.tencentyun.com']
+"""
+
+# 完整的腾讯云 cloud.cfg（替换镜像内 /etc/cloud/cloud.cfg）
+_QCLOUD_CLOUD_CFG = """\
+# The top level settings are used as module
+# and system configuration.
+
+users:
+   - default
+
+disable_root: true
+preserve_hostname: false
+
+datasource_list: [ ConfigDrive, TencentCloud ]
+datasource:
+  ConfigDrive:
+    dsmode: local
+  TencentCloud:
+    metadata_urls: ['http://169.254.0.23', 'http://metadata.tencentyun.com']
+
+cloud_init_modules:
+ - migrator
+ - ubuntu-init-switch
+ - seed_random
+ - bootcmd
+ - write-files
+ - growpart
+ - resizefs
+ - disk_setup
+ - mounts
+ - set_hostname
+ - update_hostname
+ - [update_etc_hosts, once-per-instance]
+ - ca-certs
+ - rsyslog
+ - users-groups
+ - ssh
+
+cloud_config_modules:
+ - emit_upstart
+ - snap_config
+ - ssh-import-id
+ - locale
+ - set-passwords
+ - grub-dpkg
+ - apt-pipelining
+ - apt-configure
+ - ntp
+ - resolv_conf
+ - timezone
+ - disable-ec2-metadata
+ - runcmd
+ - byobu
+
+cloud_final_modules:
+ - snappy
+ - package-update-upgrade-install
+ - fan
+ - landscape
+ - lxd
+ - puppet
+ - chef
+ - salt-minion
+ - mcollective
+ - rightscale_userdata
+ - scripts-vendor
+ - scripts-per-once
+ - scripts-per-boot
+ - scripts-per-instance
+ - scripts-user
+ - ssh-authkey-fingerprints
+ - keys-to-console
+ - phone-home
+ - final-message
+ - power-state-change
+
+system_info:
+   distro: ubuntu
+   default_user:
+     name: ubuntu
+     lock_passwd: false
+     gecos: Ubuntu
+     groups: [adm, audio, cdrom, dialout, dip, floppy, lxd, netdev, plugdev, sudo, video]
+     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+     shell: /bin/bash
+   paths:
+      cloud_dir: /var/lib/cloud/
+      templates_dir: /etc/cloud/templates/
+      upstart_dir: /etc/init/
+   package_mirrors:
+     - arches: [i386, amd64]
+       failsafe:
+         primary: http://archive.ubuntu.com/ubuntu
+         security: http://security.ubuntu.com/ubuntu
+       search:
+         primary:
+           - http://%(ec2_region)s.ec2.archive.ubuntu.com/ubuntu/
+           - http://%(availability_zone)s.clouds.archive.ubuntu.com/ubuntu/
+           - http://%(region)s.clouds.archive.ubuntu.com/ubuntu/
+         security: []
+     - arches: [armhf, armel, default]
+       failsafe:
+         primary: http://ports.ubuntu.com/ubuntu-ports
+         security: http://ports.ubuntu.com/ubuntu-ports
+   ssh_svcname: ssh
+
+apt:
+  preserve_sources_list: true
+"""
+
 
 def run(ctx: PipelineContext, config: Config, db: StateDB) -> None:
     """流水线阶段入口：修改镜像 cloud-init 配置，更新 ctx.modified_file_path。
 
-    在 Windows 平台或工具不可用时，直接跳过修改，使用原始镜像文件。
-    腾讯云导入后通过控制台密码或密钥登录即可。
+    注入策略优先级：
+      0. WSL + virt-customize  — Windows 首选（需已安装 Ubuntu WSL）
+      1. guestfish             — Linux 首选
+      2. qemu-nbd + mount      — Linux 备选
+      3. 跳过（仅保存配置文件，人工注入）
     """
     src = ctx.local_file_path
     if not src or not Path(src).exists():
         raise FileNotFoundError(f"源镜像文件不存在: {src}")
 
-    # Windows 平台：无法挂载镜像，直接跳过
-    if os.name == "nt":
-        logger.info("Windows 平台不支持镜像挂载，跳过 cloud-init 注入，使用原始镜像")
-        ctx.modified_file_path = src
-        _save_cloud_init_files(ctx, config)
-        return
-
-    # 目标文件：在原文件名基础上加 _modified
     stem = Path(src).stem
     suffix = Path(src).suffix
     dst = str(Path(src).parent / f"{stem}_modified{suffix}")
-
-    logger.info("修改 cloud-init 配置: %s -> %s", src, dst)
 
     # 生成配置内容
     ssh_pubkey = _get_ssh_pubkey(config)
@@ -90,27 +203,143 @@ def run(ctx: PipelineContext, config: Config, db: StateDB) -> None:
 
     injected = False
 
-    # 策略1：guestfish
-    if _has_command("guestfish") and not injected:
+    # 策略0：Windows 下通过 WSL 调用 virt-customize
+    if os.name == "nt" and not injected:
+        injected = _inject_with_wsl(src, dst, user_data, meta_data)
+
+    # 策略1：guestfish（Linux）
+    if not injected and _has_command("guestfish"):
         injected = _inject_with_guestfish(src, dst, user_data, meta_data)
 
-    # 策略2：qemu-nbd
+    # 策略2：qemu-nbd（Linux）
     if not injected and _has_command("qemu-nbd"):
         injected = _inject_with_qemu_nbd(src, dst, user_data, meta_data)
 
-    # 策略3：seed ISO（Linux 有工具时生成）
+    # 策略3：无工具可用，跳过注入
     if not injected:
-        logger.info("镜像挂载工具不可用，使用 NoCloud seed ISO 方式注入 cloud-init")
+        logger.warning(
+            "未找到任何可用的镜像修改工具（virt-customize/guestfish/qemu-nbd），跳过注入。\n"
+            "腾讯云导入检测要求 datasource_list 包含 ConfigDrive，"
+            "请在导入后手动修改实例内 /etc/cloud/cloud.cfg.d/99_qcloud.cfg"
+        )
         shutil.copy2(src, dst)
-        seed_iso = _create_seed_iso(Path(src).parent, user_data, meta_data, ctx.version)
-        ctx.extra["seed_iso_path"] = seed_iso
-        if seed_iso:
-            logger.info("Seed ISO 已生成: %s", seed_iso)
-        else:
-            logger.info("Seed ISO 生成跳过（无工具），镜像将直接上传，使用原始 cloud-init")
 
+    _save_cloud_init_files(ctx, config)
     ctx.modified_file_path = dst
-    logger.info("cloud-init 处理完成: %s", dst)
+    logger.info("cloud-init 处理完成: %s (injected=%s)", dst, injected)
+
+
+def _inject_with_wsl(src: str, dst: str, user_data: str, meta_data: str) -> bool:
+    """Windows 专用：通过 WSL 使用 qemu-nbd 挂载镜像并注入 cloud-init 配置。
+
+    WSL2 自定义内核不含 /boot/vmlinuz，libguestfs/virt-customize 无法启动 appliance，
+    因此改用 qemu-nbd + mount 方案（qemu-utils 随 libguestfs-tools 一并安装）。
+
+    注入内容：
+      /etc/cloud/cloud.cfg.d/99_qcloud.cfg  ← datasource_list: [ConfigDrive, None]
+      /var/lib/cloud/seed/nocloud-net/user-data
+      /var/lib/cloud/seed/nocloud-net/meta-data
+    """
+    if not shutil.which("wsl"):
+        logger.debug("WSL 不可用，跳过 WSL 注入策略")
+        return False
+
+    # 检测 WSL 发行版列表
+    try:
+        raw = subprocess.run(["wsl", "--list", "--quiet"], capture_output=True, timeout=10).stdout
+        try:
+            distros_text = raw.decode("utf-16-le").strip()
+        except Exception:
+            distros_text = raw.decode("utf-8", errors="ignore").strip()
+        distros = [d.strip("\x00").strip() for d in distros_text.splitlines() if d.strip("\x00").strip()]
+    except Exception as e:
+        logger.debug("获取 WSL 发行版列表失败: %s", e)
+        return False
+
+    if not distros:
+        logger.debug("未找到任何 WSL 发行版")
+        return False
+
+    wsl_distro = next((d for d in distros if "ubuntu" in d.lower()), distros[0])
+    logger.info("WSL 注入：使用发行版 %s", wsl_distro)
+
+    # Windows 路径 -> WSL 路径
+    def to_wsl(win_path: str) -> str:
+        p = Path(win_path).resolve()
+        drive = p.drive.rstrip(":").lower()
+        rest = p.as_posix()[2:]
+        return f"/mnt/{drive}{rest}"
+
+    wsl_dst = to_wsl(dst)
+    shutil.copy2(src, dst)
+
+    # 检测 qemu-nbd 是否可用
+    check = subprocess.run(
+        ["wsl", "-d", wsl_distro, "--", "bash", "-c", "command -v qemu-nbd"],
+        capture_output=True, timeout=10,
+    )
+    if check.returncode != 0:
+        logger.warning(
+            "WSL (%s) 中未找到 qemu-nbd，请先执行：\n"
+            "  sudo apt-get install -y qemu-utils",
+            wsl_distro,
+        )
+        return False
+
+    # 转义文件内容中的单引号，用于 bash -c 内嵌
+    def sh_escape(s: str) -> str:
+        return s.replace("'", "'\\''")
+
+    cfg      = sh_escape(_QCLOUD_DATASOURCE_CFG)
+    cloud_cfg = sh_escape(_QCLOUD_CLOUD_CFG)
+    ud       = sh_escape(user_data)
+    md       = sh_escape(meta_data)
+
+    # 一次性脚本：挂载 -> 写文件 -> 卸载
+    # 同时写入：
+    #   /etc/cloud/cloud.cfg          ← 完整腾讯云 cloud.cfg（含 datasource_list）
+    #   /etc/cloud/cloud.cfg.d/99_qcloud.cfg ← 覆盖补丁（双重保险）
+    #   /var/lib/cloud/seed/nocloud-net/user-data
+    #   /var/lib/cloud/seed/nocloud-net/meta-data
+    script = f"""set -e
+modprobe nbd max_part=8 2>/dev/null || true
+qemu-nbd -d /dev/nbd0 2>/dev/null || true
+sleep 1
+qemu-nbd -c /dev/nbd0 '{wsl_dst}'
+sleep 2
+mkdir -p /mnt/_ali2tencent_inject
+mount /dev/nbd0p1 /mnt/_ali2tencent_inject 2>/dev/null || mount /dev/nbd01 /mnt/_ali2tencent_inject
+mkdir -p /mnt/_ali2tencent_inject/etc/cloud/cloud.cfg.d
+printf '%s' '{cloud_cfg}' > /mnt/_ali2tencent_inject/etc/cloud/cloud.cfg
+printf '%s' '{cfg}' > /mnt/_ali2tencent_inject/etc/cloud/cloud.cfg.d/99_qcloud.cfg
+mkdir -p /mnt/_ali2tencent_inject/var/lib/cloud/seed/nocloud-net
+printf '%s' '{ud}' > /mnt/_ali2tencent_inject/var/lib/cloud/seed/nocloud-net/user-data
+printf '%s' '{md}' > /mnt/_ali2tencent_inject/var/lib/cloud/seed/nocloud-net/meta-data
+sync
+umount /mnt/_ali2tencent_inject
+qemu-nbd -d /dev/nbd0
+echo WSL_INJECT_OK
+"""
+
+    logger.info("WSL qemu-nbd 注入 cloud-init 配置...")
+    try:
+        result = subprocess.run(
+            ["wsl", "-d", wsl_distro, "--", "sudo", "bash", "-c", script],
+            capture_output=True, timeout=120,
+        )
+        stdout = result.stdout.decode(errors="ignore")
+        stderr = result.stderr.decode(errors="ignore")
+        if "WSL_INJECT_OK" in stdout:
+            logger.info("WSL qemu-nbd 注入成功")
+            return True
+        logger.warning("WSL 注入未成功，stdout=%s stderr=%s", stdout[-300:], stderr[-300:])
+        return False
+    except subprocess.TimeoutExpired:
+        logger.warning("WSL 注入超时（120s）")
+        return False
+    except Exception as e:
+        logger.warning("WSL 注入异常: %s", e)
+        return False
 
 
 def _save_cloud_init_files(ctx: PipelineContext, config: Config) -> None:
@@ -126,7 +355,13 @@ def _save_cloud_init_files(ctx: PipelineContext, config: Config) -> None:
         meta_data = _META_DATA_TMPL.format(version=ctx.version.replace(".", "-"))
         _write(str(tmp_dir / "user-data.txt"), user_data)
         _write(str(tmp_dir / "meta-data.txt"), meta_data)
-        logger.info("cloud-init 配置已保存到 %s (仅供参考，未注入镜像)", tmp_dir)
+        _write(str(tmp_dir / "99_qcloud.cfg"), _QCLOUD_DATASOURCE_CFG)
+        _write(str(tmp_dir / "cloud.cfg"), _QCLOUD_CLOUD_CFG)
+        logger.info(
+            "cloud-init 配置已保存到 %s (仅供参考，未注入镜像)\n"
+            "  重要：99_qcloud.cfg 内容需手动注入镜像的 /etc/cloud/cloud.cfg.d/99_qcloud.cfg",
+            tmp_dir,
+        )
     except Exception as e:
         logger.debug("保存 cloud-init 配置文件失败（非关键）: %s", e)
 
@@ -137,7 +372,8 @@ def _inject_with_guestfish(src: str, dst: str, user_data: str, meta_data: str) -
     shutil.copy2(src, dst)
     script = f"""run
 mount /dev/sda1 /
-write /etc/cloud/cloud.cfg.d/99_ali2tencent.cfg "{_escape(user_data)}"
+write /etc/cloud/cloud.cfg "{_escape(_QCLOUD_CLOUD_CFG)}"
+write /etc/cloud/cloud.cfg.d/99_qcloud.cfg "{_escape(_QCLOUD_DATASOURCE_CFG)}"
 write /var/lib/cloud/seed/nocloud-net/user-data "{_escape(user_data)}"
 write /var/lib/cloud/seed/nocloud-net/meta-data "{_escape(meta_data)}"
 umount /
@@ -176,6 +412,10 @@ def _inject_with_qemu_nbd(src: str, dst: str, user_data: str, meta_data: str) ->
             except subprocess.CalledProcessError:
                 continue
 
+        cloud_cfg_d = os.path.join(mount_point, "etc/cloud/cloud.cfg.d")
+        os.makedirs(cloud_cfg_d, exist_ok=True)
+        _write(os.path.join(mount_point, "etc/cloud/cloud.cfg"), _QCLOUD_CLOUD_CFG)
+        _write(os.path.join(cloud_cfg_d, "99_qcloud.cfg"), _QCLOUD_DATASOURCE_CFG)
         cloud_seed = os.path.join(mount_point, "var/lib/cloud/seed/nocloud-net")
         os.makedirs(cloud_seed, exist_ok=True)
         _write(os.path.join(cloud_seed, "user-data"), user_data)

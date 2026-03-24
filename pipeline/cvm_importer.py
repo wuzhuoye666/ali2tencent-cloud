@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import time
+from datetime import datetime
 
 from tencentcloud.common import credential
 from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
@@ -33,7 +34,7 @@ def run(ctx: PipelineContext, config: Config, db: StateDB) -> None:
     image_id = import_image(
         client=client,
         cos_url=ctx.cos_object_url,
-        image_name=f"ali-{ctx.version}",
+        image_name=f"ali-{ctx.version}-{datetime.now().strftime('%m%d%H%M')}",
         image_desc=f"自动从阿里云迁移 version={ctx.version}",
         os_type=_detect_os_type(ctx),
         architecture="x86_64",
