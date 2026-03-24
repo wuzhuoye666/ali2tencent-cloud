@@ -118,10 +118,14 @@ class Pipeline:
                 )
 
         # 从所有任务 meta 中聚合非空字段（不限制 status，按时间从旧到新覆盖）
-        tasks = self.db.get_tasks_by_version(ctx.version)
+        # 注意：不恢复 task_id，保持当前运行的 task_id 不变
         import json
+        SKIP_KEYS = {"task_id"}
+        tasks = self.db.get_tasks_by_version(ctx.version)
         for task in tasks:
             meta = json.loads(task.get("meta") or "{}")
             for key, val in meta.items():
+                if key in SKIP_KEYS:
+                    continue
                 if hasattr(ctx, key) and val:
                     setattr(ctx, key, val)

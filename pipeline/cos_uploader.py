@@ -19,7 +19,10 @@ logger = get_logger("cos_uploader")
 
 
 def run(ctx: PipelineContext, config: Config, db: StateDB) -> None:
-    """流水线阶段入口：上传镜像到 COS，填充 ctx.cos_object_key 和 ctx.cos_object_url。"""
+    """流水线阶段入口：上传镜像到 COS，填充 ctx.cos_object_key 和 ctx.cos_object_url。
+    
+    上传完成后生成预签名 URL（有效期 24h），供 ImportImage API 使用。
+    """
     src = ctx.modified_file_path or ctx.local_file_path
     if not src or not Path(src).exists():
         raise FileNotFoundError(f"待上传镜像文件不存在: {src}")
@@ -27,18 +30,47 @@ def run(ctx: PipelineContext, config: Config, db: StateDB) -> None:
     object_key = f"images/{ctx.version}/{Path(src).name}"
     logger.info("上传到 COS: %s -> %s/%s", src, config.tencent_cos_bucket, object_key)
 
-    cos_url = upload_file(
-        src=src,
-        bucket=config.tencent_cos_bucket,
-        object_key=object_key,
-        region=config.tencent_region,
-        secret_id=config.tencent_secret_id,
-        secret_key=config.tencent_secret_key,
+    cos_config = CosConfig(
+        Region=config.tencent_region,
+        SecretId=config.tencent_secret_id,
+        SecretKey=config.tencent_secret_key,
+        Scheme="https",
+        Timeout=1200,
+    )
+    client = CosS3Client(cos_config)
+
+    # 检查文件是否已上传（断点续传跳过）
+    already_uploaded = False
+    try:
+        head = client.head_object(Bucket=config.tencent_cos_bucket, Key=object_key)
+        remote_size = int(head.get("Content-Length", 0))
+        local_size = Path(src).stat().st_size
+        if remote_size == local_size:
+            logger.info("COS 上已有同名同大小文件，跳过上传")
+            already_uploaded = True
+    except Exception:
+        pass
+
+    if not already_uploaded:
+        upload_file(
+            src=src,
+            bucket=config.tencent_cos_bucket,
+            object_key=object_key,
+            region=config.tencent_region,
+            secret_id=config.tencent_secret_id,
+            secret_key=config.tencent_secret_key,
+        )
+
+    # 生成预签名 URL（有效期 86400 秒 = 24 小时），ImportImage 需要有签名的 URL
+    signed_url = client.get_presigned_download_url(
+        Bucket=config.tencent_cos_bucket,
+        Key=object_key,
+        Expired=86400,
     )
 
     ctx.cos_object_key = object_key
-    ctx.cos_object_url = cos_url
-    logger.info("COS 上传完成: %s", cos_url)
+    ctx.cos_object_url = signed_url
+    logger.info("COS 上传完成，预签名 URL: %s...（有效期24h）", signed_url[:80])
 
 
 def upload_file(

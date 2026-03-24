@@ -48,7 +48,7 @@ def import_image(
     cos_url: str,
     image_name: str,
     image_desc: str = "",
-    os_type: str = "Linux",
+    os_type: str = "CentOS",
     architecture: str = "x86_64",
 ) -> str:
     """
@@ -59,7 +59,7 @@ def import_image(
     req = models.ImportImageRequest()
     req.Architecture = architecture
     req.OsType = os_type
-    req.OsVersion = "Other Linux"
+    req.OsVersion = "7"   # 通用版本号，ALinux2 基于 CentOS 7 系列
     req.ImageUrl = cos_url
     req.ImageName = image_name
     req.ImageDescription = image_desc
@@ -115,7 +115,11 @@ def _make_client(config: Config) -> cvm_client.CvmClient:
 
 
 def _detect_os_type(ctx: PipelineContext) -> str:
-    """根据镜像名称猜测 OS 类型（腾讯云 ImportImage 需要该参数）。"""
+    """根据镜像名称猜测 OS 类型（腾讯云 ImportImage 需要该参数）。
+    
+    腾讯云支持的 OsType 枚举值：
+    CentOS, Ubuntu, Debian, Windows, OpenSUSE, SUSE, CoreOS, FreeBSD, Other Linux
+    """
     name = (ctx.image_info.name if ctx.image_info else "").lower()
     if "centos" in name:
         return "CentOS"
@@ -123,6 +127,10 @@ def _detect_os_type(ctx: PipelineContext) -> str:
         return "Ubuntu"
     if "debian" in name:
         return "Debian"
-    if "alinux" in name or "alibaba" in name or "alios" in name:
-        return "CentOS"   # AliOS 基于 CentOS/RHEL，选 CentOS 兼容性最好
-    return "Linux"
+    if "alinux" in name or "alibaba" in name or "alios" in name or "aliyun" in name:
+        return "CentOS"   # AliOS/ALinux 基于 RHEL/CentOS，选 CentOS 兼容性最好
+    if "opensuse" in name:
+        return "OpenSUSE"
+    if "suse" in name:
+        return "SUSE"
+    return "Other Linux"   # 默认用 "Other Linux" 而非 "Linux"
