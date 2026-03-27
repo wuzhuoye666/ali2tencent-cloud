@@ -36,9 +36,11 @@ _PREFER_EXT = ".qcow2"
 # 版本号正则1：纯点号分隔，如 3.2, 2.1903, 3.2.0
 _VERSION_RE = re.compile(r"\b(\d+\.\d+(?:\.\d+)*)\b")
 
-# 版本号正则2：阿里云文件名格式 aliyun_<major>_<minor>_arch，如 aliyun_2_1903_x64 -> 2.1903
+# 版本号正则2：阿里云文件名格式
+# 格式1: aliyun_2_1903_x64 -> 2.1903 (ALinux 2)
+# 格式2: aliyun_3_x64_20G_nocloud -> 3 (ALinux 3)
 _ALINUX_FNAME_RE = re.compile(
-    r"(?:aliyun|alinux)[_-](\d+)[_-](\d+)[_-]",
+    r"(?:aliyun|alinux)[_-](\d+)(?:[_-](\d+))?[_-]",
     re.IGNORECASE,
 )
 
@@ -267,12 +269,17 @@ def _extract_version(text: str) -> str:
     
     支持格式：
     - 3.2, 2.1903, 3.2.0（点号分隔）
-    - aliyun_2_1903_x64... -> "2.1903"（阿里云文件名格式）
+    - aliyun_2_1903_x64... -> "2.1903"（ALinux 2 格式）
+    - aliyun_3_x64_20G_nocloud... -> "3"（ALinux 3 格式）
     """
-    # 优先匹配阿里云文件名格式：aliyun_2_1903_ 或 alinux_3_2_
+    # 优先匹配阿里云文件名格式：aliyun_2_1903_ 或 aliyun_3_x64_
     m = _ALINUX_FNAME_RE.search(text)
     if m:
-        return f"{m.group(1)}.{m.group(2)}"
+        major = m.group(1)
+        minor = m.group(2)
+        if minor:
+            return f"{major}.{minor}"
+        return major
     # 其次匹配点号版本号
     m = _VERSION_RE.search(text)
     return m.group(1) if m else ""

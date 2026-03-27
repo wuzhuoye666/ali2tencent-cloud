@@ -65,7 +65,7 @@ class Config:
             tencent_cos_bucket=_require("TENCENT_COS_BUCKET"),
             ali_image_doc_url=_optional(
                 "ALI_IMAGE_DOC_URL",
-                "https://mirrors.aliyun.com/alinux/",
+                "https://mirrors.aliyun.com/alinux/3/image/",
             ),
             check_interval_hours=int(_optional("CHECK_INTERVAL_HOURS", "6")),
             cvm_instance_type=_optional("CVM_INSTANCE_TYPE", "S5.MEDIUM2"),

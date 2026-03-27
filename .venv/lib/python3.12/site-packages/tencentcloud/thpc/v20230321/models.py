@@ -1,0 +1,9610 @@
+# -*- coding: utf8 -*-
+# Copyright (c) 2017-2025 Tencent. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import warnings
+
+from tencentcloud.common.abstract_model import AbstractModel
+
+
+class AddClusterStorageOptionRequest(AbstractModel):
+    r"""AddClusterStorageOption请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _StorageOption: 集群存储选项；集群已存在的节点和新增节点都会挂载此存储。
+        :type StorageOption: :class:`tencentcloud.thpc.v20230321.models.StorageOption`
+        """
+        self._ClusterId = None
+        self._StorageOption = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def StorageOption(self):
+        r"""集群存储选项；集群已存在的节点和新增节点都会挂载此存储。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.StorageOption`
+        """
+        return self._StorageOption
+
+    @StorageOption.setter
+    def StorageOption(self, StorageOption):
+        self._StorageOption = StorageOption
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        if params.get("StorageOption") is not None:
+            self._StorageOption = StorageOption()
+            self._StorageOption._deserialize(params.get("StorageOption"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class AddClusterStorageOptionResponse(AbstractModel):
+    r"""AddClusterStorageOption返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class AddNodesRequest(AbstractModel):
+    r"""AddNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Placement: <p>集群中实例所在的位置。</p>
+        :type Placement: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        :param _ClusterId: <p>集群ID。</p>
+        :type ClusterId: str
+        :param _VirtualPrivateCloud: <p>私有网络相关信息配置。</p>
+        :type VirtualPrivateCloud: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        :param _Count: <p>添加节点数量。</p>
+        :type Count: int
+        :param _ImageId: <p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-xxx</code>。目前支持部分公有镜像和自定义镜像。公共镜像请参考<a href="https://cloud.tencent.com/document/product/1527/64818#.E9.95.9C.E5.83.8F">镜像限制</a></p>
+        :type ImageId: str
+        :param _InstanceChargeType: <p>节点<a href="https://cloud.tencent.com/document/product/213/2180">计费类型</a>。<br><li>PREPAID：预付费，即包年包月</li><li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li>默认值：POSTPAID_BY_HOUR。</p>
+        :type InstanceChargeType: str
+        :param _InstanceChargePrepaid: <p>预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。</p>
+        :type InstanceChargePrepaid: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        :param _InstanceType: <p>节点机型。不同实例机型指定了不同的资源规格。<br><li>具体取值可通过调用接口<a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a>来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例规格</a>描述。</li></p>
+        :type InstanceType: str
+        :param _SystemDisk: <p>节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。</p>
+        :type SystemDisk: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        :param _DataDisks: <p>节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。</p>
+        :type DataDisks: list of DataDisk
+        :param _InternetAccessible: <p>公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。</p>
+        :type InternetAccessible: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        :param _InstanceName: <p>节点显示名称。<br>不指定节点显示名称则默认显示‘未命名’。<br>最多支持60个字符。</p>
+        :type InstanceName: str
+        :param _LoginSettings: <p>集群登录设置。</p>
+        :type LoginSettings: :class:`tencentcloud.thpc.v20230321.models.LoginSettings`
+        :param _SecurityGroupIds: <p>集群中实例所属安全组。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/215/15808">DescribeSecurityGroups</a> 的返回值中的sgId字段来获取。若不指定该参数，则绑定默认安全组。</p>
+        :type SecurityGroupIds: list of str
+        :param _ClientToken: <p>用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。</p>
+        :type ClientToken: str
+        :param _QueueName: <p>队列名称。不指定则为默认队列。<li>SLURM默认队列为：compute。</li></p>
+        :type QueueName: str
+        :param _NodeRole: <p>添加节点角色。默认值：Compute<br><li>Compute：计算节点。</li><li>Login：登录节点。</li></p>
+        :type NodeRole: str
+        :param _DryRun: <p>是否只预检此次请求。<br>true：发送检查请求，不会创建实例。检查项包括是否填写了必需参数，请求格式，业务限制和云服务器库存。<br>如果检查不通过，则返回对应错误码；<br>如果检查通过，则返回RequestId.<br>false（默认）：发送正常请求，通过检查后直接创建实例</p>
+        :type DryRun: bool
+        :param _NodeType: <p>添加节点类型。默认取值：STATIC。<li>STATIC：静态节点，不会参与弹性伸缩流程。</li><li>DYNAMIC：弹性节点，会被弹性缩容的节点。管控节点和登录节点不支持此参数。</li></p>
+        :type NodeType: str
+        :param _ProjectId: <p>实例所属项目ID。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/651/78725">DescribeProject</a> 的返回值中的 projectId 字段来获取。不填为默认项目。</p>
+        :type ProjectId: int
+        :param _ResourceType: <p>要新增节点的资源类型。<li>CVM：CVM实例类型资源</li><li>WORKSPACE：工作空间类型实例资源</li>默认值：CVM。</p>
+        :type ResourceType: str
+        """
+        self._Placement = None
+        self._ClusterId = None
+        self._VirtualPrivateCloud = None
+        self._Count = None
+        self._ImageId = None
+        self._InstanceChargeType = None
+        self._InstanceChargePrepaid = None
+        self._InstanceType = None
+        self._SystemDisk = None
+        self._DataDisks = None
+        self._InternetAccessible = None
+        self._InstanceName = None
+        self._LoginSettings = None
+        self._SecurityGroupIds = None
+        self._ClientToken = None
+        self._QueueName = None
+        self._NodeRole = None
+        self._DryRun = None
+        self._NodeType = None
+        self._ProjectId = None
+        self._ResourceType = None
+
+    @property
+    def Placement(self):
+        r"""<p>集群中实例所在的位置。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        """
+        return self._Placement
+
+    @Placement.setter
+    def Placement(self, Placement):
+        self._Placement = Placement
+
+    @property
+    def ClusterId(self):
+        r"""<p>集群ID。</p>
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def VirtualPrivateCloud(self):
+        r"""<p>私有网络相关信息配置。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        """
+        return self._VirtualPrivateCloud
+
+    @VirtualPrivateCloud.setter
+    def VirtualPrivateCloud(self, VirtualPrivateCloud):
+        self._VirtualPrivateCloud = VirtualPrivateCloud
+
+    @property
+    def Count(self):
+        r"""<p>添加节点数量。</p>
+        :rtype: int
+        """
+        return self._Count
+
+    @Count.setter
+    def Count(self, Count):
+        self._Count = Count
+
+    @property
+    def ImageId(self):
+        r"""<p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-xxx</code>。目前支持部分公有镜像和自定义镜像。公共镜像请参考<a href="https://cloud.tencent.com/document/product/1527/64818#.E9.95.9C.E5.83.8F">镜像限制</a></p>
+        :rtype: str
+        """
+        return self._ImageId
+
+    @ImageId.setter
+    def ImageId(self, ImageId):
+        self._ImageId = ImageId
+
+    @property
+    def InstanceChargeType(self):
+        r"""<p>节点<a href="https://cloud.tencent.com/document/product/213/2180">计费类型</a>。<br><li>PREPAID：预付费，即包年包月</li><li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li>默认值：POSTPAID_BY_HOUR。</p>
+        :rtype: str
+        """
+        return self._InstanceChargeType
+
+    @InstanceChargeType.setter
+    def InstanceChargeType(self, InstanceChargeType):
+        self._InstanceChargeType = InstanceChargeType
+
+    @property
+    def InstanceChargePrepaid(self):
+        r"""<p>预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        """
+        return self._InstanceChargePrepaid
+
+    @InstanceChargePrepaid.setter
+    def InstanceChargePrepaid(self, InstanceChargePrepaid):
+        self._InstanceChargePrepaid = InstanceChargePrepaid
+
+    @property
+    def InstanceType(self):
+        r"""<p>节点机型。不同实例机型指定了不同的资源规格。<br><li>具体取值可通过调用接口<a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a>来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例规格</a>描述。</li></p>
+        :rtype: str
+        """
+        return self._InstanceType
+
+    @InstanceType.setter
+    def InstanceType(self, InstanceType):
+        self._InstanceType = InstanceType
+
+    @property
+    def SystemDisk(self):
+        r"""<p>节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        """
+        return self._SystemDisk
+
+    @SystemDisk.setter
+    def SystemDisk(self, SystemDisk):
+        self._SystemDisk = SystemDisk
+
+    @property
+    def DataDisks(self):
+        r"""<p>节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。</p>
+        :rtype: list of DataDisk
+        """
+        return self._DataDisks
+
+    @DataDisks.setter
+    def DataDisks(self, DataDisks):
+        self._DataDisks = DataDisks
+
+    @property
+    def InternetAccessible(self):
+        r"""<p>公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        """
+        return self._InternetAccessible
+
+    @InternetAccessible.setter
+    def InternetAccessible(self, InternetAccessible):
+        self._InternetAccessible = InternetAccessible
+
+    @property
+    def InstanceName(self):
+        r"""<p>节点显示名称。<br>不指定节点显示名称则默认显示‘未命名’。<br>最多支持60个字符。</p>
+        :rtype: str
+        """
+        return self._InstanceName
+
+    @InstanceName.setter
+    def InstanceName(self, InstanceName):
+        self._InstanceName = InstanceName
+
+    @property
+    def LoginSettings(self):
+        r"""<p>集群登录设置。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.LoginSettings`
+        """
+        return self._LoginSettings
+
+    @LoginSettings.setter
+    def LoginSettings(self, LoginSettings):
+        self._LoginSettings = LoginSettings
+
+    @property
+    def SecurityGroupIds(self):
+        r"""<p>集群中实例所属安全组。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/215/15808">DescribeSecurityGroups</a> 的返回值中的sgId字段来获取。若不指定该参数，则绑定默认安全组。</p>
+        :rtype: list of str
+        """
+        return self._SecurityGroupIds
+
+    @SecurityGroupIds.setter
+    def SecurityGroupIds(self, SecurityGroupIds):
+        self._SecurityGroupIds = SecurityGroupIds
+
+    @property
+    def ClientToken(self):
+        r"""<p>用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。</p>
+        :rtype: str
+        """
+        return self._ClientToken
+
+    @ClientToken.setter
+    def ClientToken(self, ClientToken):
+        self._ClientToken = ClientToken
+
+    @property
+    def QueueName(self):
+        r"""<p>队列名称。不指定则为默认队列。<li>SLURM默认队列为：compute。</li></p>
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+    @property
+    def NodeRole(self):
+        r"""<p>添加节点角色。默认值：Compute<br><li>Compute：计算节点。</li><li>Login：登录节点。</li></p>
+        :rtype: str
+        """
+        return self._NodeRole
+
+    @NodeRole.setter
+    def NodeRole(self, NodeRole):
+        self._NodeRole = NodeRole
+
+    @property
+    def DryRun(self):
+        r"""<p>是否只预检此次请求。<br>true：发送检查请求，不会创建实例。检查项包括是否填写了必需参数，请求格式，业务限制和云服务器库存。<br>如果检查不通过，则返回对应错误码；<br>如果检查通过，则返回RequestId.<br>false（默认）：发送正常请求，通过检查后直接创建实例</p>
+        :rtype: bool
+        """
+        return self._DryRun
+
+    @DryRun.setter
+    def DryRun(self, DryRun):
+        self._DryRun = DryRun
+
+    @property
+    def NodeType(self):
+        r"""<p>添加节点类型。默认取值：STATIC。<li>STATIC：静态节点，不会参与弹性伸缩流程。</li><li>DYNAMIC：弹性节点，会被弹性缩容的节点。管控节点和登录节点不支持此参数。</li></p>
+        :rtype: str
+        """
+        return self._NodeType
+
+    @NodeType.setter
+    def NodeType(self, NodeType):
+        self._NodeType = NodeType
+
+    @property
+    def ProjectId(self):
+        r"""<p>实例所属项目ID。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/651/78725">DescribeProject</a> 的返回值中的 projectId 字段来获取。不填为默认项目。</p>
+        :rtype: int
+        """
+        return self._ProjectId
+
+    @ProjectId.setter
+    def ProjectId(self, ProjectId):
+        self._ProjectId = ProjectId
+
+    @property
+    def ResourceType(self):
+        r"""<p>要新增节点的资源类型。<li>CVM：CVM实例类型资源</li><li>WORKSPACE：工作空间类型实例资源</li>默认值：CVM。</p>
+        :rtype: str
+        """
+        return self._ResourceType
+
+    @ResourceType.setter
+    def ResourceType(self, ResourceType):
+        self._ResourceType = ResourceType
+
+
+    def _deserialize(self, params):
+        if params.get("Placement") is not None:
+            self._Placement = Placement()
+            self._Placement._deserialize(params.get("Placement"))
+        self._ClusterId = params.get("ClusterId")
+        if params.get("VirtualPrivateCloud") is not None:
+            self._VirtualPrivateCloud = VirtualPrivateCloud()
+            self._VirtualPrivateCloud._deserialize(params.get("VirtualPrivateCloud"))
+        self._Count = params.get("Count")
+        self._ImageId = params.get("ImageId")
+        self._InstanceChargeType = params.get("InstanceChargeType")
+        if params.get("InstanceChargePrepaid") is not None:
+            self._InstanceChargePrepaid = InstanceChargePrepaid()
+            self._InstanceChargePrepaid._deserialize(params.get("InstanceChargePrepaid"))
+        self._InstanceType = params.get("InstanceType")
+        if params.get("SystemDisk") is not None:
+            self._SystemDisk = SystemDisk()
+            self._SystemDisk._deserialize(params.get("SystemDisk"))
+        if params.get("DataDisks") is not None:
+            self._DataDisks = []
+            for item in params.get("DataDisks"):
+                obj = DataDisk()
+                obj._deserialize(item)
+                self._DataDisks.append(obj)
+        if params.get("InternetAccessible") is not None:
+            self._InternetAccessible = InternetAccessible()
+            self._InternetAccessible._deserialize(params.get("InternetAccessible"))
+        self._InstanceName = params.get("InstanceName")
+        if params.get("LoginSettings") is not None:
+            self._LoginSettings = LoginSettings()
+            self._LoginSettings._deserialize(params.get("LoginSettings"))
+        self._SecurityGroupIds = params.get("SecurityGroupIds")
+        self._ClientToken = params.get("ClientToken")
+        self._QueueName = params.get("QueueName")
+        self._NodeRole = params.get("NodeRole")
+        self._DryRun = params.get("DryRun")
+        self._NodeType = params.get("NodeType")
+        self._ProjectId = params.get("ProjectId")
+        self._ResourceType = params.get("ResourceType")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class AddNodesResponse(AbstractModel):
+    r"""AddNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class AddQueueRequest(AbstractModel):
+    r"""AddQueue请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _QueueName: 队列名称。<br><li>最多支持32个字符。</li>
+        :type QueueName: str
+        """
+        self._ClusterId = None
+        self._QueueName = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def QueueName(self):
+        r"""队列名称。<br><li>最多支持32个字符。</li>
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._QueueName = params.get("QueueName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class AddQueueResponse(AbstractModel):
+    r"""AddQueue返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class Application(AbstractModel):
+    r"""任务的应用环境配置信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Commands: 待执行脚本命令。
+        :type Commands: list of CommandItem
+        :param _StorageMounts: 存储目录挂载配置。
+        :type StorageMounts: list of StorageMount
+        :param _EnvVars: 用户自定义环境变量。
+        :type EnvVars: list of EnvVar
+        :param _Docker: 容器配置信息。
+        :type Docker: :class:`tencentcloud.thpc.v20230321.models.Docker`
+        :param _OutputRedirect: 无
+        :type OutputRedirect: :class:`tencentcloud.thpc.v20230321.models.OutputRedirect`
+        :param _JobType: 表示所选训练框架，支持可选参数
+ 
+- PyTorch：表示提交PyTorch训练作业
+- Custom：表示用户自定义作业
+
+默认参数为：Custom
+        :type JobType: str
+        :param _TaskType: 表示所选训练框架，支持可选参数
+ 
+- PyTorch：表示提交PyTorch训练作业
+- Custom：表示用户自定义作业
+
+默认参数为：Custom
+        :type TaskType: str
+        """
+        self._Commands = None
+        self._StorageMounts = None
+        self._EnvVars = None
+        self._Docker = None
+        self._OutputRedirect = None
+        self._JobType = None
+        self._TaskType = None
+
+    @property
+    def Commands(self):
+        r"""待执行脚本命令。
+        :rtype: list of CommandItem
+        """
+        return self._Commands
+
+    @Commands.setter
+    def Commands(self, Commands):
+        self._Commands = Commands
+
+    @property
+    def StorageMounts(self):
+        r"""存储目录挂载配置。
+        :rtype: list of StorageMount
+        """
+        return self._StorageMounts
+
+    @StorageMounts.setter
+    def StorageMounts(self, StorageMounts):
+        self._StorageMounts = StorageMounts
+
+    @property
+    def EnvVars(self):
+        r"""用户自定义环境变量。
+        :rtype: list of EnvVar
+        """
+        return self._EnvVars
+
+    @EnvVars.setter
+    def EnvVars(self, EnvVars):
+        self._EnvVars = EnvVars
+
+    @property
+    def Docker(self):
+        r"""容器配置信息。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Docker`
+        """
+        return self._Docker
+
+    @Docker.setter
+    def Docker(self, Docker):
+        self._Docker = Docker
+
+    @property
+    def OutputRedirect(self):
+        r"""无
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.OutputRedirect`
+        """
+        return self._OutputRedirect
+
+    @OutputRedirect.setter
+    def OutputRedirect(self, OutputRedirect):
+        self._OutputRedirect = OutputRedirect
+
+    @property
+    def JobType(self):
+        warnings.warn("parameter `JobType` is deprecated", DeprecationWarning) 
+
+        r"""表示所选训练框架，支持可选参数
+ 
+- PyTorch：表示提交PyTorch训练作业
+- Custom：表示用户自定义作业
+
+默认参数为：Custom
+        :rtype: str
+        """
+        return self._JobType
+
+    @JobType.setter
+    def JobType(self, JobType):
+        warnings.warn("parameter `JobType` is deprecated", DeprecationWarning) 
+
+        self._JobType = JobType
+
+    @property
+    def TaskType(self):
+        r"""表示所选训练框架，支持可选参数
+ 
+- PyTorch：表示提交PyTorch训练作业
+- Custom：表示用户自定义作业
+
+默认参数为：Custom
+        :rtype: str
+        """
+        return self._TaskType
+
+    @TaskType.setter
+    def TaskType(self, TaskType):
+        self._TaskType = TaskType
+
+
+    def _deserialize(self, params):
+        if params.get("Commands") is not None:
+            self._Commands = []
+            for item in params.get("Commands"):
+                obj = CommandItem()
+                obj._deserialize(item)
+                self._Commands.append(obj)
+        if params.get("StorageMounts") is not None:
+            self._StorageMounts = []
+            for item in params.get("StorageMounts"):
+                obj = StorageMount()
+                obj._deserialize(item)
+                self._StorageMounts.append(obj)
+        if params.get("EnvVars") is not None:
+            self._EnvVars = []
+            for item in params.get("EnvVars"):
+                obj = EnvVar()
+                obj._deserialize(item)
+                self._EnvVars.append(obj)
+        if params.get("Docker") is not None:
+            self._Docker = Docker()
+            self._Docker._deserialize(params.get("Docker"))
+        if params.get("OutputRedirect") is not None:
+            self._OutputRedirect = OutputRedirect()
+            self._OutputRedirect._deserialize(params.get("OutputRedirect"))
+        self._JobType = params.get("JobType")
+        self._TaskType = params.get("TaskType")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class AttachNodesRequest(AbstractModel):
+    r"""AttachNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: <p>集群id</p>
+        :type ClusterId: str
+        :param _ResourceSet: <p>节点的实例id列表</p>
+        :type ResourceSet: list of str
+        :param _QueueName: <p>队列名称。不指定则为默认队列：<br>SLURM默认队列为：compute。</p>
+        :type QueueName: str
+        :param _ImageId: <p>指定有效的镜像ID，格式形如img-xxx。目前仅支持公有镜像和特定自定义镜像。如不指定，则该字段是默认镜像。</p>
+        :type ImageId: str
+        :param _ResourceType: <p>要新增节点的资源类型。<li>CVM：CVM实例类型资源</li><li>WORKSPACE：工作空间类型实例资源</li>默认值：CVM。</p>
+        :type ResourceType: str
+        :param _UserData: <p>提供给实例使用的用户数据，需要以 base64 方式编码，支持的最大数据大小为 16KB。关于获取此参数的详细介绍，请参阅<a href="https://cloud.tencent.com/document/product/213/17526">Windows</a>和<a href="https://cloud.tencent.com/document/product/213/17525">Linux</a>启动时运行命令。</p>
+        :type UserData: str
+        :param _SkipResetInstance: <p>控制实例加入集群是否跳过重装系统</p><p>默认值：False</p>
+        :type SkipResetInstance: bool
+        """
+        self._ClusterId = None
+        self._ResourceSet = None
+        self._QueueName = None
+        self._ImageId = None
+        self._ResourceType = None
+        self._UserData = None
+        self._SkipResetInstance = None
+
+    @property
+    def ClusterId(self):
+        r"""<p>集群id</p>
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def ResourceSet(self):
+        r"""<p>节点的实例id列表</p>
+        :rtype: list of str
+        """
+        return self._ResourceSet
+
+    @ResourceSet.setter
+    def ResourceSet(self, ResourceSet):
+        self._ResourceSet = ResourceSet
+
+    @property
+    def QueueName(self):
+        r"""<p>队列名称。不指定则为默认队列：<br>SLURM默认队列为：compute。</p>
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+    @property
+    def ImageId(self):
+        r"""<p>指定有效的镜像ID，格式形如img-xxx。目前仅支持公有镜像和特定自定义镜像。如不指定，则该字段是默认镜像。</p>
+        :rtype: str
+        """
+        return self._ImageId
+
+    @ImageId.setter
+    def ImageId(self, ImageId):
+        self._ImageId = ImageId
+
+    @property
+    def ResourceType(self):
+        r"""<p>要新增节点的资源类型。<li>CVM：CVM实例类型资源</li><li>WORKSPACE：工作空间类型实例资源</li>默认值：CVM。</p>
+        :rtype: str
+        """
+        return self._ResourceType
+
+    @ResourceType.setter
+    def ResourceType(self, ResourceType):
+        self._ResourceType = ResourceType
+
+    @property
+    def UserData(self):
+        r"""<p>提供给实例使用的用户数据，需要以 base64 方式编码，支持的最大数据大小为 16KB。关于获取此参数的详细介绍，请参阅<a href="https://cloud.tencent.com/document/product/213/17526">Windows</a>和<a href="https://cloud.tencent.com/document/product/213/17525">Linux</a>启动时运行命令。</p>
+        :rtype: str
+        """
+        return self._UserData
+
+    @UserData.setter
+    def UserData(self, UserData):
+        self._UserData = UserData
+
+    @property
+    def SkipResetInstance(self):
+        r"""<p>控制实例加入集群是否跳过重装系统</p><p>默认值：False</p>
+        :rtype: bool
+        """
+        return self._SkipResetInstance
+
+    @SkipResetInstance.setter
+    def SkipResetInstance(self, SkipResetInstance):
+        self._SkipResetInstance = SkipResetInstance
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._ResourceSet = params.get("ResourceSet")
+        self._QueueName = params.get("QueueName")
+        self._ImageId = params.get("ImageId")
+        self._ResourceType = params.get("ResourceType")
+        self._UserData = params.get("UserData")
+        self._SkipResetInstance = params.get("SkipResetInstance")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class AttachNodesResponse(AbstractModel):
+    r"""AttachNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class CFSOption(AbstractModel):
+    r"""描述CFS文件系统版本和挂载信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LocalPath: 文件系统本地挂载路径。
+        :type LocalPath: str
+        :param _RemotePath: 文件系统远程挂载ip及路径。
+        :type RemotePath: str
+        :param _Protocol: 文件系统协议类型。
+<li>NFS 3.0</li>
+<li>NFS 4.0</li>
+<li>TURBO</li>
+        :type Protocol: str
+        :param _StorageType: 文件系统存储类型，默认值SD；其中 SD 为通用标准型标准型存储， HP为通用性能型存储， TB为turbo标准型， TP 为turbo性能型。
+        :type StorageType: str
+        :param _MountOption: 文件系统挂载挂载命令参数选项。
+- NFS 3.0默认值：vers=3,nolock,proto=tcp,noresvport
+- NFS 4.0默认值：vers=4.0,noresvport
+- TURBO默认值：user_xattr
+        :type MountOption: str
+        :param _FileSystemId: 文件系统ID    文件系统ID通过调用接口[DescribeCfsFileSystems](https://cloud.tencent.com/document/product/582/38170)获取。
+        :type FileSystemId: str
+        """
+        self._LocalPath = None
+        self._RemotePath = None
+        self._Protocol = None
+        self._StorageType = None
+        self._MountOption = None
+        self._FileSystemId = None
+
+    @property
+    def LocalPath(self):
+        r"""文件系统本地挂载路径。
+        :rtype: str
+        """
+        return self._LocalPath
+
+    @LocalPath.setter
+    def LocalPath(self, LocalPath):
+        self._LocalPath = LocalPath
+
+    @property
+    def RemotePath(self):
+        r"""文件系统远程挂载ip及路径。
+        :rtype: str
+        """
+        return self._RemotePath
+
+    @RemotePath.setter
+    def RemotePath(self, RemotePath):
+        self._RemotePath = RemotePath
+
+    @property
+    def Protocol(self):
+        r"""文件系统协议类型。
+<li>NFS 3.0</li>
+<li>NFS 4.0</li>
+<li>TURBO</li>
+        :rtype: str
+        """
+        return self._Protocol
+
+    @Protocol.setter
+    def Protocol(self, Protocol):
+        self._Protocol = Protocol
+
+    @property
+    def StorageType(self):
+        r"""文件系统存储类型，默认值SD；其中 SD 为通用标准型标准型存储， HP为通用性能型存储， TB为turbo标准型， TP 为turbo性能型。
+        :rtype: str
+        """
+        return self._StorageType
+
+    @StorageType.setter
+    def StorageType(self, StorageType):
+        self._StorageType = StorageType
+
+    @property
+    def MountOption(self):
+        r"""文件系统挂载挂载命令参数选项。
+- NFS 3.0默认值：vers=3,nolock,proto=tcp,noresvport
+- NFS 4.0默认值：vers=4.0,noresvport
+- TURBO默认值：user_xattr
+        :rtype: str
+        """
+        return self._MountOption
+
+    @MountOption.setter
+    def MountOption(self, MountOption):
+        self._MountOption = MountOption
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID    文件系统ID通过调用接口[DescribeCfsFileSystems](https://cloud.tencent.com/document/product/582/38170)获取。
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._LocalPath = params.get("LocalPath")
+        self._RemotePath = params.get("RemotePath")
+        self._Protocol = params.get("Protocol")
+        self._StorageType = params.get("StorageType")
+        self._MountOption = params.get("MountOption")
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CFSOptionOverview(AbstractModel):
+    r"""CFS存储选项概览信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LocalPath: 文件系统本地挂载路径。
+        :type LocalPath: str
+        :param _RemotePath: 文件系统远程挂载ip及路径。
+        :type RemotePath: str
+        :param _Protocol: 文件系统协议类型。
+<li>NFS 3.0。
+<li>NFS 4.0。
+<li>TURBO。
+        :type Protocol: str
+        :param _StorageType: 文件系统存储类型，默认值SD；其中 SD 为通用标准型标准型存储， HP为通用性能型存储， TB为turbo标准型， TP 为turbo性能型。
+        :type StorageType: str
+        :param _MountOption: 文件系统挂载命令参数选项。
+        :type MountOption: str
+        """
+        self._LocalPath = None
+        self._RemotePath = None
+        self._Protocol = None
+        self._StorageType = None
+        self._MountOption = None
+
+    @property
+    def LocalPath(self):
+        r"""文件系统本地挂载路径。
+        :rtype: str
+        """
+        return self._LocalPath
+
+    @LocalPath.setter
+    def LocalPath(self, LocalPath):
+        self._LocalPath = LocalPath
+
+    @property
+    def RemotePath(self):
+        r"""文件系统远程挂载ip及路径。
+        :rtype: str
+        """
+        return self._RemotePath
+
+    @RemotePath.setter
+    def RemotePath(self, RemotePath):
+        self._RemotePath = RemotePath
+
+    @property
+    def Protocol(self):
+        r"""文件系统协议类型。
+<li>NFS 3.0。
+<li>NFS 4.0。
+<li>TURBO。
+        :rtype: str
+        """
+        return self._Protocol
+
+    @Protocol.setter
+    def Protocol(self, Protocol):
+        self._Protocol = Protocol
+
+    @property
+    def StorageType(self):
+        r"""文件系统存储类型，默认值SD；其中 SD 为通用标准型标准型存储， HP为通用性能型存储， TB为turbo标准型， TP 为turbo性能型。
+        :rtype: str
+        """
+        return self._StorageType
+
+    @StorageType.setter
+    def StorageType(self, StorageType):
+        self._StorageType = StorageType
+
+    @property
+    def MountOption(self):
+        r"""文件系统挂载命令参数选项。
+        :rtype: str
+        """
+        return self._MountOption
+
+    @MountOption.setter
+    def MountOption(self, MountOption):
+        self._MountOption = MountOption
+
+
+    def _deserialize(self, params):
+        self._LocalPath = params.get("LocalPath")
+        self._RemotePath = params.get("RemotePath")
+        self._Protocol = params.get("Protocol")
+        self._StorageType = params.get("StorageType")
+        self._MountOption = params.get("MountOption")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ClusterActivity(AbstractModel):
+    r"""符合条件的集群活动信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _ActivityId: 集群活动ID。
+        :type ActivityId: str
+        :param _ActivityType: 集群活动类型。取值范围：<br><li>CreateAndAddNodes：创建实例并添加进集群</li><br><li>RemoveNodesFromCluster：从集群移除实例</li><br><li>TerminateNodes：销毁实例</li><br><li>MountStorageOption：增加挂载选项并进行挂载</li><br><li>UmountStorageOption：删除集群挂载存储选项并解挂载</li>
+        :type ActivityType: str
+        :param _ActivityStatus: 集群活动状态。取值范围：<br><li>PENDING：等待运行</li><br><li>RUNNING：运行中</li><br><li>SUCCESSFUL：活动成功</li><br><li>PARTIALLY_SUCCESSFUL：活动部分成功</li><br><li>FAILED：活动失败</li>
+        :type ActivityStatus: str
+        :param _ActivityStatusCode: 集群活动状态码。
+        :type ActivityStatusCode: str
+        :param _ResultDetail: 集群活动结果详情。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type ResultDetail: str
+        :param _Cause: 集群活动起因。
+        :type Cause: str
+        :param _Description: 集群活动描述。
+        :type Description: str
+        :param _RelatedNodeActivitySet: 集群活动相关节点活动集合。
+        :type RelatedNodeActivitySet: list of NodeActivity
+        :param _StartTime: 集群活动开始时间。
+        :type StartTime: str
+        :param _EndTime: 集群活动结束时间。
+        :type EndTime: str
+        """
+        self._ClusterId = None
+        self._ActivityId = None
+        self._ActivityType = None
+        self._ActivityStatus = None
+        self._ActivityStatusCode = None
+        self._ResultDetail = None
+        self._Cause = None
+        self._Description = None
+        self._RelatedNodeActivitySet = None
+        self._StartTime = None
+        self._EndTime = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def ActivityId(self):
+        r"""集群活动ID。
+        :rtype: str
+        """
+        return self._ActivityId
+
+    @ActivityId.setter
+    def ActivityId(self, ActivityId):
+        self._ActivityId = ActivityId
+
+    @property
+    def ActivityType(self):
+        r"""集群活动类型。取值范围：<br><li>CreateAndAddNodes：创建实例并添加进集群</li><br><li>RemoveNodesFromCluster：从集群移除实例</li><br><li>TerminateNodes：销毁实例</li><br><li>MountStorageOption：增加挂载选项并进行挂载</li><br><li>UmountStorageOption：删除集群挂载存储选项并解挂载</li>
+        :rtype: str
+        """
+        return self._ActivityType
+
+    @ActivityType.setter
+    def ActivityType(self, ActivityType):
+        self._ActivityType = ActivityType
+
+    @property
+    def ActivityStatus(self):
+        r"""集群活动状态。取值范围：<br><li>PENDING：等待运行</li><br><li>RUNNING：运行中</li><br><li>SUCCESSFUL：活动成功</li><br><li>PARTIALLY_SUCCESSFUL：活动部分成功</li><br><li>FAILED：活动失败</li>
+        :rtype: str
+        """
+        return self._ActivityStatus
+
+    @ActivityStatus.setter
+    def ActivityStatus(self, ActivityStatus):
+        self._ActivityStatus = ActivityStatus
+
+    @property
+    def ActivityStatusCode(self):
+        r"""集群活动状态码。
+        :rtype: str
+        """
+        return self._ActivityStatusCode
+
+    @ActivityStatusCode.setter
+    def ActivityStatusCode(self, ActivityStatusCode):
+        self._ActivityStatusCode = ActivityStatusCode
+
+    @property
+    def ResultDetail(self):
+        r"""集群活动结果详情。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._ResultDetail
+
+    @ResultDetail.setter
+    def ResultDetail(self, ResultDetail):
+        self._ResultDetail = ResultDetail
+
+    @property
+    def Cause(self):
+        r"""集群活动起因。
+        :rtype: str
+        """
+        return self._Cause
+
+    @Cause.setter
+    def Cause(self, Cause):
+        self._Cause = Cause
+
+    @property
+    def Description(self):
+        r"""集群活动描述。
+        :rtype: str
+        """
+        return self._Description
+
+    @Description.setter
+    def Description(self, Description):
+        self._Description = Description
+
+    @property
+    def RelatedNodeActivitySet(self):
+        r"""集群活动相关节点活动集合。
+        :rtype: list of NodeActivity
+        """
+        return self._RelatedNodeActivitySet
+
+    @RelatedNodeActivitySet.setter
+    def RelatedNodeActivitySet(self, RelatedNodeActivitySet):
+        self._RelatedNodeActivitySet = RelatedNodeActivitySet
+
+    @property
+    def StartTime(self):
+        r"""集群活动开始时间。
+        :rtype: str
+        """
+        return self._StartTime
+
+    @StartTime.setter
+    def StartTime(self, StartTime):
+        self._StartTime = StartTime
+
+    @property
+    def EndTime(self):
+        r"""集群活动结束时间。
+        :rtype: str
+        """
+        return self._EndTime
+
+    @EndTime.setter
+    def EndTime(self, EndTime):
+        self._EndTime = EndTime
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._ActivityId = params.get("ActivityId")
+        self._ActivityType = params.get("ActivityType")
+        self._ActivityStatus = params.get("ActivityStatus")
+        self._ActivityStatusCode = params.get("ActivityStatusCode")
+        self._ResultDetail = params.get("ResultDetail")
+        self._Cause = params.get("Cause")
+        self._Description = params.get("Description")
+        if params.get("RelatedNodeActivitySet") is not None:
+            self._RelatedNodeActivitySet = []
+            for item in params.get("RelatedNodeActivitySet"):
+                obj = NodeActivity()
+                obj._deserialize(item)
+                self._RelatedNodeActivitySet.append(obj)
+        self._StartTime = params.get("StartTime")
+        self._EndTime = params.get("EndTime")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ClusterOverview(AbstractModel):
+    r"""集群概览信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _ClusterStatus: 集群状态。取值范围：<li>PENDING：创建中</li><li>INITING：初始化中</li><li>INIT_FAILED：初始化失败</li><li>RUNNING：运行中</li><li>TERMINATING：销毁中</li>
+        :type ClusterStatus: str
+        :param _ClusterName: 集群名称。
+        :type ClusterName: str
+        :param _Placement: 集群位置信息。
+        :type Placement: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        :param _CreateTime: 集群创建时间。
+        :type CreateTime: str
+        :param _SchedulerType: 集群调度器。
+        :type SchedulerType: str
+        :param _SchedulerVersion: 集群调度器版本。
+        :type SchedulerVersion: str
+        :param _ComputeNodeCount: 计算节点数量。
+        :type ComputeNodeCount: int
+        :param _ComputeNodeSet: 计算节点概览。
+        :type ComputeNodeSet: list of ComputeNodeOverview
+        :param _ManagerNodeCount: 管控节点数量。
+        :type ManagerNodeCount: int
+        :param _ManagerNodeSet: 管控节点概览。
+        :type ManagerNodeSet: list of ManagerNodeOverview
+        :param _LoginNodeSet: 登录节点概览。
+        :type LoginNodeSet: list of LoginNodeOverview
+        :param _LoginNodeCount: 登录节点数量。
+        :type LoginNodeCount: int
+        :param _AutoScalingType: 弹性伸缩类型。
+        :type AutoScalingType: str
+        :param _VpcId: 集群所属私有网络ID。
+        :type VpcId: str
+        :param _ClusterType: 集群类型
+        :type ClusterType: str
+        :param _DeletionProtection: 集群销毁保护开关状态，当前支持参数：
+
+- ON: 集群销毁保护打开
+- OFF: 集群销毁保护关闭
+        :type DeletionProtection: str
+        """
+        self._ClusterId = None
+        self._ClusterStatus = None
+        self._ClusterName = None
+        self._Placement = None
+        self._CreateTime = None
+        self._SchedulerType = None
+        self._SchedulerVersion = None
+        self._ComputeNodeCount = None
+        self._ComputeNodeSet = None
+        self._ManagerNodeCount = None
+        self._ManagerNodeSet = None
+        self._LoginNodeSet = None
+        self._LoginNodeCount = None
+        self._AutoScalingType = None
+        self._VpcId = None
+        self._ClusterType = None
+        self._DeletionProtection = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def ClusterStatus(self):
+        r"""集群状态。取值范围：<li>PENDING：创建中</li><li>INITING：初始化中</li><li>INIT_FAILED：初始化失败</li><li>RUNNING：运行中</li><li>TERMINATING：销毁中</li>
+        :rtype: str
+        """
+        return self._ClusterStatus
+
+    @ClusterStatus.setter
+    def ClusterStatus(self, ClusterStatus):
+        self._ClusterStatus = ClusterStatus
+
+    @property
+    def ClusterName(self):
+        r"""集群名称。
+        :rtype: str
+        """
+        return self._ClusterName
+
+    @ClusterName.setter
+    def ClusterName(self, ClusterName):
+        self._ClusterName = ClusterName
+
+    @property
+    def Placement(self):
+        r"""集群位置信息。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        """
+        return self._Placement
+
+    @Placement.setter
+    def Placement(self, Placement):
+        self._Placement = Placement
+
+    @property
+    def CreateTime(self):
+        r"""集群创建时间。
+        :rtype: str
+        """
+        return self._CreateTime
+
+    @CreateTime.setter
+    def CreateTime(self, CreateTime):
+        self._CreateTime = CreateTime
+
+    @property
+    def SchedulerType(self):
+        r"""集群调度器。
+        :rtype: str
+        """
+        return self._SchedulerType
+
+    @SchedulerType.setter
+    def SchedulerType(self, SchedulerType):
+        self._SchedulerType = SchedulerType
+
+    @property
+    def SchedulerVersion(self):
+        r"""集群调度器版本。
+        :rtype: str
+        """
+        return self._SchedulerVersion
+
+    @SchedulerVersion.setter
+    def SchedulerVersion(self, SchedulerVersion):
+        self._SchedulerVersion = SchedulerVersion
+
+    @property
+    def ComputeNodeCount(self):
+        r"""计算节点数量。
+        :rtype: int
+        """
+        return self._ComputeNodeCount
+
+    @ComputeNodeCount.setter
+    def ComputeNodeCount(self, ComputeNodeCount):
+        self._ComputeNodeCount = ComputeNodeCount
+
+    @property
+    def ComputeNodeSet(self):
+        r"""计算节点概览。
+        :rtype: list of ComputeNodeOverview
+        """
+        return self._ComputeNodeSet
+
+    @ComputeNodeSet.setter
+    def ComputeNodeSet(self, ComputeNodeSet):
+        self._ComputeNodeSet = ComputeNodeSet
+
+    @property
+    def ManagerNodeCount(self):
+        r"""管控节点数量。
+        :rtype: int
+        """
+        return self._ManagerNodeCount
+
+    @ManagerNodeCount.setter
+    def ManagerNodeCount(self, ManagerNodeCount):
+        self._ManagerNodeCount = ManagerNodeCount
+
+    @property
+    def ManagerNodeSet(self):
+        r"""管控节点概览。
+        :rtype: list of ManagerNodeOverview
+        """
+        return self._ManagerNodeSet
+
+    @ManagerNodeSet.setter
+    def ManagerNodeSet(self, ManagerNodeSet):
+        self._ManagerNodeSet = ManagerNodeSet
+
+    @property
+    def LoginNodeSet(self):
+        r"""登录节点概览。
+        :rtype: list of LoginNodeOverview
+        """
+        return self._LoginNodeSet
+
+    @LoginNodeSet.setter
+    def LoginNodeSet(self, LoginNodeSet):
+        self._LoginNodeSet = LoginNodeSet
+
+    @property
+    def LoginNodeCount(self):
+        r"""登录节点数量。
+        :rtype: int
+        """
+        return self._LoginNodeCount
+
+    @LoginNodeCount.setter
+    def LoginNodeCount(self, LoginNodeCount):
+        self._LoginNodeCount = LoginNodeCount
+
+    @property
+    def AutoScalingType(self):
+        r"""弹性伸缩类型。
+        :rtype: str
+        """
+        return self._AutoScalingType
+
+    @AutoScalingType.setter
+    def AutoScalingType(self, AutoScalingType):
+        self._AutoScalingType = AutoScalingType
+
+    @property
+    def VpcId(self):
+        r"""集群所属私有网络ID。
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def ClusterType(self):
+        r"""集群类型
+        :rtype: str
+        """
+        return self._ClusterType
+
+    @ClusterType.setter
+    def ClusterType(self, ClusterType):
+        self._ClusterType = ClusterType
+
+    @property
+    def DeletionProtection(self):
+        r"""集群销毁保护开关状态，当前支持参数：
+
+- ON: 集群销毁保护打开
+- OFF: 集群销毁保护关闭
+        :rtype: str
+        """
+        return self._DeletionProtection
+
+    @DeletionProtection.setter
+    def DeletionProtection(self, DeletionProtection):
+        self._DeletionProtection = DeletionProtection
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._ClusterStatus = params.get("ClusterStatus")
+        self._ClusterName = params.get("ClusterName")
+        if params.get("Placement") is not None:
+            self._Placement = Placement()
+            self._Placement._deserialize(params.get("Placement"))
+        self._CreateTime = params.get("CreateTime")
+        self._SchedulerType = params.get("SchedulerType")
+        self._SchedulerVersion = params.get("SchedulerVersion")
+        self._ComputeNodeCount = params.get("ComputeNodeCount")
+        if params.get("ComputeNodeSet") is not None:
+            self._ComputeNodeSet = []
+            for item in params.get("ComputeNodeSet"):
+                obj = ComputeNodeOverview()
+                obj._deserialize(item)
+                self._ComputeNodeSet.append(obj)
+        self._ManagerNodeCount = params.get("ManagerNodeCount")
+        if params.get("ManagerNodeSet") is not None:
+            self._ManagerNodeSet = []
+            for item in params.get("ManagerNodeSet"):
+                obj = ManagerNodeOverview()
+                obj._deserialize(item)
+                self._ManagerNodeSet.append(obj)
+        if params.get("LoginNodeSet") is not None:
+            self._LoginNodeSet = []
+            for item in params.get("LoginNodeSet"):
+                obj = LoginNodeOverview()
+                obj._deserialize(item)
+                self._LoginNodeSet.append(obj)
+        self._LoginNodeCount = params.get("LoginNodeCount")
+        self._AutoScalingType = params.get("AutoScalingType")
+        self._VpcId = params.get("VpcId")
+        self._ClusterType = params.get("ClusterType")
+        self._DeletionProtection = params.get("DeletionProtection")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CommandItem(AbstractModel):
+    r"""任务执行命令脚本。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Command: 脚本命令
+        :type Command: str
+        """
+        self._Command = None
+
+    @property
+    def Command(self):
+        r"""脚本命令
+        :rtype: str
+        """
+        return self._Command
+
+    @Command.setter
+    def Command(self, Command):
+        self._Command = Command
+
+
+    def _deserialize(self, params):
+        self._Command = params.get("Command")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ComputeNode(AbstractModel):
+    r"""计算节点信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InstanceChargeType: 节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。<li>PREPAID：预付费，即包年包月</li><li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li>默认值：POSTPAID_BY_HOUR。
+        :type InstanceChargeType: str
+        :param _InstanceChargePrepaid: 预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+        :type InstanceChargePrepaid: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        :param _InstanceType: 节点机型。不同实例机型指定了不同的资源规格。<li>具体取值可通过调用接口[DescribeInstanceTypeConfigs](https://cloud.tencent.com/document/api/213/15749)来获得最新的规格表或参见[实例规格](https://cloud.tencent.com/document/product/213/11518)描述。</li>
+        :type InstanceType: str
+        :param _SystemDisk: 节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。
+        :type SystemDisk: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        :param _DataDisks: 节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。
+        :type DataDisks: list of DataDisk
+        :param _InternetAccessible: 公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。
+        :type InternetAccessible: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        :param _InstanceName: 节点显示名称。<li>不指定节点显示名称则默认显示‘未命名’。
+最多支持60个字符。</li>
+        :type InstanceName: str
+        :param _ProjectId: 实例所属项目ID。该参数可以通过调用 [DescribeProject](https://cloud.tencent.com/document/api/651/78725) 的返回值中的 projectId 字段来获取。不填为默认项目。
+        :type ProjectId: int
+        :param _ResourceType: 实例资源类型，默认是CVM资源
+        :type ResourceType: str
+        """
+        self._InstanceChargeType = None
+        self._InstanceChargePrepaid = None
+        self._InstanceType = None
+        self._SystemDisk = None
+        self._DataDisks = None
+        self._InternetAccessible = None
+        self._InstanceName = None
+        self._ProjectId = None
+        self._ResourceType = None
+
+    @property
+    def InstanceChargeType(self):
+        r"""节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。<li>PREPAID：预付费，即包年包月</li><li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li>默认值：POSTPAID_BY_HOUR。
+        :rtype: str
+        """
+        return self._InstanceChargeType
+
+    @InstanceChargeType.setter
+    def InstanceChargeType(self, InstanceChargeType):
+        self._InstanceChargeType = InstanceChargeType
+
+    @property
+    def InstanceChargePrepaid(self):
+        r"""预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        """
+        return self._InstanceChargePrepaid
+
+    @InstanceChargePrepaid.setter
+    def InstanceChargePrepaid(self, InstanceChargePrepaid):
+        self._InstanceChargePrepaid = InstanceChargePrepaid
+
+    @property
+    def InstanceType(self):
+        r"""节点机型。不同实例机型指定了不同的资源规格。<li>具体取值可通过调用接口[DescribeInstanceTypeConfigs](https://cloud.tencent.com/document/api/213/15749)来获得最新的规格表或参见[实例规格](https://cloud.tencent.com/document/product/213/11518)描述。</li>
+        :rtype: str
+        """
+        return self._InstanceType
+
+    @InstanceType.setter
+    def InstanceType(self, InstanceType):
+        self._InstanceType = InstanceType
+
+    @property
+    def SystemDisk(self):
+        r"""节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        """
+        return self._SystemDisk
+
+    @SystemDisk.setter
+    def SystemDisk(self, SystemDisk):
+        self._SystemDisk = SystemDisk
+
+    @property
+    def DataDisks(self):
+        r"""节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。
+        :rtype: list of DataDisk
+        """
+        return self._DataDisks
+
+    @DataDisks.setter
+    def DataDisks(self, DataDisks):
+        self._DataDisks = DataDisks
+
+    @property
+    def InternetAccessible(self):
+        r"""公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        """
+        return self._InternetAccessible
+
+    @InternetAccessible.setter
+    def InternetAccessible(self, InternetAccessible):
+        self._InternetAccessible = InternetAccessible
+
+    @property
+    def InstanceName(self):
+        r"""节点显示名称。<li>不指定节点显示名称则默认显示‘未命名’。
+最多支持60个字符。</li>
+        :rtype: str
+        """
+        return self._InstanceName
+
+    @InstanceName.setter
+    def InstanceName(self, InstanceName):
+        self._InstanceName = InstanceName
+
+    @property
+    def ProjectId(self):
+        r"""实例所属项目ID。该参数可以通过调用 [DescribeProject](https://cloud.tencent.com/document/api/651/78725) 的返回值中的 projectId 字段来获取。不填为默认项目。
+        :rtype: int
+        """
+        return self._ProjectId
+
+    @ProjectId.setter
+    def ProjectId(self, ProjectId):
+        self._ProjectId = ProjectId
+
+    @property
+    def ResourceType(self):
+        r"""实例资源类型，默认是CVM资源
+        :rtype: str
+        """
+        return self._ResourceType
+
+    @ResourceType.setter
+    def ResourceType(self, ResourceType):
+        self._ResourceType = ResourceType
+
+
+    def _deserialize(self, params):
+        self._InstanceChargeType = params.get("InstanceChargeType")
+        if params.get("InstanceChargePrepaid") is not None:
+            self._InstanceChargePrepaid = InstanceChargePrepaid()
+            self._InstanceChargePrepaid._deserialize(params.get("InstanceChargePrepaid"))
+        self._InstanceType = params.get("InstanceType")
+        if params.get("SystemDisk") is not None:
+            self._SystemDisk = SystemDisk()
+            self._SystemDisk._deserialize(params.get("SystemDisk"))
+        if params.get("DataDisks") is not None:
+            self._DataDisks = []
+            for item in params.get("DataDisks"):
+                obj = DataDisk()
+                obj._deserialize(item)
+                self._DataDisks.append(obj)
+        if params.get("InternetAccessible") is not None:
+            self._InternetAccessible = InternetAccessible()
+            self._InternetAccessible._deserialize(params.get("InternetAccessible"))
+        self._InstanceName = params.get("InstanceName")
+        self._ProjectId = params.get("ProjectId")
+        self._ResourceType = params.get("ResourceType")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ComputeNodeOverview(AbstractModel):
+    r"""计算节点概览。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeId: 计算节点ID。
+        :type NodeId: str
+        """
+        self._NodeId = None
+
+    @property
+    def NodeId(self):
+        r"""计算节点ID。
+        :rtype: str
+        """
+        return self._NodeId
+
+    @NodeId.setter
+    def NodeId(self, NodeId):
+        self._NodeId = NodeId
+
+
+    def _deserialize(self, params):
+        self._NodeId = params.get("NodeId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateClusterRequest(AbstractModel):
+    r"""CreateCluster请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Placement: <p>集群中实例所在的位置。</p>
+        :type Placement: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        :param _ManagerNode: <p>指定管理节点。</p>
+        :type ManagerNode: :class:`tencentcloud.thpc.v20230321.models.ManagerNode`
+        :param _ManagerNodeCount: <p>指定管理节点的数量。默认取值：1。取值范围：1～2。</p>
+        :type ManagerNodeCount: int
+        :param _ComputeNode: <p>指定计算节点。</p>
+        :type ComputeNode: :class:`tencentcloud.thpc.v20230321.models.ComputeNode`
+        :param _ComputeNodeCount: <p>指定计算节点的数量。默认取值：0。</p>
+        :type ComputeNodeCount: int
+        :param _SchedulerType: <p>调度器类型。默认取值：SLURM。<li>SLURM：SLURM调度器。</li></p>
+        :type SchedulerType: str
+        :param _SchedulerVersion: <p>创建调度器的版本号，可填写版本号为“latest” 和 各调度器支持的版本号；如果是&quot;latest&quot;, 则代表创建的是平台当前支持的该类型调度器最新版本。如果不填写，默认创建的是“latest”版本调度器<br>各调度器支持的集群版本：</p><li>SLURM：21.08.8、23.11.7</li>
+        :type SchedulerVersion: str
+        :param _ImageId: <p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-xxx</code>。目前支持部分公有镜像和自定义镜像。公共镜像请参考<a href="https://cloud.tencent.com/document/product/1527/64818#.E9.95.9C.E5.83.8F">镜像限制</a></p>
+        :type ImageId: str
+        :param _VirtualPrivateCloud: <p>私有网络相关信息配置。</p>
+        :type VirtualPrivateCloud: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        :param _LoginSettings: <p>集群登录设置。</p>
+        :type LoginSettings: :class:`tencentcloud.thpc.v20230321.models.LoginSettings`
+        :param _SecurityGroupIds: <p>集群中实例所属安全组。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/215/15808">DescribeSecurityGroups</a> 的返回值中的sgId字段来获取。若不指定该参数，则绑定默认安全组。</p>
+        :type SecurityGroupIds: list of str
+        :param _ClientToken: <p>用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。</p>
+        :type ClientToken: str
+        :param _DryRun: <p>是否只预检此次请求。<br>true：发送检查请求，不会创建实例。检查项包括是否填写了必需参数，请求格式，业务限制和云服务器库存。<br>如果检查不通过，则返回对应错误码；<br>如果检查通过，则返回RequestId.<br>false（默认）：发送正常请求，通过检查后直接创建实例</p>
+        :type DryRun: bool
+        :param _AccountType: <p>域名字服务类型。默认取值：NIS。</p><li>NIS：NIS域名字服务。</li>
+        :type AccountType: str
+        :param _ClusterName: <p>集群显示名称。</p>
+        :type ClusterName: str
+        :param _StorageOption: <p>集群存储选项</p>
+        :type StorageOption: :class:`tencentcloud.thpc.v20230321.models.StorageOption`
+        :param _LoginNode: <p>指定登录节点。</p>
+        :type LoginNode: :class:`tencentcloud.thpc.v20230321.models.LoginNode`
+        :param _LoginNodeCount: <p>指定登录节点的数量。默认取值：0。取值范围：0～10。</p>
+        :type LoginNodeCount: int
+        :param _Tags: <p>创建集群时同时绑定的标签对说明。</p>
+        :type Tags: list of Tag
+        :param _AutoScalingType: <p>弹性伸缩类型。默认值：THPC_AS</p>
+        :type AutoScalingType: str
+        :param _InitNodeScripts: <p>节点初始化脚本信息列表。</p>
+        :type InitNodeScripts: list of NodeScript
+        :param _HpcClusterId: <p>高性能计算集群ID。若创建的实例为高性能计算实例，需指定实例放置的集群，否则不可指定。</p>
+        :type HpcClusterId: str
+        """
+        self._Placement = None
+        self._ManagerNode = None
+        self._ManagerNodeCount = None
+        self._ComputeNode = None
+        self._ComputeNodeCount = None
+        self._SchedulerType = None
+        self._SchedulerVersion = None
+        self._ImageId = None
+        self._VirtualPrivateCloud = None
+        self._LoginSettings = None
+        self._SecurityGroupIds = None
+        self._ClientToken = None
+        self._DryRun = None
+        self._AccountType = None
+        self._ClusterName = None
+        self._StorageOption = None
+        self._LoginNode = None
+        self._LoginNodeCount = None
+        self._Tags = None
+        self._AutoScalingType = None
+        self._InitNodeScripts = None
+        self._HpcClusterId = None
+
+    @property
+    def Placement(self):
+        r"""<p>集群中实例所在的位置。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        """
+        return self._Placement
+
+    @Placement.setter
+    def Placement(self, Placement):
+        self._Placement = Placement
+
+    @property
+    def ManagerNode(self):
+        r"""<p>指定管理节点。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.ManagerNode`
+        """
+        return self._ManagerNode
+
+    @ManagerNode.setter
+    def ManagerNode(self, ManagerNode):
+        self._ManagerNode = ManagerNode
+
+    @property
+    def ManagerNodeCount(self):
+        r"""<p>指定管理节点的数量。默认取值：1。取值范围：1～2。</p>
+        :rtype: int
+        """
+        return self._ManagerNodeCount
+
+    @ManagerNodeCount.setter
+    def ManagerNodeCount(self, ManagerNodeCount):
+        self._ManagerNodeCount = ManagerNodeCount
+
+    @property
+    def ComputeNode(self):
+        r"""<p>指定计算节点。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.ComputeNode`
+        """
+        return self._ComputeNode
+
+    @ComputeNode.setter
+    def ComputeNode(self, ComputeNode):
+        self._ComputeNode = ComputeNode
+
+    @property
+    def ComputeNodeCount(self):
+        r"""<p>指定计算节点的数量。默认取值：0。</p>
+        :rtype: int
+        """
+        return self._ComputeNodeCount
+
+    @ComputeNodeCount.setter
+    def ComputeNodeCount(self, ComputeNodeCount):
+        self._ComputeNodeCount = ComputeNodeCount
+
+    @property
+    def SchedulerType(self):
+        r"""<p>调度器类型。默认取值：SLURM。<li>SLURM：SLURM调度器。</li></p>
+        :rtype: str
+        """
+        return self._SchedulerType
+
+    @SchedulerType.setter
+    def SchedulerType(self, SchedulerType):
+        self._SchedulerType = SchedulerType
+
+    @property
+    def SchedulerVersion(self):
+        r"""<p>创建调度器的版本号，可填写版本号为“latest” 和 各调度器支持的版本号；如果是&quot;latest&quot;, 则代表创建的是平台当前支持的该类型调度器最新版本。如果不填写，默认创建的是“latest”版本调度器<br>各调度器支持的集群版本：</p><li>SLURM：21.08.8、23.11.7</li>
+        :rtype: str
+        """
+        return self._SchedulerVersion
+
+    @SchedulerVersion.setter
+    def SchedulerVersion(self, SchedulerVersion):
+        self._SchedulerVersion = SchedulerVersion
+
+    @property
+    def ImageId(self):
+        r"""<p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-xxx</code>。目前支持部分公有镜像和自定义镜像。公共镜像请参考<a href="https://cloud.tencent.com/document/product/1527/64818#.E9.95.9C.E5.83.8F">镜像限制</a></p>
+        :rtype: str
+        """
+        return self._ImageId
+
+    @ImageId.setter
+    def ImageId(self, ImageId):
+        self._ImageId = ImageId
+
+    @property
+    def VirtualPrivateCloud(self):
+        r"""<p>私有网络相关信息配置。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        """
+        return self._VirtualPrivateCloud
+
+    @VirtualPrivateCloud.setter
+    def VirtualPrivateCloud(self, VirtualPrivateCloud):
+        self._VirtualPrivateCloud = VirtualPrivateCloud
+
+    @property
+    def LoginSettings(self):
+        r"""<p>集群登录设置。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.LoginSettings`
+        """
+        return self._LoginSettings
+
+    @LoginSettings.setter
+    def LoginSettings(self, LoginSettings):
+        self._LoginSettings = LoginSettings
+
+    @property
+    def SecurityGroupIds(self):
+        r"""<p>集群中实例所属安全组。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/215/15808">DescribeSecurityGroups</a> 的返回值中的sgId字段来获取。若不指定该参数，则绑定默认安全组。</p>
+        :rtype: list of str
+        """
+        return self._SecurityGroupIds
+
+    @SecurityGroupIds.setter
+    def SecurityGroupIds(self, SecurityGroupIds):
+        self._SecurityGroupIds = SecurityGroupIds
+
+    @property
+    def ClientToken(self):
+        r"""<p>用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。</p>
+        :rtype: str
+        """
+        return self._ClientToken
+
+    @ClientToken.setter
+    def ClientToken(self, ClientToken):
+        self._ClientToken = ClientToken
+
+    @property
+    def DryRun(self):
+        r"""<p>是否只预检此次请求。<br>true：发送检查请求，不会创建实例。检查项包括是否填写了必需参数，请求格式，业务限制和云服务器库存。<br>如果检查不通过，则返回对应错误码；<br>如果检查通过，则返回RequestId.<br>false（默认）：发送正常请求，通过检查后直接创建实例</p>
+        :rtype: bool
+        """
+        return self._DryRun
+
+    @DryRun.setter
+    def DryRun(self, DryRun):
+        self._DryRun = DryRun
+
+    @property
+    def AccountType(self):
+        r"""<p>域名字服务类型。默认取值：NIS。</p><li>NIS：NIS域名字服务。</li>
+        :rtype: str
+        """
+        return self._AccountType
+
+    @AccountType.setter
+    def AccountType(self, AccountType):
+        self._AccountType = AccountType
+
+    @property
+    def ClusterName(self):
+        r"""<p>集群显示名称。</p>
+        :rtype: str
+        """
+        return self._ClusterName
+
+    @ClusterName.setter
+    def ClusterName(self, ClusterName):
+        self._ClusterName = ClusterName
+
+    @property
+    def StorageOption(self):
+        r"""<p>集群存储选项</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.StorageOption`
+        """
+        return self._StorageOption
+
+    @StorageOption.setter
+    def StorageOption(self, StorageOption):
+        self._StorageOption = StorageOption
+
+    @property
+    def LoginNode(self):
+        r"""<p>指定登录节点。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.LoginNode`
+        """
+        return self._LoginNode
+
+    @LoginNode.setter
+    def LoginNode(self, LoginNode):
+        self._LoginNode = LoginNode
+
+    @property
+    def LoginNodeCount(self):
+        r"""<p>指定登录节点的数量。默认取值：0。取值范围：0～10。</p>
+        :rtype: int
+        """
+        return self._LoginNodeCount
+
+    @LoginNodeCount.setter
+    def LoginNodeCount(self, LoginNodeCount):
+        self._LoginNodeCount = LoginNodeCount
+
+    @property
+    def Tags(self):
+        r"""<p>创建集群时同时绑定的标签对说明。</p>
+        :rtype: list of Tag
+        """
+        return self._Tags
+
+    @Tags.setter
+    def Tags(self, Tags):
+        self._Tags = Tags
+
+    @property
+    def AutoScalingType(self):
+        r"""<p>弹性伸缩类型。默认值：THPC_AS</p>
+        :rtype: str
+        """
+        return self._AutoScalingType
+
+    @AutoScalingType.setter
+    def AutoScalingType(self, AutoScalingType):
+        self._AutoScalingType = AutoScalingType
+
+    @property
+    def InitNodeScripts(self):
+        r"""<p>节点初始化脚本信息列表。</p>
+        :rtype: list of NodeScript
+        """
+        return self._InitNodeScripts
+
+    @InitNodeScripts.setter
+    def InitNodeScripts(self, InitNodeScripts):
+        self._InitNodeScripts = InitNodeScripts
+
+    @property
+    def HpcClusterId(self):
+        r"""<p>高性能计算集群ID。若创建的实例为高性能计算实例，需指定实例放置的集群，否则不可指定。</p>
+        :rtype: str
+        """
+        return self._HpcClusterId
+
+    @HpcClusterId.setter
+    def HpcClusterId(self, HpcClusterId):
+        self._HpcClusterId = HpcClusterId
+
+
+    def _deserialize(self, params):
+        if params.get("Placement") is not None:
+            self._Placement = Placement()
+            self._Placement._deserialize(params.get("Placement"))
+        if params.get("ManagerNode") is not None:
+            self._ManagerNode = ManagerNode()
+            self._ManagerNode._deserialize(params.get("ManagerNode"))
+        self._ManagerNodeCount = params.get("ManagerNodeCount")
+        if params.get("ComputeNode") is not None:
+            self._ComputeNode = ComputeNode()
+            self._ComputeNode._deserialize(params.get("ComputeNode"))
+        self._ComputeNodeCount = params.get("ComputeNodeCount")
+        self._SchedulerType = params.get("SchedulerType")
+        self._SchedulerVersion = params.get("SchedulerVersion")
+        self._ImageId = params.get("ImageId")
+        if params.get("VirtualPrivateCloud") is not None:
+            self._VirtualPrivateCloud = VirtualPrivateCloud()
+            self._VirtualPrivateCloud._deserialize(params.get("VirtualPrivateCloud"))
+        if params.get("LoginSettings") is not None:
+            self._LoginSettings = LoginSettings()
+            self._LoginSettings._deserialize(params.get("LoginSettings"))
+        self._SecurityGroupIds = params.get("SecurityGroupIds")
+        self._ClientToken = params.get("ClientToken")
+        self._DryRun = params.get("DryRun")
+        self._AccountType = params.get("AccountType")
+        self._ClusterName = params.get("ClusterName")
+        if params.get("StorageOption") is not None:
+            self._StorageOption = StorageOption()
+            self._StorageOption._deserialize(params.get("StorageOption"))
+        if params.get("LoginNode") is not None:
+            self._LoginNode = LoginNode()
+            self._LoginNode._deserialize(params.get("LoginNode"))
+        self._LoginNodeCount = params.get("LoginNodeCount")
+        if params.get("Tags") is not None:
+            self._Tags = []
+            for item in params.get("Tags"):
+                obj = Tag()
+                obj._deserialize(item)
+                self._Tags.append(obj)
+        self._AutoScalingType = params.get("AutoScalingType")
+        if params.get("InitNodeScripts") is not None:
+            self._InitNodeScripts = []
+            for item in params.get("InitNodeScripts"):
+                obj = NodeScript()
+                obj._deserialize(item)
+                self._InitNodeScripts.append(obj)
+        self._HpcClusterId = params.get("HpcClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateClusterResponse(AbstractModel):
+    r"""CreateCluster返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: <p>集群ID。</p>
+        :type ClusterId: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClusterId = None
+        self._RequestId = None
+
+    @property
+    def ClusterId(self):
+        r"""<p>集群ID。</p>
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._RequestId = params.get("RequestId")
+
+
+class CreateWorkspacesRequest(AbstractModel):
+    r"""CreateWorkspaces请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClientToken: 用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。
+        :type ClientToken: str
+        :param _Placement: 实例所在的位置。通过该参数可以指定实例所属可用区，所属项目，所属宿主机（在专用宿主机上创建子机时指定）等属性。 <b>注：如果您不指定LaunchTemplate参数，则Placement为必选参数。若同时传递Placement和LaunchTemplate，则默认覆盖LaunchTemplate中对应的Placement的值。</b>
+        :type Placement: :class:`tencentcloud.thpc.v20230321.models.SpacePlacement`
+        :param _SpaceChargePrepaid: 预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长、是否设置自动续费等属性。若指定实例的付费模式为预付费则该参数必传。
+        :type SpaceChargePrepaid: :class:`tencentcloud.thpc.v20230321.models.SpaceChargePrepaid`
+        :param _SpaceChargeType: 工作空间计费类型，包括：PREPAID，UNDERWRITE。工作空间计费类型，包括：PREPAID，UNDERWRITE。
+        :type SpaceChargeType: str
+        :param _SpaceType: 工作空间规格
+        :type SpaceType: str
+        :param _ImageId: 镜像ID
+        :type ImageId: str
+        :param _SystemDisk: 工作空间系统盘信息
+        :type SystemDisk: :class:`tencentcloud.thpc.v20230321.models.SpaceSystemDisk`
+        :param _DataDisks: 工作空间数据盘信息
+        :type DataDisks: list of SpaceDataDisk
+        :param _VirtualPrivateCloud: 私有网络相关信息
+        :type VirtualPrivateCloud: :class:`tencentcloud.thpc.v20230321.models.SpaceVirtualPrivateCloud`
+        :param _InternetAccessible: 公网带宽相关信息设置
+        :type InternetAccessible: :class:`tencentcloud.thpc.v20230321.models.SpaceInternetAccessible`
+        :param _SpaceCount: 购买工作空间实例的数量
+        :type SpaceCount: int
+        :param _SpaceName: 工作空间显示名称
+        :type SpaceName: str
+        :param _LoginSettings: 工作空间登录设置
+        :type LoginSettings: :class:`tencentcloud.thpc.v20230321.models.LoginSettings`
+        :param _SecurityGroupIds: 工作空间所属安全组
+        :type SecurityGroupIds: list of str
+        :param _EnhancedService: 增强服务
+        :type EnhancedService: :class:`tencentcloud.thpc.v20230321.models.EnhancedService`
+        :param _DryRun: 是否只预检此次请求
+        :type DryRun: bool
+        :param _UserData: 提供给工作空间使用的用户数据
+        :type UserData: str
+        :param _DisasterRecoverGroupIds: 置放群组id
+        :type DisasterRecoverGroupIds: list of str
+        :param _TagSpecification: 标签描述列表
+        :type TagSpecification: list of TagSpecification
+        :param _HpcClusterId: 高性能计算集群ID
+        :type HpcClusterId: str
+        :param _CamRoleName: CAM角色名称
+        :type CamRoleName: str
+        :param _HostName: 实例主机名。<br><li>点号（.）和短横线（-）不能作为 HostName 的首尾字符，不能连续使用。</li><br><li>Windows 实例：主机名名字符长度为[2, 15]，允许字母（不限制大小写）、数字和短横线（-）组成，不支持点号（.），不能全是数字。</li><br><li>其他类型（Linux 等）实例：主机名字符长度为[2, 60]，允许支持多个点号，点之间为一段，每段允许字母（不限制大小写）、数字和短横线（-）组成。</li><br><li>购买多台实例，如果指定模式串`{R:x}`，表示生成数字`[x, x+n-1]`，其中`n`表示购买实例的数量，例如`server{R:3}`，购买1台时，实例主机名为`server3`；购买2台时，实例主机名分别为`server3`，`server4`。支持指定多个模式串`{R:x}`。</li><br><li>购买多台实例，如果不指定模式串，则在实例主机名添加后缀`1、2...n`，其中`n`表示购买实例的数量，例如`server`，购买2台时，实例主机名分别为`server1`，`server2`。</li>
+        :type HostName: str
+        """
+        self._ClientToken = None
+        self._Placement = None
+        self._SpaceChargePrepaid = None
+        self._SpaceChargeType = None
+        self._SpaceType = None
+        self._ImageId = None
+        self._SystemDisk = None
+        self._DataDisks = None
+        self._VirtualPrivateCloud = None
+        self._InternetAccessible = None
+        self._SpaceCount = None
+        self._SpaceName = None
+        self._LoginSettings = None
+        self._SecurityGroupIds = None
+        self._EnhancedService = None
+        self._DryRun = None
+        self._UserData = None
+        self._DisasterRecoverGroupIds = None
+        self._TagSpecification = None
+        self._HpcClusterId = None
+        self._CamRoleName = None
+        self._HostName = None
+
+    @property
+    def ClientToken(self):
+        r"""用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。
+        :rtype: str
+        """
+        return self._ClientToken
+
+    @ClientToken.setter
+    def ClientToken(self, ClientToken):
+        self._ClientToken = ClientToken
+
+    @property
+    def Placement(self):
+        r"""实例所在的位置。通过该参数可以指定实例所属可用区，所属项目，所属宿主机（在专用宿主机上创建子机时指定）等属性。 <b>注：如果您不指定LaunchTemplate参数，则Placement为必选参数。若同时传递Placement和LaunchTemplate，则默认覆盖LaunchTemplate中对应的Placement的值。</b>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SpacePlacement`
+        """
+        return self._Placement
+
+    @Placement.setter
+    def Placement(self, Placement):
+        self._Placement = Placement
+
+    @property
+    def SpaceChargePrepaid(self):
+        r"""预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长、是否设置自动续费等属性。若指定实例的付费模式为预付费则该参数必传。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SpaceChargePrepaid`
+        """
+        return self._SpaceChargePrepaid
+
+    @SpaceChargePrepaid.setter
+    def SpaceChargePrepaid(self, SpaceChargePrepaid):
+        self._SpaceChargePrepaid = SpaceChargePrepaid
+
+    @property
+    def SpaceChargeType(self):
+        r"""工作空间计费类型，包括：PREPAID，UNDERWRITE。工作空间计费类型，包括：PREPAID，UNDERWRITE。
+        :rtype: str
+        """
+        return self._SpaceChargeType
+
+    @SpaceChargeType.setter
+    def SpaceChargeType(self, SpaceChargeType):
+        self._SpaceChargeType = SpaceChargeType
+
+    @property
+    def SpaceType(self):
+        r"""工作空间规格
+        :rtype: str
+        """
+        return self._SpaceType
+
+    @SpaceType.setter
+    def SpaceType(self, SpaceType):
+        self._SpaceType = SpaceType
+
+    @property
+    def ImageId(self):
+        r"""镜像ID
+        :rtype: str
+        """
+        return self._ImageId
+
+    @ImageId.setter
+    def ImageId(self, ImageId):
+        self._ImageId = ImageId
+
+    @property
+    def SystemDisk(self):
+        r"""工作空间系统盘信息
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SpaceSystemDisk`
+        """
+        return self._SystemDisk
+
+    @SystemDisk.setter
+    def SystemDisk(self, SystemDisk):
+        self._SystemDisk = SystemDisk
+
+    @property
+    def DataDisks(self):
+        r"""工作空间数据盘信息
+        :rtype: list of SpaceDataDisk
+        """
+        return self._DataDisks
+
+    @DataDisks.setter
+    def DataDisks(self, DataDisks):
+        self._DataDisks = DataDisks
+
+    @property
+    def VirtualPrivateCloud(self):
+        r"""私有网络相关信息
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SpaceVirtualPrivateCloud`
+        """
+        return self._VirtualPrivateCloud
+
+    @VirtualPrivateCloud.setter
+    def VirtualPrivateCloud(self, VirtualPrivateCloud):
+        self._VirtualPrivateCloud = VirtualPrivateCloud
+
+    @property
+    def InternetAccessible(self):
+        r"""公网带宽相关信息设置
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SpaceInternetAccessible`
+        """
+        return self._InternetAccessible
+
+    @InternetAccessible.setter
+    def InternetAccessible(self, InternetAccessible):
+        self._InternetAccessible = InternetAccessible
+
+    @property
+    def SpaceCount(self):
+        r"""购买工作空间实例的数量
+        :rtype: int
+        """
+        return self._SpaceCount
+
+    @SpaceCount.setter
+    def SpaceCount(self, SpaceCount):
+        self._SpaceCount = SpaceCount
+
+    @property
+    def SpaceName(self):
+        r"""工作空间显示名称
+        :rtype: str
+        """
+        return self._SpaceName
+
+    @SpaceName.setter
+    def SpaceName(self, SpaceName):
+        self._SpaceName = SpaceName
+
+    @property
+    def LoginSettings(self):
+        r"""工作空间登录设置
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.LoginSettings`
+        """
+        return self._LoginSettings
+
+    @LoginSettings.setter
+    def LoginSettings(self, LoginSettings):
+        self._LoginSettings = LoginSettings
+
+    @property
+    def SecurityGroupIds(self):
+        r"""工作空间所属安全组
+        :rtype: list of str
+        """
+        return self._SecurityGroupIds
+
+    @SecurityGroupIds.setter
+    def SecurityGroupIds(self, SecurityGroupIds):
+        self._SecurityGroupIds = SecurityGroupIds
+
+    @property
+    def EnhancedService(self):
+        r"""增强服务
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.EnhancedService`
+        """
+        return self._EnhancedService
+
+    @EnhancedService.setter
+    def EnhancedService(self, EnhancedService):
+        self._EnhancedService = EnhancedService
+
+    @property
+    def DryRun(self):
+        r"""是否只预检此次请求
+        :rtype: bool
+        """
+        return self._DryRun
+
+    @DryRun.setter
+    def DryRun(self, DryRun):
+        self._DryRun = DryRun
+
+    @property
+    def UserData(self):
+        r"""提供给工作空间使用的用户数据
+        :rtype: str
+        """
+        return self._UserData
+
+    @UserData.setter
+    def UserData(self, UserData):
+        self._UserData = UserData
+
+    @property
+    def DisasterRecoverGroupIds(self):
+        r"""置放群组id
+        :rtype: list of str
+        """
+        return self._DisasterRecoverGroupIds
+
+    @DisasterRecoverGroupIds.setter
+    def DisasterRecoverGroupIds(self, DisasterRecoverGroupIds):
+        self._DisasterRecoverGroupIds = DisasterRecoverGroupIds
+
+    @property
+    def TagSpecification(self):
+        r"""标签描述列表
+        :rtype: list of TagSpecification
+        """
+        return self._TagSpecification
+
+    @TagSpecification.setter
+    def TagSpecification(self, TagSpecification):
+        self._TagSpecification = TagSpecification
+
+    @property
+    def HpcClusterId(self):
+        r"""高性能计算集群ID
+        :rtype: str
+        """
+        return self._HpcClusterId
+
+    @HpcClusterId.setter
+    def HpcClusterId(self, HpcClusterId):
+        self._HpcClusterId = HpcClusterId
+
+    @property
+    def CamRoleName(self):
+        r"""CAM角色名称
+        :rtype: str
+        """
+        return self._CamRoleName
+
+    @CamRoleName.setter
+    def CamRoleName(self, CamRoleName):
+        self._CamRoleName = CamRoleName
+
+    @property
+    def HostName(self):
+        r"""实例主机名。<br><li>点号（.）和短横线（-）不能作为 HostName 的首尾字符，不能连续使用。</li><br><li>Windows 实例：主机名名字符长度为[2, 15]，允许字母（不限制大小写）、数字和短横线（-）组成，不支持点号（.），不能全是数字。</li><br><li>其他类型（Linux 等）实例：主机名字符长度为[2, 60]，允许支持多个点号，点之间为一段，每段允许字母（不限制大小写）、数字和短横线（-）组成。</li><br><li>购买多台实例，如果指定模式串`{R:x}`，表示生成数字`[x, x+n-1]`，其中`n`表示购买实例的数量，例如`server{R:3}`，购买1台时，实例主机名为`server3`；购买2台时，实例主机名分别为`server3`，`server4`。支持指定多个模式串`{R:x}`。</li><br><li>购买多台实例，如果不指定模式串，则在实例主机名添加后缀`1、2...n`，其中`n`表示购买实例的数量，例如`server`，购买2台时，实例主机名分别为`server1`，`server2`。</li>
+        :rtype: str
+        """
+        return self._HostName
+
+    @HostName.setter
+    def HostName(self, HostName):
+        self._HostName = HostName
+
+
+    def _deserialize(self, params):
+        self._ClientToken = params.get("ClientToken")
+        if params.get("Placement") is not None:
+            self._Placement = SpacePlacement()
+            self._Placement._deserialize(params.get("Placement"))
+        if params.get("SpaceChargePrepaid") is not None:
+            self._SpaceChargePrepaid = SpaceChargePrepaid()
+            self._SpaceChargePrepaid._deserialize(params.get("SpaceChargePrepaid"))
+        self._SpaceChargeType = params.get("SpaceChargeType")
+        self._SpaceType = params.get("SpaceType")
+        self._ImageId = params.get("ImageId")
+        if params.get("SystemDisk") is not None:
+            self._SystemDisk = SpaceSystemDisk()
+            self._SystemDisk._deserialize(params.get("SystemDisk"))
+        if params.get("DataDisks") is not None:
+            self._DataDisks = []
+            for item in params.get("DataDisks"):
+                obj = SpaceDataDisk()
+                obj._deserialize(item)
+                self._DataDisks.append(obj)
+        if params.get("VirtualPrivateCloud") is not None:
+            self._VirtualPrivateCloud = SpaceVirtualPrivateCloud()
+            self._VirtualPrivateCloud._deserialize(params.get("VirtualPrivateCloud"))
+        if params.get("InternetAccessible") is not None:
+            self._InternetAccessible = SpaceInternetAccessible()
+            self._InternetAccessible._deserialize(params.get("InternetAccessible"))
+        self._SpaceCount = params.get("SpaceCount")
+        self._SpaceName = params.get("SpaceName")
+        if params.get("LoginSettings") is not None:
+            self._LoginSettings = LoginSettings()
+            self._LoginSettings._deserialize(params.get("LoginSettings"))
+        self._SecurityGroupIds = params.get("SecurityGroupIds")
+        if params.get("EnhancedService") is not None:
+            self._EnhancedService = EnhancedService()
+            self._EnhancedService._deserialize(params.get("EnhancedService"))
+        self._DryRun = params.get("DryRun")
+        self._UserData = params.get("UserData")
+        self._DisasterRecoverGroupIds = params.get("DisasterRecoverGroupIds")
+        if params.get("TagSpecification") is not None:
+            self._TagSpecification = []
+            for item in params.get("TagSpecification"):
+                obj = TagSpecification()
+                obj._deserialize(item)
+                self._TagSpecification.append(obj)
+        self._HpcClusterId = params.get("HpcClusterId")
+        self._CamRoleName = params.get("CamRoleName")
+        self._HostName = params.get("HostName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateWorkspacesResponse(AbstractModel):
+    r"""CreateWorkspaces返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SpaceIdSet: 工作空间ID
+        :type SpaceIdSet: list of str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._SpaceIdSet = None
+        self._RequestId = None
+
+    @property
+    def SpaceIdSet(self):
+        r"""工作空间ID
+        :rtype: list of str
+        """
+        return self._SpaceIdSet
+
+    @SpaceIdSet.setter
+    def SpaceIdSet(self, SpaceIdSet):
+        self._SpaceIdSet = SpaceIdSet
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._SpaceIdSet = params.get("SpaceIdSet")
+        self._RequestId = params.get("RequestId")
+
+
+class DataDisk(AbstractModel):
+    r"""描述了数据盘的信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _DiskSize: 数据盘大小，单位：GB。最小调整步长为10G，不同数据盘类型取值范围不同，具体限制详见：[存储概述](https://cloud.tencent.com/document/product/213/4952)。默认值为0，表示不购买数据盘。更多限制详见产品文档。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DiskSize: int
+        :param _DiskType: 数据盘类型。数据盘类型限制详见[存储概述](https://cloud.tencent.com/document/product/213/4952)。取值范围：<br><li>LOCAL_NVME：本地NVME硬盘，与InstanceType强相关，不支持指定<br><li>LOCAL_PRO：本地HDD硬盘，与InstanceType强相关，不支持指定<br><li>CLOUD_BASIC：普通云硬盘<br><li>CLOUD_PREMIUM：高性能云硬盘<br><li>CLOUD_SSD：SSD云硬盘<br><li>CLOUD_HSSD：增强型SSD云硬盘<br><li>CLOUD_TSSD：极速型SSD云硬盘<br><li>CLOUD_BSSD：通用型SSD云硬盘
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DiskType: str
+        """
+        self._DiskSize = None
+        self._DiskType = None
+
+    @property
+    def DiskSize(self):
+        r"""数据盘大小，单位：GB。最小调整步长为10G，不同数据盘类型取值范围不同，具体限制详见：[存储概述](https://cloud.tencent.com/document/product/213/4952)。默认值为0，表示不购买数据盘。更多限制详见产品文档。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._DiskSize
+
+    @DiskSize.setter
+    def DiskSize(self, DiskSize):
+        self._DiskSize = DiskSize
+
+    @property
+    def DiskType(self):
+        r"""数据盘类型。数据盘类型限制详见[存储概述](https://cloud.tencent.com/document/product/213/4952)。取值范围：<br><li>LOCAL_NVME：本地NVME硬盘，与InstanceType强相关，不支持指定<br><li>LOCAL_PRO：本地HDD硬盘，与InstanceType强相关，不支持指定<br><li>CLOUD_BASIC：普通云硬盘<br><li>CLOUD_PREMIUM：高性能云硬盘<br><li>CLOUD_SSD：SSD云硬盘<br><li>CLOUD_HSSD：增强型SSD云硬盘<br><li>CLOUD_TSSD：极速型SSD云硬盘<br><li>CLOUD_BSSD：通用型SSD云硬盘
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._DiskType
+
+    @DiskType.setter
+    def DiskType(self, DiskType):
+        self._DiskType = DiskType
+
+
+    def _deserialize(self, params):
+        self._DiskSize = params.get("DiskSize")
+        self._DiskType = params.get("DiskType")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteClusterRequest(AbstractModel):
+    r"""DeleteCluster请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        """
+        self._ClusterId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteClusterResponse(AbstractModel):
+    r"""DeleteCluster返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DeleteClusterStorageOptionRequest(AbstractModel):
+    r"""DeleteClusterStorageOption请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _LocalPath: 本地挂载路径。
+        :type LocalPath: str
+        """
+        self._ClusterId = None
+        self._LocalPath = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def LocalPath(self):
+        r"""本地挂载路径。
+        :rtype: str
+        """
+        return self._LocalPath
+
+    @LocalPath.setter
+    def LocalPath(self, LocalPath):
+        self._LocalPath = LocalPath
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._LocalPath = params.get("LocalPath")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteClusterStorageOptionResponse(AbstractModel):
+    r"""DeleteClusterStorageOption返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DeleteJobRequest(AbstractModel):
+    r"""DeleteJob请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobId: 作业任务ID
+        :type JobId: str
+        """
+        self._JobId = None
+
+    @property
+    def JobId(self):
+        r"""作业任务ID
+        :rtype: str
+        """
+        return self._JobId
+
+    @JobId.setter
+    def JobId(self, JobId):
+        self._JobId = JobId
+
+
+    def _deserialize(self, params):
+        self._JobId = params.get("JobId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteJobResponse(AbstractModel):
+    r"""DeleteJob返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DeleteNodesRequest(AbstractModel):
+    r"""DeleteNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _NodeIds: 节点ID。
+        :type NodeIds: list of str
+        """
+        self._ClusterId = None
+        self._NodeIds = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def NodeIds(self):
+        r"""节点ID。
+        :rtype: list of str
+        """
+        return self._NodeIds
+
+    @NodeIds.setter
+    def NodeIds(self, NodeIds):
+        self._NodeIds = NodeIds
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._NodeIds = params.get("NodeIds")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteNodesResponse(AbstractModel):
+    r"""DeleteNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DeleteQueueRequest(AbstractModel):
+    r"""DeleteQueue请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _QueueName: 队列名称。<br><li>最多支持32个字符。
+        :type QueueName: str
+        """
+        self._ClusterId = None
+        self._QueueName = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def QueueName(self):
+        r"""队列名称。<br><li>最多支持32个字符。
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._QueueName = params.get("QueueName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteQueueResponse(AbstractModel):
+    r"""DeleteQueue返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeAutoScalingConfigurationRequest(AbstractModel):
+    r"""DescribeAutoScalingConfiguration请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: <p>集群ID。</p>
+        :type ClusterId: str
+        :param _QueueName: <p>队列名称</p>
+        :type QueueName: str
+        """
+        self._ClusterId = None
+        self._QueueName = None
+
+    @property
+    def ClusterId(self):
+        r"""<p>集群ID。</p>
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def QueueName(self):
+        r"""<p>队列名称</p>
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._QueueName = params.get("QueueName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeAutoScalingConfigurationResponse(AbstractModel):
+    r"""DescribeAutoScalingConfiguration返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: <p>集群ID。</p>
+        :type ClusterId: str
+        :param _ExpansionBusyTime: <p>任务连续等待时间，队列的任务处于连续等待的时间。单位秒。</p>
+        :type ExpansionBusyTime: int
+        :param _ShrinkIdleTime: <p>节点连续空闲（未运行作业）时间，一个节点连续处于空闲状态时间。</p>
+        :type ShrinkIdleTime: int
+        :param _QueueConfigs: <p>扩容队列配置概览列表。</p>
+        :type QueueConfigs: list of QueueConfigOverview
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClusterId = None
+        self._ExpansionBusyTime = None
+        self._ShrinkIdleTime = None
+        self._QueueConfigs = None
+        self._RequestId = None
+
+    @property
+    def ClusterId(self):
+        r"""<p>集群ID。</p>
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def ExpansionBusyTime(self):
+        r"""<p>任务连续等待时间，队列的任务处于连续等待的时间。单位秒。</p>
+        :rtype: int
+        """
+        return self._ExpansionBusyTime
+
+    @ExpansionBusyTime.setter
+    def ExpansionBusyTime(self, ExpansionBusyTime):
+        self._ExpansionBusyTime = ExpansionBusyTime
+
+    @property
+    def ShrinkIdleTime(self):
+        r"""<p>节点连续空闲（未运行作业）时间，一个节点连续处于空闲状态时间。</p>
+        :rtype: int
+        """
+        return self._ShrinkIdleTime
+
+    @ShrinkIdleTime.setter
+    def ShrinkIdleTime(self, ShrinkIdleTime):
+        self._ShrinkIdleTime = ShrinkIdleTime
+
+    @property
+    def QueueConfigs(self):
+        r"""<p>扩容队列配置概览列表。</p>
+        :rtype: list of QueueConfigOverview
+        """
+        return self._QueueConfigs
+
+    @QueueConfigs.setter
+    def QueueConfigs(self, QueueConfigs):
+        self._QueueConfigs = QueueConfigs
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._ExpansionBusyTime = params.get("ExpansionBusyTime")
+        self._ShrinkIdleTime = params.get("ShrinkIdleTime")
+        if params.get("QueueConfigs") is not None:
+            self._QueueConfigs = []
+            for item in params.get("QueueConfigs"):
+                obj = QueueConfigOverview()
+                obj._deserialize(item)
+                self._QueueConfigs.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeClusterActivitiesRequest(AbstractModel):
+    r"""DescribeClusterActivities请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: <p>集群ID。通过该参数指定需要查询活动历史记录的集群。</p>
+        :type ClusterId: str
+        :param _Offset: <p>偏移量，默认为0。关于<code>Offset</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :type Offset: int
+        :param _Limit: <p>返回数量，默认为20，最大值为100。关于<code>Limit</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :type Limit: int
+        """
+        self._ClusterId = None
+        self._Offset = None
+        self._Limit = None
+
+    @property
+    def ClusterId(self):
+        r"""<p>集群ID。通过该参数指定需要查询活动历史记录的集群。</p>
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def Offset(self):
+        r"""<p>偏移量，默认为0。关于<code>Offset</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""<p>返回数量，默认为20，最大值为100。关于<code>Limit</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeClusterActivitiesResponse(AbstractModel):
+    r"""DescribeClusterActivities返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterActivitySet: <p>集群活动历史记录列表。</p>
+        :type ClusterActivitySet: list of ClusterActivity
+        :param _TotalCount: <p>集群活动历史记录数量。</p>
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClusterActivitySet = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def ClusterActivitySet(self):
+        r"""<p>集群活动历史记录列表。</p>
+        :rtype: list of ClusterActivity
+        """
+        return self._ClusterActivitySet
+
+    @ClusterActivitySet.setter
+    def ClusterActivitySet(self, ClusterActivitySet):
+        self._ClusterActivitySet = ClusterActivitySet
+
+    @property
+    def TotalCount(self):
+        r"""<p>集群活动历史记录数量。</p>
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("ClusterActivitySet") is not None:
+            self._ClusterActivitySet = []
+            for item in params.get("ClusterActivitySet"):
+                obj = ClusterActivity()
+                obj._deserialize(item)
+                self._ClusterActivitySet.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeClusterStorageOptionRequest(AbstractModel):
+    r"""DescribeClusterStorageOption请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        """
+        self._ClusterId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeClusterStorageOptionResponse(AbstractModel):
+    r"""DescribeClusterStorageOption返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _StorageOption: 集群存储选项信息概览。
+        :type StorageOption: :class:`tencentcloud.thpc.v20230321.models.StorageOptionOverview`
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._StorageOption = None
+        self._RequestId = None
+
+    @property
+    def StorageOption(self):
+        r"""集群存储选项信息概览。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.StorageOptionOverview`
+        """
+        return self._StorageOption
+
+    @StorageOption.setter
+    def StorageOption(self, StorageOption):
+        self._StorageOption = StorageOption
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("StorageOption") is not None:
+            self._StorageOption = StorageOptionOverview()
+            self._StorageOption._deserialize(params.get("StorageOption"))
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeClustersRequest(AbstractModel):
+    r"""DescribeClusters请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterIds: 集群ID列表。通过该参数可以指定需要查询信息的集群列表。<br>如果您不指定该参数，则返回Limit数量以内的集群信息。
+        :type ClusterIds: list of str
+        :param _Offset: 偏移量，默认为0。关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :type Offset: int
+        :param _Limit: 返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :type Limit: int
+        :param _Filters: <ul>
+    <li><strong>cluster-type</strong>
+        <p style="padding-left: 30px;">按照【<strong>集群类型</strong>】进行过滤</p>
+        <p style="padding-left: 30px;">类型：String</p>
+        <p style="padding-left: 30px;">必选：否</p>
+    </li>
+</ul>
+<p style="padding-left: 30px;">每次请求的`Filters`的上限为10，`Filter.Values`的上限为5。</p>
+        :type Filters: list of Filter
+        """
+        self._ClusterIds = None
+        self._Offset = None
+        self._Limit = None
+        self._Filters = None
+
+    @property
+    def ClusterIds(self):
+        r"""集群ID列表。通过该参数可以指定需要查询信息的集群列表。<br>如果您不指定该参数，则返回Limit数量以内的集群信息。
+        :rtype: list of str
+        """
+        return self._ClusterIds
+
+    @ClusterIds.setter
+    def ClusterIds(self, ClusterIds):
+        self._ClusterIds = ClusterIds
+
+    @property
+    def Offset(self):
+        r"""偏移量，默认为0。关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+    @property
+    def Filters(self):
+        r"""<ul>
+    <li><strong>cluster-type</strong>
+        <p style="padding-left: 30px;">按照【<strong>集群类型</strong>】进行过滤</p>
+        <p style="padding-left: 30px;">类型：String</p>
+        <p style="padding-left: 30px;">必选：否</p>
+    </li>
+</ul>
+<p style="padding-left: 30px;">每次请求的`Filters`的上限为10，`Filter.Values`的上限为5。</p>
+        :rtype: list of Filter
+        """
+        return self._Filters
+
+    @Filters.setter
+    def Filters(self, Filters):
+        self._Filters = Filters
+
+
+    def _deserialize(self, params):
+        self._ClusterIds = params.get("ClusterIds")
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        if params.get("Filters") is not None:
+            self._Filters = []
+            for item in params.get("Filters"):
+                obj = Filter()
+                obj._deserialize(item)
+                self._Filters.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeClustersResponse(AbstractModel):
+    r"""DescribeClusters返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterSet: 集群概览信息列表。
+        :type ClusterSet: list of ClusterOverview
+        :param _TotalCount: 集群数量。
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClusterSet = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def ClusterSet(self):
+        r"""集群概览信息列表。
+        :rtype: list of ClusterOverview
+        """
+        return self._ClusterSet
+
+    @ClusterSet.setter
+    def ClusterSet(self, ClusterSet):
+        self._ClusterSet = ClusterSet
+
+    @property
+    def TotalCount(self):
+        r"""集群数量。
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("ClusterSet") is not None:
+            self._ClusterSet = []
+            for item in params.get("ClusterSet"):
+                obj = ClusterOverview()
+                obj._deserialize(item)
+                self._ClusterSet.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeInitNodeScriptsRequest(AbstractModel):
+    r"""DescribeInitNodeScripts请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        """
+        self._ClusterId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeInitNodeScriptsResponse(AbstractModel):
+    r"""DescribeInitNodeScripts返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InitNodeScriptSet: 节点初始化脚本列表。
+        :type InitNodeScriptSet: list of NodeScript
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._InitNodeScriptSet = None
+        self._RequestId = None
+
+    @property
+    def InitNodeScriptSet(self):
+        r"""节点初始化脚本列表。
+        :rtype: list of NodeScript
+        """
+        return self._InitNodeScriptSet
+
+    @InitNodeScriptSet.setter
+    def InitNodeScriptSet(self, InitNodeScriptSet):
+        self._InitNodeScriptSet = InitNodeScriptSet
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("InitNodeScriptSet") is not None:
+            self._InitNodeScriptSet = []
+            for item in params.get("InitNodeScriptSet"):
+                obj = NodeScript()
+                obj._deserialize(item)
+                self._InitNodeScriptSet.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeJobSubmitInfoRequest(AbstractModel):
+    r"""DescribeJobSubmitInfo请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobId: 作业ID
+        :type JobId: str
+        """
+        self._JobId = None
+
+    @property
+    def JobId(self):
+        r"""作业ID
+        :rtype: str
+        """
+        return self._JobId
+
+    @JobId.setter
+    def JobId(self, JobId):
+        self._JobId = JobId
+
+
+    def _deserialize(self, params):
+        self._JobId = params.get("JobId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeJobSubmitInfoResponse(AbstractModel):
+    r"""DescribeJobSubmitInfo返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID
+        :type ClusterId: str
+        :param _QueueName: 队列名称
+        :type QueueName: str
+        :param _Job: 作业信息
+        :type Job: :class:`tencentcloud.thpc.v20230321.models.Job`
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClusterId = None
+        self._QueueName = None
+        self._Job = None
+        self._RequestId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def QueueName(self):
+        r"""队列名称
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+    @property
+    def Job(self):
+        r"""作业信息
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Job`
+        """
+        return self._Job
+
+    @Job.setter
+    def Job(self, Job):
+        self._Job = Job
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._QueueName = params.get("QueueName")
+        if params.get("Job") is not None:
+            self._Job = Job()
+            self._Job._deserialize(params.get("Job"))
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeJobsOverviewRequest(AbstractModel):
+    r"""DescribeJobsOverview请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID
+        :type ClusterId: str
+        """
+        self._ClusterId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeJobsOverviewResponse(AbstractModel):
+    r"""DescribeJobsOverview返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobTotal: 作业任务数量
+        :type JobTotal: int
+        :param _QueuingJobTotal: 排队中的作业任务数量
+        :type QueuingJobTotal: int
+        :param _RunningJobTotal: 运行中的作业数量
+        :type RunningJobTotal: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._JobTotal = None
+        self._QueuingJobTotal = None
+        self._RunningJobTotal = None
+        self._RequestId = None
+
+    @property
+    def JobTotal(self):
+        r"""作业任务数量
+        :rtype: int
+        """
+        return self._JobTotal
+
+    @JobTotal.setter
+    def JobTotal(self, JobTotal):
+        self._JobTotal = JobTotal
+
+    @property
+    def QueuingJobTotal(self):
+        r"""排队中的作业任务数量
+        :rtype: int
+        """
+        return self._QueuingJobTotal
+
+    @QueuingJobTotal.setter
+    def QueuingJobTotal(self, QueuingJobTotal):
+        self._QueuingJobTotal = QueuingJobTotal
+
+    @property
+    def RunningJobTotal(self):
+        r"""运行中的作业数量
+        :rtype: int
+        """
+        return self._RunningJobTotal
+
+    @RunningJobTotal.setter
+    def RunningJobTotal(self, RunningJobTotal):
+        self._RunningJobTotal = RunningJobTotal
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._JobTotal = params.get("JobTotal")
+        self._QueuingJobTotal = params.get("QueuingJobTotal")
+        self._RunningJobTotal = params.get("RunningJobTotal")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeJobsRequest(AbstractModel):
+    r"""DescribeJobs请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobIds: 作业任务ID列表
+        :type JobIds: list of str
+        :param _Filters: 过滤列表
+        :type Filters: list of Filter
+        :param _Offset: 偏移量，默认为0。 关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。	
+        :type Offset: int
+        :param _Limit: 返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。	
+        :type Limit: int
+        """
+        self._JobIds = None
+        self._Filters = None
+        self._Offset = None
+        self._Limit = None
+
+    @property
+    def JobIds(self):
+        r"""作业任务ID列表
+        :rtype: list of str
+        """
+        return self._JobIds
+
+    @JobIds.setter
+    def JobIds(self, JobIds):
+        self._JobIds = JobIds
+
+    @property
+    def Filters(self):
+        r"""过滤列表
+        :rtype: list of Filter
+        """
+        return self._Filters
+
+    @Filters.setter
+    def Filters(self, Filters):
+        self._Filters = Filters
+
+    @property
+    def Offset(self):
+        r"""偏移量，默认为0。 关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。	
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。	
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+
+    def _deserialize(self, params):
+        self._JobIds = params.get("JobIds")
+        if params.get("Filters") is not None:
+            self._Filters = []
+            for item in params.get("Filters"):
+                obj = Filter()
+                obj._deserialize(item)
+                self._Filters.append(obj)
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeJobsResponse(AbstractModel):
+    r"""DescribeJobs返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobSet: 作业任务概览列表
+        :type JobSet: list of JobView
+        :param _TotalCount: 符合条件的作业任务数量。
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._JobSet = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def JobSet(self):
+        r"""作业任务概览列表
+        :rtype: list of JobView
+        """
+        return self._JobSet
+
+    @JobSet.setter
+    def JobSet(self, JobSet):
+        self._JobSet = JobSet
+
+    @property
+    def TotalCount(self):
+        r"""符合条件的作业任务数量。
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("JobSet") is not None:
+            self._JobSet = []
+            for item in params.get("JobSet"):
+                obj = JobView()
+                obj._deserialize(item)
+                self._JobSet.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeNodesRequest(AbstractModel):
+    r"""DescribeNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _Filters: <ul>    <li><strong>queue-name</strong>        <p style="padding-left: 30px;">按照【<strong>队列名称</strong>】进行过滤。队列名称形如：compute。</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li>    <li><strong>node-role</strong>        <p style="padding-left: 30px;">按照【<strong>节点角色</strong>】进行过滤。节点角色形如：Manager。（Manager：管控节点。Compute：计算节点。Login：登录节点。ManagerBackup：备用管控节点。）</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li>    <li><strong>node-type</strong>        <p style="padding-left: 30px;">按照【<strong>节点类型</strong>】进行过滤。节点类型形如：STATIC。(STATIC：静态节点。DYNAMIC：弹性节点。)</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li>  <li><strong>instance-id</strong>        <p style="padding-left: 30px;">按照【<strong>CVM实例资源ID</strong>】进行过滤。资源ID名称形如：ins-xxx。</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li> </ul><p style="padding-left: 30px;">每次请求的`Filters`的上限为10，`Filter.Values`的上限为100。</p>
+        :type Filters: list of Filter
+        :param _Offset: 偏移量，默认为0。关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :type Offset: int
+        :param _Limit: 返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :type Limit: int
+        """
+        self._ClusterId = None
+        self._Filters = None
+        self._Offset = None
+        self._Limit = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def Filters(self):
+        r"""<ul>    <li><strong>queue-name</strong>        <p style="padding-left: 30px;">按照【<strong>队列名称</strong>】进行过滤。队列名称形如：compute。</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li>    <li><strong>node-role</strong>        <p style="padding-left: 30px;">按照【<strong>节点角色</strong>】进行过滤。节点角色形如：Manager。（Manager：管控节点。Compute：计算节点。Login：登录节点。ManagerBackup：备用管控节点。）</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li>    <li><strong>node-type</strong>        <p style="padding-left: 30px;">按照【<strong>节点类型</strong>】进行过滤。节点类型形如：STATIC。(STATIC：静态节点。DYNAMIC：弹性节点。)</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li>  <li><strong>instance-id</strong>        <p style="padding-left: 30px;">按照【<strong>CVM实例资源ID</strong>】进行过滤。资源ID名称形如：ins-xxx。</p>        <p style="padding-left: 30px;">类型：String</p>        <p style="padding-left: 30px;">必选：否</p>    </li> </ul><p style="padding-left: 30px;">每次请求的`Filters`的上限为10，`Filter.Values`的上限为100。</p>
+        :rtype: list of Filter
+        """
+        return self._Filters
+
+    @Filters.setter
+    def Filters(self, Filters):
+        self._Filters = Filters
+
+    @property
+    def Offset(self):
+        r"""偏移量，默认为0。关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        if params.get("Filters") is not None:
+            self._Filters = []
+            for item in params.get("Filters"):
+                obj = Filter()
+                obj._deserialize(item)
+                self._Filters.append(obj)
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeNodesResponse(AbstractModel):
+    r"""DescribeNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeSet: 节点概览信息列表。
+        :type NodeSet: list of NodeOverview
+        :param _TotalCount: 符合条件的节点数量。
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._NodeSet = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def NodeSet(self):
+        r"""节点概览信息列表。
+        :rtype: list of NodeOverview
+        """
+        return self._NodeSet
+
+    @NodeSet.setter
+    def NodeSet(self, NodeSet):
+        self._NodeSet = NodeSet
+
+    @property
+    def TotalCount(self):
+        r"""符合条件的节点数量。
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("NodeSet") is not None:
+            self._NodeSet = []
+            for item in params.get("NodeSet"):
+                obj = NodeOverview()
+                obj._deserialize(item)
+                self._NodeSet.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeQueuesRequest(AbstractModel):
+    r"""DescribeQueues请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _Offset: 偏移量，默认为0。关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :type Offset: int
+        :param _Limit: 返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :type Limit: int
+        """
+        self._ClusterId = None
+        self._Offset = None
+        self._Limit = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def Offset(self):
+        r"""偏移量，默认为0。关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeQueuesResponse(AbstractModel):
+    r"""DescribeQueues返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _QueueSet: 队列概览信息列表。
+        :type QueueSet: list of QueueOverview
+        :param _TotalCount: 符合条件的队列数量。
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._QueueSet = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def QueueSet(self):
+        r"""队列概览信息列表。
+        :rtype: list of QueueOverview
+        """
+        return self._QueueSet
+
+    @QueueSet.setter
+    def QueueSet(self, QueueSet):
+        self._QueueSet = QueueSet
+
+    @property
+    def TotalCount(self):
+        r"""符合条件的队列数量。
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("QueueSet") is not None:
+            self._QueueSet = []
+            for item in params.get("QueueSet"):
+                obj = QueueOverview()
+                obj._deserialize(item)
+                self._QueueSet.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeWorkspacesRequest(AbstractModel):
+    r"""DescribeWorkspaces请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SpaceIds: <p>集群ID列表。通过该参数可以指定需要查询信息的集群列表。<br>如果您不指定该参数，则返回Limit数量以内的集群信息。</p>
+        :type SpaceIds: list of str
+        :param _Offset: <p>偏移量，默认为0。关于<code>Offset</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :type Offset: int
+        :param _Limit: <p>返回数量，默认为20，最大值为100。关于<code>Limit</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :type Limit: int
+        :param _Filters: <ul>   <li>     <strong>zone</strong>     <p style="padding-left: 30px;">按照【<strong>可用区</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-id</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间实例ID</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>cvm-instance-id</strong>     <p style="padding-left: 30px;">按照【<strong>CVM实例ID</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-state</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间状态</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-name</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间别名</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-charge-type</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间实例付费模式</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>tag-key</strong>     <p style="padding-left: 30px;">按照【<strong>标签键</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>tag-value</strong>     <p style="padding-left: 30px;">按照【<strong>标签值</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li> </ul> <p style="padding-left: 30px;">每次请求的<code>Filters</code>的上限为10，<code>Filter.Values</code>的上限为5。</p>
+        :type Filters: list of Filter
+        """
+        self._SpaceIds = None
+        self._Offset = None
+        self._Limit = None
+        self._Filters = None
+
+    @property
+    def SpaceIds(self):
+        r"""<p>集群ID列表。通过该参数可以指定需要查询信息的集群列表。<br>如果您不指定该参数，则返回Limit数量以内的集群信息。</p>
+        :rtype: list of str
+        """
+        return self._SpaceIds
+
+    @SpaceIds.setter
+    def SpaceIds(self, SpaceIds):
+        self._SpaceIds = SpaceIds
+
+    @property
+    def Offset(self):
+        r"""<p>偏移量，默认为0。关于<code>Offset</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""<p>返回数量，默认为20，最大值为100。关于<code>Limit</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+    @property
+    def Filters(self):
+        r"""<ul>   <li>     <strong>zone</strong>     <p style="padding-left: 30px;">按照【<strong>可用区</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-id</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间实例ID</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>cvm-instance-id</strong>     <p style="padding-left: 30px;">按照【<strong>CVM实例ID</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-state</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间状态</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-name</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间别名</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>space-charge-type</strong>     <p style="padding-left: 30px;">按照【<strong>工作空间实例付费模式</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>tag-key</strong>     <p style="padding-left: 30px;">按照【<strong>标签键</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li>     <li>     <strong>tag-value</strong>     <p style="padding-left: 30px;">按照【<strong>标签值</strong>】进行过滤</p>     <p style="padding-left: 30px;">类型：String</p>     <p style="padding-left: 30px;">必选：否</p></li> </ul> <p style="padding-left: 30px;">每次请求的<code>Filters</code>的上限为10，<code>Filter.Values</code>的上限为5。</p>
+        :rtype: list of Filter
+        """
+        return self._Filters
+
+    @Filters.setter
+    def Filters(self, Filters):
+        self._Filters = Filters
+
+
+    def _deserialize(self, params):
+        self._SpaceIds = params.get("SpaceIds")
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        if params.get("Filters") is not None:
+            self._Filters = []
+            for item in params.get("Filters"):
+                obj = Filter()
+                obj._deserialize(item)
+                self._Filters.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeWorkspacesResponse(AbstractModel):
+    r"""DescribeWorkspaces返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SpaceSet: <p>集群概览信息列表</p>
+        :type SpaceSet: list of SpaceInfo
+        :param _TotalCount: <p>集群数量</p>
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._SpaceSet = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def SpaceSet(self):
+        r"""<p>集群概览信息列表</p>
+        :rtype: list of SpaceInfo
+        """
+        return self._SpaceSet
+
+    @SpaceSet.setter
+    def SpaceSet(self, SpaceSet):
+        self._SpaceSet = SpaceSet
+
+    @property
+    def TotalCount(self):
+        r"""<p>集群数量</p>
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("SpaceSet") is not None:
+            self._SpaceSet = []
+            for item in params.get("SpaceSet"):
+                obj = SpaceInfo()
+                obj._deserialize(item)
+                self._SpaceSet.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class DetachNodesRequest(AbstractModel):
+    r"""DetachNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群id
+        :type ClusterId: str
+        :param _NodeIds: 集群中的节点id
+        :type NodeIds: list of str
+        """
+        self._ClusterId = None
+        self._NodeIds = None
+
+    @property
+    def ClusterId(self):
+        r"""集群id
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def NodeIds(self):
+        r"""集群中的节点id
+        :rtype: list of str
+        """
+        return self._NodeIds
+
+    @NodeIds.setter
+    def NodeIds(self, NodeIds):
+        self._NodeIds = NodeIds
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._NodeIds = params.get("NodeIds")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DetachNodesResponse(AbstractModel):
+    r"""DetachNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class Docker(AbstractModel):
+    r"""容器配置信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Image: 容器镜像地址
+        :type Image: str
+        :param _RunArgs: 容器运行参数
+        :type RunArgs: list of str
+        """
+        self._Image = None
+        self._RunArgs = None
+
+    @property
+    def Image(self):
+        r"""容器镜像地址
+        :rtype: str
+        """
+        return self._Image
+
+    @Image.setter
+    def Image(self, Image):
+        self._Image = Image
+
+    @property
+    def RunArgs(self):
+        r"""容器运行参数
+        :rtype: list of str
+        """
+        return self._RunArgs
+
+    @RunArgs.setter
+    def RunArgs(self, RunArgs):
+        self._RunArgs = RunArgs
+
+
+    def _deserialize(self, params):
+        self._Image = params.get("Image")
+        self._RunArgs = params.get("RunArgs")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class EnhancedService(AbstractModel):
+    r"""描述了实例的增强服务启用情况与其设置，如云安全，腾讯云可观测平台等实例 Agent
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SecurityService: 开启云安全服务。若不指定该参数，则默认开启云安全服务。
+        :type SecurityService: :class:`tencentcloud.thpc.v20230321.models.RunSecurityServiceEnabled`
+        :param _MonitorService: 开启腾讯云可观测平台服务。若不指定该参数，则默认开启腾讯云可观测平台服务。
+        :type MonitorService: :class:`tencentcloud.thpc.v20230321.models.RunMonitorServiceEnabled`
+        :param _AutomationService: 开启云自动化助手服务（TencentCloud Automation Tools，TAT）。若不指定该参数，默认开启云自动化助手服务。
+        :type AutomationService: :class:`tencentcloud.thpc.v20230321.models.RunAutomationServiceEnabled`
+        """
+        self._SecurityService = None
+        self._MonitorService = None
+        self._AutomationService = None
+
+    @property
+    def SecurityService(self):
+        r"""开启云安全服务。若不指定该参数，则默认开启云安全服务。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.RunSecurityServiceEnabled`
+        """
+        return self._SecurityService
+
+    @SecurityService.setter
+    def SecurityService(self, SecurityService):
+        self._SecurityService = SecurityService
+
+    @property
+    def MonitorService(self):
+        r"""开启腾讯云可观测平台服务。若不指定该参数，则默认开启腾讯云可观测平台服务。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.RunMonitorServiceEnabled`
+        """
+        return self._MonitorService
+
+    @MonitorService.setter
+    def MonitorService(self, MonitorService):
+        self._MonitorService = MonitorService
+
+    @property
+    def AutomationService(self):
+        r"""开启云自动化助手服务（TencentCloud Automation Tools，TAT）。若不指定该参数，默认开启云自动化助手服务。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.RunAutomationServiceEnabled`
+        """
+        return self._AutomationService
+
+    @AutomationService.setter
+    def AutomationService(self, AutomationService):
+        self._AutomationService = AutomationService
+
+
+    def _deserialize(self, params):
+        if params.get("SecurityService") is not None:
+            self._SecurityService = RunSecurityServiceEnabled()
+            self._SecurityService._deserialize(params.get("SecurityService"))
+        if params.get("MonitorService") is not None:
+            self._MonitorService = RunMonitorServiceEnabled()
+            self._MonitorService._deserialize(params.get("MonitorService"))
+        if params.get("AutomationService") is not None:
+            self._AutomationService = RunAutomationServiceEnabled()
+            self._AutomationService._deserialize(params.get("AutomationService"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class EnvVar(AbstractModel):
+    r"""用户自定义环境变量。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Name: ENV
+        :type Name: str
+        :param _Value: test
+        :type Value: str
+        """
+        self._Name = None
+        self._Value = None
+
+    @property
+    def Name(self):
+        r"""ENV
+        :rtype: str
+        """
+        return self._Name
+
+    @Name.setter
+    def Name(self, Name):
+        self._Name = Name
+
+    @property
+    def Value(self):
+        r"""test
+        :rtype: str
+        """
+        return self._Value
+
+    @Value.setter
+    def Value(self, Value):
+        self._Value = Value
+
+
+    def _deserialize(self, params):
+        self._Name = params.get("Name")
+        self._Value = params.get("Value")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ExpansionNodeConfig(AbstractModel):
+    r"""弹性扩容节点配置信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Placement: 扩容实例所在的位置。
+        :type Placement: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        :param _InstanceChargeType: 节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。<br><li>PREPAID：预付费，即包年包月</li><br><li>POSTPAID_BY_HOUR：按小时后付费</li><br><li>SPOTPAID：竞价付费<br>默认值：POSTPAID_BY_HOUR。</li>
+        :type InstanceChargeType: str
+        :param _InstanceChargePrepaid: 预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+        :type InstanceChargePrepaid: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        :param _InstanceType: 节点机型。不同实例机型指定了不同的资源规格。
+<br><li>具体取值可通过调用接口[DescribeInstanceTypeConfigs](https://cloud.tencent.com/document/api/213/15749)来获得最新的规格表或参见[实例规格](https://cloud.tencent.com/document/product/213/11518)描述。</li>
+        :type InstanceType: str
+        :param _VirtualPrivateCloud: 私有网络相关信息配置。
+        :type VirtualPrivateCloud: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        :param _ProjectId: 实例所属项目ID。该参数可以通过调用 [DescribeProject](https://cloud.tencent.com/document/api/651/78725) 的返回值中的 projectId 字段来获取。不填为默认项目。
+        :type ProjectId: int
+        """
+        self._Placement = None
+        self._InstanceChargeType = None
+        self._InstanceChargePrepaid = None
+        self._InstanceType = None
+        self._VirtualPrivateCloud = None
+        self._ProjectId = None
+
+    @property
+    def Placement(self):
+        r"""扩容实例所在的位置。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        """
+        return self._Placement
+
+    @Placement.setter
+    def Placement(self, Placement):
+        self._Placement = Placement
+
+    @property
+    def InstanceChargeType(self):
+        r"""节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。<br><li>PREPAID：预付费，即包年包月</li><br><li>POSTPAID_BY_HOUR：按小时后付费</li><br><li>SPOTPAID：竞价付费<br>默认值：POSTPAID_BY_HOUR。</li>
+        :rtype: str
+        """
+        return self._InstanceChargeType
+
+    @InstanceChargeType.setter
+    def InstanceChargeType(self, InstanceChargeType):
+        self._InstanceChargeType = InstanceChargeType
+
+    @property
+    def InstanceChargePrepaid(self):
+        r"""预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        """
+        return self._InstanceChargePrepaid
+
+    @InstanceChargePrepaid.setter
+    def InstanceChargePrepaid(self, InstanceChargePrepaid):
+        self._InstanceChargePrepaid = InstanceChargePrepaid
+
+    @property
+    def InstanceType(self):
+        r"""节点机型。不同实例机型指定了不同的资源规格。
+<br><li>具体取值可通过调用接口[DescribeInstanceTypeConfigs](https://cloud.tencent.com/document/api/213/15749)来获得最新的规格表或参见[实例规格](https://cloud.tencent.com/document/product/213/11518)描述。</li>
+        :rtype: str
+        """
+        return self._InstanceType
+
+    @InstanceType.setter
+    def InstanceType(self, InstanceType):
+        self._InstanceType = InstanceType
+
+    @property
+    def VirtualPrivateCloud(self):
+        r"""私有网络相关信息配置。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        """
+        return self._VirtualPrivateCloud
+
+    @VirtualPrivateCloud.setter
+    def VirtualPrivateCloud(self, VirtualPrivateCloud):
+        self._VirtualPrivateCloud = VirtualPrivateCloud
+
+    @property
+    def ProjectId(self):
+        r"""实例所属项目ID。该参数可以通过调用 [DescribeProject](https://cloud.tencent.com/document/api/651/78725) 的返回值中的 projectId 字段来获取。不填为默认项目。
+        :rtype: int
+        """
+        return self._ProjectId
+
+    @ProjectId.setter
+    def ProjectId(self, ProjectId):
+        self._ProjectId = ProjectId
+
+
+    def _deserialize(self, params):
+        if params.get("Placement") is not None:
+            self._Placement = Placement()
+            self._Placement._deserialize(params.get("Placement"))
+        self._InstanceChargeType = params.get("InstanceChargeType")
+        if params.get("InstanceChargePrepaid") is not None:
+            self._InstanceChargePrepaid = InstanceChargePrepaid()
+            self._InstanceChargePrepaid._deserialize(params.get("InstanceChargePrepaid"))
+        self._InstanceType = params.get("InstanceType")
+        if params.get("VirtualPrivateCloud") is not None:
+            self._VirtualPrivateCloud = VirtualPrivateCloud()
+            self._VirtualPrivateCloud._deserialize(params.get("VirtualPrivateCloud"))
+        self._ProjectId = params.get("ProjectId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ExpansionNodeConfigOverview(AbstractModel):
+    r"""扩容节点配置信息概览。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InstanceType: 节点机型。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InstanceType: str
+        :param _Placement: 扩容实例所在的位置。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type Placement: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        :param _InstanceChargeType: 节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InstanceChargeType: str
+        :param _InstanceChargePrepaid: 预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InstanceChargePrepaid: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        :param _VirtualPrivateCloud: 私有网络相关信息配置。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type VirtualPrivateCloud: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        :param _ImageId: 指定有效的[镜像](https://cloud.tencent.com/document/product/213/4940)ID，格式形如`img-xxx`。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type ImageId: str
+        :param _InternetAccessible: 公网带宽相关信息设置。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InternetAccessible: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        :param _SystemDisk: 节点系统盘配置信息。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type SystemDisk: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        :param _DataDisks: 节点数据盘配置信息。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DataDisks: list of DataDisk
+        """
+        self._InstanceType = None
+        self._Placement = None
+        self._InstanceChargeType = None
+        self._InstanceChargePrepaid = None
+        self._VirtualPrivateCloud = None
+        self._ImageId = None
+        self._InternetAccessible = None
+        self._SystemDisk = None
+        self._DataDisks = None
+
+    @property
+    def InstanceType(self):
+        r"""节点机型。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._InstanceType
+
+    @InstanceType.setter
+    def InstanceType(self, InstanceType):
+        self._InstanceType = InstanceType
+
+    @property
+    def Placement(self):
+        r"""扩容实例所在的位置。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        """
+        return self._Placement
+
+    @Placement.setter
+    def Placement(self, Placement):
+        self._Placement = Placement
+
+    @property
+    def InstanceChargeType(self):
+        r"""节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._InstanceChargeType
+
+    @InstanceChargeType.setter
+    def InstanceChargeType(self, InstanceChargeType):
+        self._InstanceChargeType = InstanceChargeType
+
+    @property
+    def InstanceChargePrepaid(self):
+        r"""预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        """
+        return self._InstanceChargePrepaid
+
+    @InstanceChargePrepaid.setter
+    def InstanceChargePrepaid(self, InstanceChargePrepaid):
+        self._InstanceChargePrepaid = InstanceChargePrepaid
+
+    @property
+    def VirtualPrivateCloud(self):
+        r"""私有网络相关信息配置。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.VirtualPrivateCloud`
+        """
+        return self._VirtualPrivateCloud
+
+    @VirtualPrivateCloud.setter
+    def VirtualPrivateCloud(self, VirtualPrivateCloud):
+        self._VirtualPrivateCloud = VirtualPrivateCloud
+
+    @property
+    def ImageId(self):
+        r"""指定有效的[镜像](https://cloud.tencent.com/document/product/213/4940)ID，格式形如`img-xxx`。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._ImageId
+
+    @ImageId.setter
+    def ImageId(self, ImageId):
+        self._ImageId = ImageId
+
+    @property
+    def InternetAccessible(self):
+        r"""公网带宽相关信息设置。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        """
+        return self._InternetAccessible
+
+    @InternetAccessible.setter
+    def InternetAccessible(self, InternetAccessible):
+        self._InternetAccessible = InternetAccessible
+
+    @property
+    def SystemDisk(self):
+        r"""节点系统盘配置信息。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        """
+        return self._SystemDisk
+
+    @SystemDisk.setter
+    def SystemDisk(self, SystemDisk):
+        self._SystemDisk = SystemDisk
+
+    @property
+    def DataDisks(self):
+        r"""节点数据盘配置信息。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: list of DataDisk
+        """
+        return self._DataDisks
+
+    @DataDisks.setter
+    def DataDisks(self, DataDisks):
+        self._DataDisks = DataDisks
+
+
+    def _deserialize(self, params):
+        self._InstanceType = params.get("InstanceType")
+        if params.get("Placement") is not None:
+            self._Placement = Placement()
+            self._Placement._deserialize(params.get("Placement"))
+        self._InstanceChargeType = params.get("InstanceChargeType")
+        if params.get("InstanceChargePrepaid") is not None:
+            self._InstanceChargePrepaid = InstanceChargePrepaid()
+            self._InstanceChargePrepaid._deserialize(params.get("InstanceChargePrepaid"))
+        if params.get("VirtualPrivateCloud") is not None:
+            self._VirtualPrivateCloud = VirtualPrivateCloud()
+            self._VirtualPrivateCloud._deserialize(params.get("VirtualPrivateCloud"))
+        self._ImageId = params.get("ImageId")
+        if params.get("InternetAccessible") is not None:
+            self._InternetAccessible = InternetAccessible()
+            self._InternetAccessible._deserialize(params.get("InternetAccessible"))
+        if params.get("SystemDisk") is not None:
+            self._SystemDisk = SystemDisk()
+            self._SystemDisk._deserialize(params.get("SystemDisk"))
+        if params.get("DataDisks") is not None:
+            self._DataDisks = []
+            for item in params.get("DataDisks"):
+                obj = DataDisk()
+                obj._deserialize(item)
+                self._DataDisks.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class Filter(AbstractModel):
+    r""">描述键值对过滤器，用于条件过滤查询。例如过滤ID、名称、状态等
+    > * 若存在多个`Filter`时，`Filter`间的关系为逻辑与（`AND`）关系。
+    > * 若同一个`Filter`存在多个`Values`，同一`Filter`下`Values`间的关系为逻辑或（`OR`）关系。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Name: 需要过滤的字段。
+        :type Name: str
+        :param _Values: 字段的过滤值。
+        :type Values: list of str
+        """
+        self._Name = None
+        self._Values = None
+
+    @property
+    def Name(self):
+        r"""需要过滤的字段。
+        :rtype: str
+        """
+        return self._Name
+
+    @Name.setter
+    def Name(self, Name):
+        self._Name = Name
+
+    @property
+    def Values(self):
+        r"""字段的过滤值。
+        :rtype: list of str
+        """
+        return self._Values
+
+    @Values.setter
+    def Values(self, Values):
+        self._Values = Values
+
+
+    def _deserialize(self, params):
+        self._Name = params.get("Name")
+        self._Values = params.get("Values")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class GooseFSOption(AbstractModel):
+    r"""描述GooseFS挂载信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LocalPath: 文件系统本地挂载路径。
+        :type LocalPath: str
+        :param _RemotePath: 文件系统远程挂载路径。
+        :type RemotePath: str
+        :param _Masters: 文件系统master的ip和端口。
+        :type Masters: list of str
+        """
+        self._LocalPath = None
+        self._RemotePath = None
+        self._Masters = None
+
+    @property
+    def LocalPath(self):
+        r"""文件系统本地挂载路径。
+        :rtype: str
+        """
+        return self._LocalPath
+
+    @LocalPath.setter
+    def LocalPath(self, LocalPath):
+        self._LocalPath = LocalPath
+
+    @property
+    def RemotePath(self):
+        r"""文件系统远程挂载路径。
+        :rtype: str
+        """
+        return self._RemotePath
+
+    @RemotePath.setter
+    def RemotePath(self, RemotePath):
+        self._RemotePath = RemotePath
+
+    @property
+    def Masters(self):
+        r"""文件系统master的ip和端口。
+        :rtype: list of str
+        """
+        return self._Masters
+
+    @Masters.setter
+    def Masters(self, Masters):
+        self._Masters = Masters
+
+
+    def _deserialize(self, params):
+        self._LocalPath = params.get("LocalPath")
+        self._RemotePath = params.get("RemotePath")
+        self._Masters = params.get("Masters")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class GooseFSOptionOverview(AbstractModel):
+    r"""GooseFS存储选项概览信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LocalPath: 文件系统本地挂载路径。
+        :type LocalPath: str
+        :param _RemotePath: 文件系统远程挂载路径。
+        :type RemotePath: str
+        :param _Masters: 文件系统master的ip和端口。
+        :type Masters: list of str
+        """
+        self._LocalPath = None
+        self._RemotePath = None
+        self._Masters = None
+
+    @property
+    def LocalPath(self):
+        r"""文件系统本地挂载路径。
+        :rtype: str
+        """
+        return self._LocalPath
+
+    @LocalPath.setter
+    def LocalPath(self, LocalPath):
+        self._LocalPath = LocalPath
+
+    @property
+    def RemotePath(self):
+        r"""文件系统远程挂载路径。
+        :rtype: str
+        """
+        return self._RemotePath
+
+    @RemotePath.setter
+    def RemotePath(self, RemotePath):
+        self._RemotePath = RemotePath
+
+    @property
+    def Masters(self):
+        r"""文件系统master的ip和端口。
+        :rtype: list of str
+        """
+        return self._Masters
+
+    @Masters.setter
+    def Masters(self, Masters):
+        self._Masters = Masters
+
+
+    def _deserialize(self, params):
+        self._LocalPath = params.get("LocalPath")
+        self._RemotePath = params.get("RemotePath")
+        self._Masters = params.get("Masters")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class GooseFSxOption(AbstractModel):
+    r"""描述GooseFSx挂载信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Masters: 文件系统master的ip和端口列表。
+        :type Masters: list of str
+        :param _LocalPath: 文件系统的本地挂载路径。GooseFSx目前只支持挂载在/goosefsx/{文件系统ID}_proxy/目录下。
+        :type LocalPath: str
+        :param _FileSystemId: GooseFSx文件系统ID 文件系统ID通过调用接口[DescribeFileSystems](https://cloud.tencent.com/document/api/1424/95789)获取。
+        :type FileSystemId: str
+        """
+        self._Masters = None
+        self._LocalPath = None
+        self._FileSystemId = None
+
+    @property
+    def Masters(self):
+        r"""文件系统master的ip和端口列表。
+        :rtype: list of str
+        """
+        return self._Masters
+
+    @Masters.setter
+    def Masters(self, Masters):
+        self._Masters = Masters
+
+    @property
+    def LocalPath(self):
+        r"""文件系统的本地挂载路径。GooseFSx目前只支持挂载在/goosefsx/{文件系统ID}_proxy/目录下。
+        :rtype: str
+        """
+        return self._LocalPath
+
+    @LocalPath.setter
+    def LocalPath(self, LocalPath):
+        self._LocalPath = LocalPath
+
+    @property
+    def FileSystemId(self):
+        r"""GooseFSx文件系统ID 文件系统ID通过调用接口[DescribeFileSystems](https://cloud.tencent.com/document/api/1424/95789)获取。
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._Masters = params.get("Masters")
+        self._LocalPath = params.get("LocalPath")
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class GooseFSxOptionOverview(AbstractModel):
+    r"""GooseFSx存储选项概览信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Masters: 文件系统master的ip和端口列表。
+        :type Masters: list of str
+        :param _LocalPath: 文件系统的本地挂载路径。GooseFSx目前只支持挂载在/goosefsx/{文件系统ID}_proxy/目录下。
+        :type LocalPath: str
+        """
+        self._Masters = None
+        self._LocalPath = None
+
+    @property
+    def Masters(self):
+        r"""文件系统master的ip和端口列表。
+        :rtype: list of str
+        """
+        return self._Masters
+
+    @Masters.setter
+    def Masters(self, Masters):
+        self._Masters = Masters
+
+    @property
+    def LocalPath(self):
+        r"""文件系统的本地挂载路径。GooseFSx目前只支持挂载在/goosefsx/{文件系统ID}_proxy/目录下。
+        :rtype: str
+        """
+        return self._LocalPath
+
+    @LocalPath.setter
+    def LocalPath(self, LocalPath):
+        self._LocalPath = LocalPath
+
+
+    def _deserialize(self, params):
+        self._Masters = params.get("Masters")
+        self._LocalPath = params.get("LocalPath")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class InstanceChargePrepaid(AbstractModel):
+    r"""描述了实例的计费模式
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Period: 购买实例的时长，单位：月。取值范围：1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36, 48, 60。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type Period: int
+        :param _RenewFlag: 自动续费标识。取值范围：
+NOTIFY_AND_AUTO_RENEW：通知过期且自动续费
+NOTIFY_AND_MANUAL_RENEW：通知过期不自动续费
+DISABLE_NOTIFY_AND_MANUAL_RENEW：不通知过期不自动续费
+
+默认取值：NOTIFY_AND_MANUAL_RENEW。若该参数指定为NOTIFY_AND_AUTO_RENEW，在账户余额充足的情况下，实例到期后将按月自动续费。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type RenewFlag: str
+        """
+        self._Period = None
+        self._RenewFlag = None
+
+    @property
+    def Period(self):
+        r"""购买实例的时长，单位：月。取值范围：1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36, 48, 60。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._Period
+
+    @Period.setter
+    def Period(self, Period):
+        self._Period = Period
+
+    @property
+    def RenewFlag(self):
+        r"""自动续费标识。取值范围：
+NOTIFY_AND_AUTO_RENEW：通知过期且自动续费
+NOTIFY_AND_MANUAL_RENEW：通知过期不自动续费
+DISABLE_NOTIFY_AND_MANUAL_RENEW：不通知过期不自动续费
+
+默认取值：NOTIFY_AND_MANUAL_RENEW。若该参数指定为NOTIFY_AND_AUTO_RENEW，在账户余额充足的情况下，实例到期后将按月自动续费。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._RenewFlag
+
+    @RenewFlag.setter
+    def RenewFlag(self, RenewFlag):
+        self._RenewFlag = RenewFlag
+
+
+    def _deserialize(self, params):
+        self._Period = params.get("Period")
+        self._RenewFlag = params.get("RenewFlag")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class InternetAccessible(AbstractModel):
+    r"""描述了实例的公网可访问性，声明了实例的公网使用计费模式，最大带宽等
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InternetChargeType: 网络计费类型。取值范围：
+BANDWIDTH_PREPAID：预付费按带宽结算
+TRAFFIC_POSTPAID_BY_HOUR：流量按小时后付费
+BANDWIDTH_POSTPAID_BY_HOUR：带宽按小时后付费
+BANDWIDTH_PACKAGE：带宽包用户
+默认取值：非带宽包用户默认与子机付费类型保持一致。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InternetChargeType: str
+        :param _InternetMaxBandwidthOut: 公网出带宽上限，单位：Mbps。默认值：0Mbps。不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InternetMaxBandwidthOut: int
+        """
+        self._InternetChargeType = None
+        self._InternetMaxBandwidthOut = None
+
+    @property
+    def InternetChargeType(self):
+        r"""网络计费类型。取值范围：
+BANDWIDTH_PREPAID：预付费按带宽结算
+TRAFFIC_POSTPAID_BY_HOUR：流量按小时后付费
+BANDWIDTH_POSTPAID_BY_HOUR：带宽按小时后付费
+BANDWIDTH_PACKAGE：带宽包用户
+默认取值：非带宽包用户默认与子机付费类型保持一致。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._InternetChargeType
+
+    @InternetChargeType.setter
+    def InternetChargeType(self, InternetChargeType):
+        self._InternetChargeType = InternetChargeType
+
+    @property
+    def InternetMaxBandwidthOut(self):
+        r"""公网出带宽上限，单位：Mbps。默认值：0Mbps。不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._InternetMaxBandwidthOut
+
+    @InternetMaxBandwidthOut.setter
+    def InternetMaxBandwidthOut(self, InternetMaxBandwidthOut):
+        self._InternetMaxBandwidthOut = InternetMaxBandwidthOut
+
+
+    def _deserialize(self, params):
+        self._InternetChargeType = params.get("InternetChargeType")
+        self._InternetMaxBandwidthOut = params.get("InternetMaxBandwidthOut")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class Job(AbstractModel):
+    r"""提交Job作业信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Tasks: 任务配置信息。
+        :type Tasks: list of Task
+        :param _JobName: 作业名称。
+        :type JobName: str
+        :param _JobDescription: 作业描述。
+        :type JobDescription: str
+        :param _Priority: 作业优先级，数值越大，优先级越高，数值范围1～100。
+        :type Priority: int
+        :param _TaskDependencies: 描述任务的依赖关系，DAG有向无环图。
+        :type TaskDependencies: list of TaskDependence
+        """
+        self._Tasks = None
+        self._JobName = None
+        self._JobDescription = None
+        self._Priority = None
+        self._TaskDependencies = None
+
+    @property
+    def Tasks(self):
+        r"""任务配置信息。
+        :rtype: list of Task
+        """
+        return self._Tasks
+
+    @Tasks.setter
+    def Tasks(self, Tasks):
+        self._Tasks = Tasks
+
+    @property
+    def JobName(self):
+        r"""作业名称。
+        :rtype: str
+        """
+        return self._JobName
+
+    @JobName.setter
+    def JobName(self, JobName):
+        self._JobName = JobName
+
+    @property
+    def JobDescription(self):
+        r"""作业描述。
+        :rtype: str
+        """
+        return self._JobDescription
+
+    @JobDescription.setter
+    def JobDescription(self, JobDescription):
+        self._JobDescription = JobDescription
+
+    @property
+    def Priority(self):
+        r"""作业优先级，数值越大，优先级越高，数值范围1～100。
+        :rtype: int
+        """
+        return self._Priority
+
+    @Priority.setter
+    def Priority(self, Priority):
+        self._Priority = Priority
+
+    @property
+    def TaskDependencies(self):
+        r"""描述任务的依赖关系，DAG有向无环图。
+        :rtype: list of TaskDependence
+        """
+        return self._TaskDependencies
+
+    @TaskDependencies.setter
+    def TaskDependencies(self, TaskDependencies):
+        self._TaskDependencies = TaskDependencies
+
+
+    def _deserialize(self, params):
+        if params.get("Tasks") is not None:
+            self._Tasks = []
+            for item in params.get("Tasks"):
+                obj = Task()
+                obj._deserialize(item)
+                self._Tasks.append(obj)
+        self._JobName = params.get("JobName")
+        self._JobDescription = params.get("JobDescription")
+        self._Priority = params.get("Priority")
+        if params.get("TaskDependencies") is not None:
+            self._TaskDependencies = []
+            for item in params.get("TaskDependencies"):
+                obj = TaskDependence()
+                obj._deserialize(item)
+                self._TaskDependencies.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class JobView(AbstractModel):
+    r"""作业概览信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobId: 作业ID
+        :type JobId: str
+        :param _JobName: 作业名称
+        :type JobName: str
+        :param _JobDescription: 作业描述
+        :type JobDescription: str
+        :param _Priority: 作业优先级
+        :type Priority: int
+        :param _JobState: 作业状态，包括CREATED, QUEING, STARTNG, RUNING, TERMINATING, TERMINATED, SUCCESS, 
+FAILED
+
+        :type JobState: str
+        :param _ClusterId: 作业所属集群ID
+        :type ClusterId: str
+        :param _QueueName: 作业所属队列名称
+        :type QueueName: str
+        :param _OccupyResources: 完成作业任务所需资源
+        :type OccupyResources: str
+        :param _CreateTime: 作业任务创建时间
+        :type CreateTime: str
+        :param _EndTime: 作业任务结束时间
+        :type EndTime: str
+        """
+        self._JobId = None
+        self._JobName = None
+        self._JobDescription = None
+        self._Priority = None
+        self._JobState = None
+        self._ClusterId = None
+        self._QueueName = None
+        self._OccupyResources = None
+        self._CreateTime = None
+        self._EndTime = None
+
+    @property
+    def JobId(self):
+        r"""作业ID
+        :rtype: str
+        """
+        return self._JobId
+
+    @JobId.setter
+    def JobId(self, JobId):
+        self._JobId = JobId
+
+    @property
+    def JobName(self):
+        r"""作业名称
+        :rtype: str
+        """
+        return self._JobName
+
+    @JobName.setter
+    def JobName(self, JobName):
+        self._JobName = JobName
+
+    @property
+    def JobDescription(self):
+        r"""作业描述
+        :rtype: str
+        """
+        return self._JobDescription
+
+    @JobDescription.setter
+    def JobDescription(self, JobDescription):
+        self._JobDescription = JobDescription
+
+    @property
+    def Priority(self):
+        r"""作业优先级
+        :rtype: int
+        """
+        return self._Priority
+
+    @Priority.setter
+    def Priority(self, Priority):
+        self._Priority = Priority
+
+    @property
+    def JobState(self):
+        r"""作业状态，包括CREATED, QUEING, STARTNG, RUNING, TERMINATING, TERMINATED, SUCCESS, 
+FAILED
+
+        :rtype: str
+        """
+        return self._JobState
+
+    @JobState.setter
+    def JobState(self, JobState):
+        self._JobState = JobState
+
+    @property
+    def ClusterId(self):
+        r"""作业所属集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def QueueName(self):
+        r"""作业所属队列名称
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+    @property
+    def OccupyResources(self):
+        r"""完成作业任务所需资源
+        :rtype: str
+        """
+        return self._OccupyResources
+
+    @OccupyResources.setter
+    def OccupyResources(self, OccupyResources):
+        self._OccupyResources = OccupyResources
+
+    @property
+    def CreateTime(self):
+        r"""作业任务创建时间
+        :rtype: str
+        """
+        return self._CreateTime
+
+    @CreateTime.setter
+    def CreateTime(self, CreateTime):
+        self._CreateTime = CreateTime
+
+    @property
+    def EndTime(self):
+        r"""作业任务结束时间
+        :rtype: str
+        """
+        return self._EndTime
+
+    @EndTime.setter
+    def EndTime(self, EndTime):
+        self._EndTime = EndTime
+
+
+    def _deserialize(self, params):
+        self._JobId = params.get("JobId")
+        self._JobName = params.get("JobName")
+        self._JobDescription = params.get("JobDescription")
+        self._Priority = params.get("Priority")
+        self._JobState = params.get("JobState")
+        self._ClusterId = params.get("ClusterId")
+        self._QueueName = params.get("QueueName")
+        self._OccupyResources = params.get("OccupyResources")
+        self._CreateTime = params.get("CreateTime")
+        self._EndTime = params.get("EndTime")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class LoginNode(AbstractModel):
+    r"""登录节点信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InstanceChargeType: 节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。<br><li>PREPAID：预付费，即包年包月</li><br><li>POSTPAID_BY_HOUR：按小时后付费</li><br><li>SPOTPAID：竞价付费<br>默认值：POSTPAID_BY_HOUR。</li>
+        :type InstanceChargeType: str
+        :param _InstanceChargePrepaid: 预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+        :type InstanceChargePrepaid: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        :param _InstanceType: 节点机型。不同实例机型指定了不同的资源规格。
+<br><li>具体取值可通过调用接口[DescribeInstanceTypeConfigs](https://cloud.tencent.com/document/api/213/15749)来获得最新的规格表或参见[实例规格](https://cloud.tencent.com/document/product/213/11518)描述。</li>
+        :type InstanceType: str
+        :param _SystemDisk: 节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。
+        :type SystemDisk: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        :param _DataDisks: 节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。
+        :type DataDisks: list of DataDisk
+        :param _InternetAccessible: 公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。
+        :type InternetAccessible: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        :param _InstanceName: 节点显示名称。<br><li>
+不指定节点显示名称则默认显示‘未命名’。
+最多支持60个字符。</li>
+        :type InstanceName: str
+        :param _ProjectId: 实例所属项目ID。该参数可以通过调用 [DescribeProject](https://cloud.tencent.com/document/api/651/78725) 的返回值中的 projectId 字段来获取。不填为默认项目。
+        :type ProjectId: int
+        """
+        self._InstanceChargeType = None
+        self._InstanceChargePrepaid = None
+        self._InstanceType = None
+        self._SystemDisk = None
+        self._DataDisks = None
+        self._InternetAccessible = None
+        self._InstanceName = None
+        self._ProjectId = None
+
+    @property
+    def InstanceChargeType(self):
+        r"""节点[计费类型](https://cloud.tencent.com/document/product/213/2180)。<br><li>PREPAID：预付费，即包年包月</li><br><li>POSTPAID_BY_HOUR：按小时后付费</li><br><li>SPOTPAID：竞价付费<br>默认值：POSTPAID_BY_HOUR。</li>
+        :rtype: str
+        """
+        return self._InstanceChargeType
+
+    @InstanceChargeType.setter
+    def InstanceChargeType(self, InstanceChargeType):
+        self._InstanceChargeType = InstanceChargeType
+
+    @property
+    def InstanceChargePrepaid(self):
+        r"""预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        """
+        return self._InstanceChargePrepaid
+
+    @InstanceChargePrepaid.setter
+    def InstanceChargePrepaid(self, InstanceChargePrepaid):
+        self._InstanceChargePrepaid = InstanceChargePrepaid
+
+    @property
+    def InstanceType(self):
+        r"""节点机型。不同实例机型指定了不同的资源规格。
+<br><li>具体取值可通过调用接口[DescribeInstanceTypeConfigs](https://cloud.tencent.com/document/api/213/15749)来获得最新的规格表或参见[实例规格](https://cloud.tencent.com/document/product/213/11518)描述。</li>
+        :rtype: str
+        """
+        return self._InstanceType
+
+    @InstanceType.setter
+    def InstanceType(self, InstanceType):
+        self._InstanceType = InstanceType
+
+    @property
+    def SystemDisk(self):
+        r"""节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        """
+        return self._SystemDisk
+
+    @SystemDisk.setter
+    def SystemDisk(self, SystemDisk):
+        self._SystemDisk = SystemDisk
+
+    @property
+    def DataDisks(self):
+        r"""节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。
+        :rtype: list of DataDisk
+        """
+        return self._DataDisks
+
+    @DataDisks.setter
+    def DataDisks(self, DataDisks):
+        self._DataDisks = DataDisks
+
+    @property
+    def InternetAccessible(self):
+        r"""公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        """
+        return self._InternetAccessible
+
+    @InternetAccessible.setter
+    def InternetAccessible(self, InternetAccessible):
+        self._InternetAccessible = InternetAccessible
+
+    @property
+    def InstanceName(self):
+        r"""节点显示名称。<br><li>
+不指定节点显示名称则默认显示‘未命名’。
+最多支持60个字符。</li>
+        :rtype: str
+        """
+        return self._InstanceName
+
+    @InstanceName.setter
+    def InstanceName(self, InstanceName):
+        self._InstanceName = InstanceName
+
+    @property
+    def ProjectId(self):
+        r"""实例所属项目ID。该参数可以通过调用 [DescribeProject](https://cloud.tencent.com/document/api/651/78725) 的返回值中的 projectId 字段来获取。不填为默认项目。
+        :rtype: int
+        """
+        return self._ProjectId
+
+    @ProjectId.setter
+    def ProjectId(self, ProjectId):
+        self._ProjectId = ProjectId
+
+
+    def _deserialize(self, params):
+        self._InstanceChargeType = params.get("InstanceChargeType")
+        if params.get("InstanceChargePrepaid") is not None:
+            self._InstanceChargePrepaid = InstanceChargePrepaid()
+            self._InstanceChargePrepaid._deserialize(params.get("InstanceChargePrepaid"))
+        self._InstanceType = params.get("InstanceType")
+        if params.get("SystemDisk") is not None:
+            self._SystemDisk = SystemDisk()
+            self._SystemDisk._deserialize(params.get("SystemDisk"))
+        if params.get("DataDisks") is not None:
+            self._DataDisks = []
+            for item in params.get("DataDisks"):
+                obj = DataDisk()
+                obj._deserialize(item)
+                self._DataDisks.append(obj)
+        if params.get("InternetAccessible") is not None:
+            self._InternetAccessible = InternetAccessible()
+            self._InternetAccessible._deserialize(params.get("InternetAccessible"))
+        self._InstanceName = params.get("InstanceName")
+        self._ProjectId = params.get("ProjectId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class LoginNodeOverview(AbstractModel):
+    r"""登录节点概览。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeId: 登录节点ID。
+        :type NodeId: str
+        """
+        self._NodeId = None
+
+    @property
+    def NodeId(self):
+        r"""登录节点ID。
+        :rtype: str
+        """
+        return self._NodeId
+
+    @NodeId.setter
+    def NodeId(self, NodeId):
+        self._NodeId = NodeId
+
+
+    def _deserialize(self, params):
+        self._NodeId = params.get("NodeId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class LoginSettings(AbstractModel):
+    r"""描述了实例登录相关配置与信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Password: 实例登录密码。不同操作系统类型密码复杂度限制不一样，具体如下：<br><li>Linux实例密码必须8到30位，至少包括两项[a-z]，[A-Z]、[0-9] 和 [( ) \` ~ ! @ # $ % ^ & *  - + = | { } [ ] : ; ' , . ? / ]中的特殊符号。</li><br><li>Windows实例密码必须12到30位，至少包括三项[a-z]，[A-Z]，[0-9] 和 [( ) \` ~ ! @ # $ % ^ & * - + = | { } [ ] : ; ' , . ? /]中的特殊符号。</li><br><br>若不指定该参数，则由系统随机生成密码，并通过站内信方式通知到用户。
+        :type Password: str
+        :param _KeyIds: 实例登录密钥
+        :type KeyIds: list of str
+        """
+        self._Password = None
+        self._KeyIds = None
+
+    @property
+    def Password(self):
+        r"""实例登录密码。不同操作系统类型密码复杂度限制不一样，具体如下：<br><li>Linux实例密码必须8到30位，至少包括两项[a-z]，[A-Z]、[0-9] 和 [( ) \` ~ ! @ # $ % ^ & *  - + = | { } [ ] : ; ' , . ? / ]中的特殊符号。</li><br><li>Windows实例密码必须12到30位，至少包括三项[a-z]，[A-Z]，[0-9] 和 [( ) \` ~ ! @ # $ % ^ & * - + = | { } [ ] : ; ' , . ? /]中的特殊符号。</li><br><br>若不指定该参数，则由系统随机生成密码，并通过站内信方式通知到用户。
+        :rtype: str
+        """
+        return self._Password
+
+    @Password.setter
+    def Password(self, Password):
+        self._Password = Password
+
+    @property
+    def KeyIds(self):
+        r"""实例登录密钥
+        :rtype: list of str
+        """
+        return self._KeyIds
+
+    @KeyIds.setter
+    def KeyIds(self, KeyIds):
+        self._KeyIds = KeyIds
+
+
+    def _deserialize(self, params):
+        self._Password = params.get("Password")
+        self._KeyIds = params.get("KeyIds")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ManagerNode(AbstractModel):
+    r"""管控节点信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InstanceChargeType: <p>节点<a href="https://cloud.tencent.com/document/product/213/2180">计费类型</a>。</p>枚举值：<ul><li> PREPAID： 预付费，即包年包月</li><li> POSTPAID_BY_HOUR： 按小时后付费</li></ul>
+        :type InstanceChargeType: str
+        :param _InstanceChargePrepaid: <p>预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。</p>
+        :type InstanceChargePrepaid: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        :param _InstanceType: <p>节点机型。不同实例机型指定了不同的资源规格。 <br><li>具体取值可通过调用接口<a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a>来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例规格</a>描述。</li>   </p>
+        :type InstanceType: str
+        :param _SystemDisk: <p>节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。</p>
+        :type SystemDisk: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        :param _DataDisks: <p>节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。</p>
+        :type DataDisks: list of DataDisk
+        :param _InternetAccessible: <p>公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。</p>
+        :type InternetAccessible: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        :param _InstanceName: <p>节点显示名称。<br><li> 不指定节点显示名称则默认显示‘未命名’。 </li><li>购买多个节点，如果指定模式串<code>{R:x}</code>，表示生成数字[<code>[x, x+n-1]</code>，其中<code>n</code>表示购买节点的数量，例如<code>server_{R:3}</code>，购买1个时，节点显示名称为<code>server_3</code>；购买2个时，节点显示名称分别为<code>server_3</code>，<code>server_4</code>。支持指定多个模式串<code>{R:x}</code>。 购买多个节点，如果不指定模式串，则在节点显示名称添加后缀<code>1、2...n</code>，其中<code>n</code>表示购买节点的数量，例如<code>server_</code>，购买2个时，节点显示名称分别为<code>server_1</code>，<code>server_2</code>。</li><li> 最多支持60个字符（包含模式串）。</li></p>
+        :type InstanceName: str
+        :param _ProjectId: <p>实例所属项目ID。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/651/78725">DescribeProject</a> 的返回值中的 projectId 字段来获取。不填为默认项目。</p>
+        :type ProjectId: int
+        :param _EnhancedService: <p>增强服务。通过该参数可以指定是否开启云安全、腾讯云可观测平台等服务。若不指定该参数，则默认开启腾讯云可观测平台、云安全服务、自动化助手服务。</p>
+        :type EnhancedService: :class:`tencentcloud.thpc.v20230321.models.EnhancedService`
+        """
+        self._InstanceChargeType = None
+        self._InstanceChargePrepaid = None
+        self._InstanceType = None
+        self._SystemDisk = None
+        self._DataDisks = None
+        self._InternetAccessible = None
+        self._InstanceName = None
+        self._ProjectId = None
+        self._EnhancedService = None
+
+    @property
+    def InstanceChargeType(self):
+        r"""<p>节点<a href="https://cloud.tencent.com/document/product/213/2180">计费类型</a>。</p>枚举值：<ul><li> PREPAID： 预付费，即包年包月</li><li> POSTPAID_BY_HOUR： 按小时后付费</li></ul>
+        :rtype: str
+        """
+        return self._InstanceChargeType
+
+    @InstanceChargeType.setter
+    def InstanceChargeType(self, InstanceChargeType):
+        self._InstanceChargeType = InstanceChargeType
+
+    @property
+    def InstanceChargePrepaid(self):
+        r"""<p>预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月节点的购买时长、是否设置自动续费等属性。若指定节点的付费模式为预付费则该参数必传。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InstanceChargePrepaid`
+        """
+        return self._InstanceChargePrepaid
+
+    @InstanceChargePrepaid.setter
+    def InstanceChargePrepaid(self, InstanceChargePrepaid):
+        self._InstanceChargePrepaid = InstanceChargePrepaid
+
+    @property
+    def InstanceType(self):
+        r"""<p>节点机型。不同实例机型指定了不同的资源规格。 <br><li>具体取值可通过调用接口<a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a>来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例规格</a>描述。</li>   </p>
+        :rtype: str
+        """
+        return self._InstanceType
+
+    @InstanceType.setter
+    def InstanceType(self, InstanceType):
+        self._InstanceType = InstanceType
+
+    @property
+    def SystemDisk(self):
+        r"""<p>节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        """
+        return self._SystemDisk
+
+    @SystemDisk.setter
+    def SystemDisk(self, SystemDisk):
+        self._SystemDisk = SystemDisk
+
+    @property
+    def DataDisks(self):
+        r"""<p>节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。</p>
+        :rtype: list of DataDisk
+        """
+        return self._DataDisks
+
+    @DataDisks.setter
+    def DataDisks(self, DataDisks):
+        self._DataDisks = DataDisks
+
+    @property
+    def InternetAccessible(self):
+        r"""<p>公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        """
+        return self._InternetAccessible
+
+    @InternetAccessible.setter
+    def InternetAccessible(self, InternetAccessible):
+        self._InternetAccessible = InternetAccessible
+
+    @property
+    def InstanceName(self):
+        r"""<p>节点显示名称。<br><li> 不指定节点显示名称则默认显示‘未命名’。 </li><li>购买多个节点，如果指定模式串<code>{R:x}</code>，表示生成数字[<code>[x, x+n-1]</code>，其中<code>n</code>表示购买节点的数量，例如<code>server_{R:3}</code>，购买1个时，节点显示名称为<code>server_3</code>；购买2个时，节点显示名称分别为<code>server_3</code>，<code>server_4</code>。支持指定多个模式串<code>{R:x}</code>。 购买多个节点，如果不指定模式串，则在节点显示名称添加后缀<code>1、2...n</code>，其中<code>n</code>表示购买节点的数量，例如<code>server_</code>，购买2个时，节点显示名称分别为<code>server_1</code>，<code>server_2</code>。</li><li> 最多支持60个字符（包含模式串）。</li></p>
+        :rtype: str
+        """
+        return self._InstanceName
+
+    @InstanceName.setter
+    def InstanceName(self, InstanceName):
+        self._InstanceName = InstanceName
+
+    @property
+    def ProjectId(self):
+        r"""<p>实例所属项目ID。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/651/78725">DescribeProject</a> 的返回值中的 projectId 字段来获取。不填为默认项目。</p>
+        :rtype: int
+        """
+        return self._ProjectId
+
+    @ProjectId.setter
+    def ProjectId(self, ProjectId):
+        self._ProjectId = ProjectId
+
+    @property
+    def EnhancedService(self):
+        r"""<p>增强服务。通过该参数可以指定是否开启云安全、腾讯云可观测平台等服务。若不指定该参数，则默认开启腾讯云可观测平台、云安全服务、自动化助手服务。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.EnhancedService`
+        """
+        return self._EnhancedService
+
+    @EnhancedService.setter
+    def EnhancedService(self, EnhancedService):
+        self._EnhancedService = EnhancedService
+
+
+    def _deserialize(self, params):
+        self._InstanceChargeType = params.get("InstanceChargeType")
+        if params.get("InstanceChargePrepaid") is not None:
+            self._InstanceChargePrepaid = InstanceChargePrepaid()
+            self._InstanceChargePrepaid._deserialize(params.get("InstanceChargePrepaid"))
+        self._InstanceType = params.get("InstanceType")
+        if params.get("SystemDisk") is not None:
+            self._SystemDisk = SystemDisk()
+            self._SystemDisk._deserialize(params.get("SystemDisk"))
+        if params.get("DataDisks") is not None:
+            self._DataDisks = []
+            for item in params.get("DataDisks"):
+                obj = DataDisk()
+                obj._deserialize(item)
+                self._DataDisks.append(obj)
+        if params.get("InternetAccessible") is not None:
+            self._InternetAccessible = InternetAccessible()
+            self._InternetAccessible._deserialize(params.get("InternetAccessible"))
+        self._InstanceName = params.get("InstanceName")
+        self._ProjectId = params.get("ProjectId")
+        if params.get("EnhancedService") is not None:
+            self._EnhancedService = EnhancedService()
+            self._EnhancedService._deserialize(params.get("EnhancedService"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ManagerNodeOverview(AbstractModel):
+    r"""管控节点概览。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeId: 管控节点ID。
+        :type NodeId: str
+        """
+        self._NodeId = None
+
+    @property
+    def NodeId(self):
+        r"""管控节点ID。
+        :rtype: str
+        """
+        return self._NodeId
+
+    @NodeId.setter
+    def NodeId(self, NodeId):
+        self._NodeId = NodeId
+
+
+    def _deserialize(self, params):
+        self._NodeId = params.get("NodeId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyClusterDeletionProtectionRequest(AbstractModel):
+    r"""ModifyClusterDeletionProtection请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _DeletionProtection: 集群删除保护开关。 
+可选值：<li>OFF：关闭集群删除保护。</li><li>ON：打开集群删除保护。</li>
+        :type DeletionProtection: str
+        """
+        self._ClusterId = None
+        self._DeletionProtection = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def DeletionProtection(self):
+        r"""集群删除保护开关。 
+可选值：<li>OFF：关闭集群删除保护。</li><li>ON：打开集群删除保护。</li>
+        :rtype: str
+        """
+        return self._DeletionProtection
+
+    @DeletionProtection.setter
+    def DeletionProtection(self, DeletionProtection):
+        self._DeletionProtection = DeletionProtection
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._DeletionProtection = params.get("DeletionProtection")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyClusterDeletionProtectionResponse(AbstractModel):
+    r"""ModifyClusterDeletionProtection返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class ModifyInitNodeScriptsRequest(AbstractModel):
+    r"""ModifyInitNodeScripts请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID。
+        :type ClusterId: str
+        :param _InitNodeScripts: 节点初始化脚本信息列表。
+        :type InitNodeScripts: list of NodeScript
+        """
+        self._ClusterId = None
+        self._InitNodeScripts = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID。
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def InitNodeScripts(self):
+        r"""节点初始化脚本信息列表。
+        :rtype: list of NodeScript
+        """
+        return self._InitNodeScripts
+
+    @InitNodeScripts.setter
+    def InitNodeScripts(self, InitNodeScripts):
+        self._InitNodeScripts = InitNodeScripts
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        if params.get("InitNodeScripts") is not None:
+            self._InitNodeScripts = []
+            for item in params.get("InitNodeScripts"):
+                obj = NodeScript()
+                obj._deserialize(item)
+                self._InitNodeScripts.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyInitNodeScriptsResponse(AbstractModel):
+    r"""ModifyInitNodeScripts返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class ModifyNodeAttributeRequest(AbstractModel):
+    r"""ModifyNodeAttribute请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeId: <p>节点ID，节点ID通过调用接口 <a href="https://cloud.tencent.com/document/api/1527/89569">DescribeNodes</a>获取。</p>
+        :type NodeId: str
+        :param _NodeName: <p>节点别名</p>
+        :type NodeName: str
+        :param _NodeAllocateState: <p>资源的分配状态:  - IDLE: 资源空闲 - ISOLATE: 资源隔离</p>
+        :type NodeAllocateState: str
+        :param _QueueName: <p>目标队列名</p>
+        :type QueueName: str
+        """
+        self._NodeId = None
+        self._NodeName = None
+        self._NodeAllocateState = None
+        self._QueueName = None
+
+    @property
+    def NodeId(self):
+        r"""<p>节点ID，节点ID通过调用接口 <a href="https://cloud.tencent.com/document/api/1527/89569">DescribeNodes</a>获取。</p>
+        :rtype: str
+        """
+        return self._NodeId
+
+    @NodeId.setter
+    def NodeId(self, NodeId):
+        self._NodeId = NodeId
+
+    @property
+    def NodeName(self):
+        r"""<p>节点别名</p>
+        :rtype: str
+        """
+        return self._NodeName
+
+    @NodeName.setter
+    def NodeName(self, NodeName):
+        self._NodeName = NodeName
+
+    @property
+    def NodeAllocateState(self):
+        r"""<p>资源的分配状态:  - IDLE: 资源空闲 - ISOLATE: 资源隔离</p>
+        :rtype: str
+        """
+        return self._NodeAllocateState
+
+    @NodeAllocateState.setter
+    def NodeAllocateState(self, NodeAllocateState):
+        self._NodeAllocateState = NodeAllocateState
+
+    @property
+    def QueueName(self):
+        r"""<p>目标队列名</p>
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+
+    def _deserialize(self, params):
+        self._NodeId = params.get("NodeId")
+        self._NodeName = params.get("NodeName")
+        self._NodeAllocateState = params.get("NodeAllocateState")
+        self._QueueName = params.get("QueueName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyNodeAttributeResponse(AbstractModel):
+    r"""ModifyNodeAttribute返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class ModifyWorkspacesAttributeRequest(AbstractModel):
+    r"""ModifyWorkspacesAttribute请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SpaceIds: 工作空间列表
+        :type SpaceIds: list of str
+        :param _SpaceName: 修改后的工作空间名称。可任意命名，但不得超过60个字符。
+        :type SpaceName: str
+        """
+        self._SpaceIds = None
+        self._SpaceName = None
+
+    @property
+    def SpaceIds(self):
+        r"""工作空间列表
+        :rtype: list of str
+        """
+        return self._SpaceIds
+
+    @SpaceIds.setter
+    def SpaceIds(self, SpaceIds):
+        self._SpaceIds = SpaceIds
+
+    @property
+    def SpaceName(self):
+        r"""修改后的工作空间名称。可任意命名，但不得超过60个字符。
+        :rtype: str
+        """
+        return self._SpaceName
+
+    @SpaceName.setter
+    def SpaceName(self, SpaceName):
+        self._SpaceName = SpaceName
+
+
+    def _deserialize(self, params):
+        self._SpaceIds = params.get("SpaceIds")
+        self._SpaceName = params.get("SpaceName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyWorkspacesAttributeResponse(AbstractModel):
+    r"""ModifyWorkspacesAttribute返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class ModifyWorkspacesRenewFlagRequest(AbstractModel):
+    r"""ModifyWorkspacesRenewFlag请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SpaceIds: 工作空间列表
+        :type SpaceIds: list of str
+        :param _RenewFlag: 自动续费标识。取值范围：<br><li>NOTIFY_AND_AUTO_RENEW：通知过期且自动续费</li><li>NOTIFY_AND_MANUAL_RENEW：通知过期不自动续费</li><li>DISABLE_NOTIFY_AND_MANUAL_RENEW：不通知过期不自动续费</li><br>若该参数指定为NOTIFY_AND_AUTO_RENEW，在账户余额充足的情况下，实例到期后将按月自动续费。
+        :type RenewFlag: str
+        """
+        self._SpaceIds = None
+        self._RenewFlag = None
+
+    @property
+    def SpaceIds(self):
+        r"""工作空间列表
+        :rtype: list of str
+        """
+        return self._SpaceIds
+
+    @SpaceIds.setter
+    def SpaceIds(self, SpaceIds):
+        self._SpaceIds = SpaceIds
+
+    @property
+    def RenewFlag(self):
+        r"""自动续费标识。取值范围：<br><li>NOTIFY_AND_AUTO_RENEW：通知过期且自动续费</li><li>NOTIFY_AND_MANUAL_RENEW：通知过期不自动续费</li><li>DISABLE_NOTIFY_AND_MANUAL_RENEW：不通知过期不自动续费</li><br>若该参数指定为NOTIFY_AND_AUTO_RENEW，在账户余额充足的情况下，实例到期后将按月自动续费。
+        :rtype: str
+        """
+        return self._RenewFlag
+
+    @RenewFlag.setter
+    def RenewFlag(self, RenewFlag):
+        self._RenewFlag = RenewFlag
+
+
+    def _deserialize(self, params):
+        self._SpaceIds = params.get("SpaceIds")
+        self._RenewFlag = params.get("RenewFlag")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyWorkspacesRenewFlagResponse(AbstractModel):
+    r"""ModifyWorkspacesRenewFlag返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class NodeActivity(AbstractModel):
+    r"""节点活动信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeInstanceId: 节点活动所在的实例ID。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeInstanceId: str
+        :param _NodeActivityStatus: 节点活动状态。取值范围：<br><li>RUNNING：运行中</li><br><li>SUCCESSFUL：活动成功</li><br><li>FAILED：活动失败</li>
+        :type NodeActivityStatus: str
+        :param _NodeActivityStatusCode: 节点活动状态码。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeActivityStatusCode: str
+        :param _NodeActivityStatusReason: 节点活动状态原因。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeActivityStatusReason: str
+        """
+        self._NodeInstanceId = None
+        self._NodeActivityStatus = None
+        self._NodeActivityStatusCode = None
+        self._NodeActivityStatusReason = None
+
+    @property
+    def NodeInstanceId(self):
+        r"""节点活动所在的实例ID。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeInstanceId
+
+    @NodeInstanceId.setter
+    def NodeInstanceId(self, NodeInstanceId):
+        self._NodeInstanceId = NodeInstanceId
+
+    @property
+    def NodeActivityStatus(self):
+        r"""节点活动状态。取值范围：<br><li>RUNNING：运行中</li><br><li>SUCCESSFUL：活动成功</li><br><li>FAILED：活动失败</li>
+        :rtype: str
+        """
+        return self._NodeActivityStatus
+
+    @NodeActivityStatus.setter
+    def NodeActivityStatus(self, NodeActivityStatus):
+        self._NodeActivityStatus = NodeActivityStatus
+
+    @property
+    def NodeActivityStatusCode(self):
+        r"""节点活动状态码。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeActivityStatusCode
+
+    @NodeActivityStatusCode.setter
+    def NodeActivityStatusCode(self, NodeActivityStatusCode):
+        self._NodeActivityStatusCode = NodeActivityStatusCode
+
+    @property
+    def NodeActivityStatusReason(self):
+        r"""节点活动状态原因。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeActivityStatusReason
+
+    @NodeActivityStatusReason.setter
+    def NodeActivityStatusReason(self, NodeActivityStatusReason):
+        self._NodeActivityStatusReason = NodeActivityStatusReason
+
+
+    def _deserialize(self, params):
+        self._NodeInstanceId = params.get("NodeInstanceId")
+        self._NodeActivityStatus = params.get("NodeActivityStatus")
+        self._NodeActivityStatusCode = params.get("NodeActivityStatusCode")
+        self._NodeActivityStatusReason = params.get("NodeActivityStatusReason")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class NodeOverview(AbstractModel):
+    r"""节点概览信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID
+        :type ClusterId: str
+        :param _InstanceId: 节点实例ID。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InstanceId: str
+        :param _Zone: 节点所在可用区信息。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type Zone: str
+        :param _NodeState: 节点状态。<li>SUBMITTED：已完成提交。</li><li>CREATING：创建中。</li><li>CREATED：完成创建。</li><li>INITING：初始化中。</li><li>INIT_FAILED：初始化失败。</li><li>RUNNING：运行中。</li><li>DELETING：销毁中。</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeState: str
+        :param _ImageId: 镜像ID。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type ImageId: str
+        :param _QueueName: 节点所属队列名称。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type QueueName: str
+        :param _NodeRole: 节点角色。<li>Manager：管控节点。</li><li>Compute：计算节点。</li><li>Login：登录节点。</li><li>ManagerBackup：备用管控节点。</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeRole: str
+        :param _NodeType: 节点类型。<li>STATIC：静态节点。</li><li>DYNAMIC：弹性节点。</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeType: str
+        :param _NodeId: thpc集群节点id
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeId: str
+        :param _NodeAllocateState: 节点的工作状态
+        :type NodeAllocateState: str
+        :param _NodeName: 节点的名称
+        :type NodeName: str
+        :param _CreateTime: 节点的创建时间
+        :type CreateTime: str
+        """
+        self._ClusterId = None
+        self._InstanceId = None
+        self._Zone = None
+        self._NodeState = None
+        self._ImageId = None
+        self._QueueName = None
+        self._NodeRole = None
+        self._NodeType = None
+        self._NodeId = None
+        self._NodeAllocateState = None
+        self._NodeName = None
+        self._CreateTime = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def InstanceId(self):
+        r"""节点实例ID。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._InstanceId
+
+    @InstanceId.setter
+    def InstanceId(self, InstanceId):
+        self._InstanceId = InstanceId
+
+    @property
+    def Zone(self):
+        r"""节点所在可用区信息。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._Zone
+
+    @Zone.setter
+    def Zone(self, Zone):
+        self._Zone = Zone
+
+    @property
+    def NodeState(self):
+        r"""节点状态。<li>SUBMITTED：已完成提交。</li><li>CREATING：创建中。</li><li>CREATED：完成创建。</li><li>INITING：初始化中。</li><li>INIT_FAILED：初始化失败。</li><li>RUNNING：运行中。</li><li>DELETING：销毁中。</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeState
+
+    @NodeState.setter
+    def NodeState(self, NodeState):
+        self._NodeState = NodeState
+
+    @property
+    def ImageId(self):
+        r"""镜像ID。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._ImageId
+
+    @ImageId.setter
+    def ImageId(self, ImageId):
+        self._ImageId = ImageId
+
+    @property
+    def QueueName(self):
+        r"""节点所属队列名称。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+    @property
+    def NodeRole(self):
+        r"""节点角色。<li>Manager：管控节点。</li><li>Compute：计算节点。</li><li>Login：登录节点。</li><li>ManagerBackup：备用管控节点。</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeRole
+
+    @NodeRole.setter
+    def NodeRole(self, NodeRole):
+        self._NodeRole = NodeRole
+
+    @property
+    def NodeType(self):
+        r"""节点类型。<li>STATIC：静态节点。</li><li>DYNAMIC：弹性节点。</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeType
+
+    @NodeType.setter
+    def NodeType(self, NodeType):
+        self._NodeType = NodeType
+
+    @property
+    def NodeId(self):
+        r"""thpc集群节点id
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeId
+
+    @NodeId.setter
+    def NodeId(self, NodeId):
+        self._NodeId = NodeId
+
+    @property
+    def NodeAllocateState(self):
+        r"""节点的工作状态
+        :rtype: str
+        """
+        return self._NodeAllocateState
+
+    @NodeAllocateState.setter
+    def NodeAllocateState(self, NodeAllocateState):
+        self._NodeAllocateState = NodeAllocateState
+
+    @property
+    def NodeName(self):
+        r"""节点的名称
+        :rtype: str
+        """
+        return self._NodeName
+
+    @NodeName.setter
+    def NodeName(self, NodeName):
+        self._NodeName = NodeName
+
+    @property
+    def CreateTime(self):
+        r"""节点的创建时间
+        :rtype: str
+        """
+        return self._CreateTime
+
+    @CreateTime.setter
+    def CreateTime(self, CreateTime):
+        self._CreateTime = CreateTime
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._InstanceId = params.get("InstanceId")
+        self._Zone = params.get("Zone")
+        self._NodeState = params.get("NodeState")
+        self._ImageId = params.get("ImageId")
+        self._QueueName = params.get("QueueName")
+        self._NodeRole = params.get("NodeRole")
+        self._NodeType = params.get("NodeType")
+        self._NodeId = params.get("NodeId")
+        self._NodeAllocateState = params.get("NodeAllocateState")
+        self._NodeName = params.get("NodeName")
+        self._CreateTime = params.get("CreateTime")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class NodeScript(AbstractModel):
+    r"""描述节点执行脚本信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ScriptPath: 节点执行脚本获取地址。
+目前仅支持cos地址。地址最大长度：255。
+        :type ScriptPath: str
+        :param _Timeout: 脚本执行超时时间（包含拉取脚本的时间）。单位秒，默认值：30。取值范围：10～1200。
+        :type Timeout: int
+        """
+        self._ScriptPath = None
+        self._Timeout = None
+
+    @property
+    def ScriptPath(self):
+        r"""节点执行脚本获取地址。
+目前仅支持cos地址。地址最大长度：255。
+        :rtype: str
+        """
+        return self._ScriptPath
+
+    @ScriptPath.setter
+    def ScriptPath(self, ScriptPath):
+        self._ScriptPath = ScriptPath
+
+    @property
+    def Timeout(self):
+        r"""脚本执行超时时间（包含拉取脚本的时间）。单位秒，默认值：30。取值范围：10～1200。
+        :rtype: int
+        """
+        return self._Timeout
+
+    @Timeout.setter
+    def Timeout(self, Timeout):
+        self._Timeout = Timeout
+
+
+    def _deserialize(self, params):
+        self._ScriptPath = params.get("ScriptPath")
+        self._Timeout = params.get("Timeout")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class OutputRedirect(AbstractModel):
+    r"""输出重定向配置
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Driver: 输出driver类型
+        :type Driver: str
+        :param _Options: 重定向配置参数
+        :type Options: list of str
+        """
+        self._Driver = None
+        self._Options = None
+
+    @property
+    def Driver(self):
+        r"""输出driver类型
+        :rtype: str
+        """
+        return self._Driver
+
+    @Driver.setter
+    def Driver(self, Driver):
+        self._Driver = Driver
+
+    @property
+    def Options(self):
+        r"""重定向配置参数
+        :rtype: list of str
+        """
+        return self._Options
+
+    @Options.setter
+    def Options(self, Options):
+        self._Options = Options
+
+
+    def _deserialize(self, params):
+        self._Driver = params.get("Driver")
+        self._Options = params.get("Options")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class Placement(AbstractModel):
+    r"""描述了实例的抽象位置
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Zone: 实例所属的可用区名称。该参数可以通过调用  [DescribeZones](https://cloud.tencent.com/document/product/213/15707) 的返回值中的Zone字段来获取。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type Zone: str
+        """
+        self._Zone = None
+
+    @property
+    def Zone(self):
+        r"""实例所属的可用区名称。该参数可以通过调用  [DescribeZones](https://cloud.tencent.com/document/product/213/15707) 的返回值中的Zone字段来获取。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._Zone
+
+    @Zone.setter
+    def Zone(self, Zone):
+        self._Zone = Zone
+
+
+    def _deserialize(self, params):
+        self._Zone = params.get("Zone")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class QueueConfig(AbstractModel):
+    r"""扩容队列配置。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _QueueName: <p>队列名称。</p>
+        :type QueueName: str
+        :param _MinSize: <p>队列中弹性节点数量最小值。默认值：0。取值范围：0～200。</p>
+        :type MinSize: int
+        :param _MaxSize: <p>队列中弹性节点数量最大值。默认值：10。取值范围：0～200。</p>
+        :type MaxSize: int
+        :param _EnableAutoExpansion: <p>是否开启自动扩容。</p>
+        :type EnableAutoExpansion: bool
+        :param _EnableAutoShrink: <p>是否开启自动缩容。</p>
+        :type EnableAutoShrink: bool
+        :param _ImageId: <p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-xxx</code>。目前仅支持公有镜和特定自定义镜像。</p>
+        :type ImageId: str
+        :param _SystemDisk: <p>节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。</p>
+        :type SystemDisk: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        :param _DataDisks: <p>节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。</p>
+        :type DataDisks: list of DataDisk
+        :param _InternetAccessible: <p>公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。</p>
+        :type InternetAccessible: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        :param _ExpansionNodeConfigs: <p>扩容节点配置信息。</p>
+        :type ExpansionNodeConfigs: list of ExpansionNodeConfig
+        :param _DesiredIdleNodeCapacity: <p>队列中期望的空闲节点数量（包含弹性节点和静态节点）。默认值：0。队列中，处于空闲状态的节点小于此值，集群会扩容弹性节点；处于空闲状态的节点大于此值，集群会缩容弹性节点。</p>
+        :type DesiredIdleNodeCapacity: int
+        :param _DesiredNodeCount: <p>队列中期望的总节点数。</p>
+        :type DesiredNodeCount: int
+        :param _ScaleOutRatio: <p>扩容比例。默认值：100。取值范围：1～100。<br>如果扩容比例为50，那么每轮只会扩容当前作业负载所需的50%数量的节点。</p>
+        :type ScaleOutRatio: int
+        :param _ScaleOutNodeThreshold: <p>比例扩容阈值。默认值：0。取值范围：0～200。<br>当作业负载需要扩容节点数量大于此值，当前扩容轮次按照ScaleOutRatio配置的比例进行扩容。当作业负载需要扩容节点数量小于此值，当前扩容轮次扩容当前作业负载所需数量的节点。<br>此参数配合ScaleOutRatio参数进行使用，用于比例扩容场景下，在作业负载所需节点数量较小时，加快收敛速度。</p>
+        :type ScaleOutNodeThreshold: int
+        :param _MaxNodesPerCycle: <p>每轮扩容最大节点个数。默认值：100。取值范围：1～100。</p>
+        :type MaxNodesPerCycle: int
+        :param _ScaleUpMemRatio: <p>扩容过程中，作业的内存在匹配实例机型时增大比例（不会影响作业提交的内存大小，只影响匹配计算过程）。<br><br>针对场景：由于实例机型的总内存会大于实例内部的可用内存，16GB内存规格的实例，实例操作系统内的可用内存只有约14.9GB内存。假设此时提交一个需要15GB内存的作业，</p><ul><li>当ScaleUpMemRatio=0时，会匹配到16GB内存规格的实例,但是由于操作系统内的可用内存为14.9GB小于作业所需的15GB，扩容出来的实例作业无法运行起来。</li><li>当ScaleUpMemRatio=10时，匹配实例规格会按照15*(1+10%)=16.5GB来进行实例规格匹配，则不会匹配到16GB的实例，而是更大内存规格的实例来保证作业能够被运行起来。</li></ul>
+        :type ScaleUpMemRatio: int
+        :param _EnhancedService: <p>增强服务。通过该参数可以指定是否开启云安全、腾讯云可观测平台等服务。若不指定该参数，则默认开启腾讯云可观测平台、云安全服务、自动化助手服务。</p>
+        :type EnhancedService: :class:`tencentcloud.thpc.v20230321.models.EnhancedService`
+        :param _LaunchTemplateIds: <p>扩容实例模板，可以在cvm侧进行设置</p>
+        :type LaunchTemplateIds: list of str
+        """
+        self._QueueName = None
+        self._MinSize = None
+        self._MaxSize = None
+        self._EnableAutoExpansion = None
+        self._EnableAutoShrink = None
+        self._ImageId = None
+        self._SystemDisk = None
+        self._DataDisks = None
+        self._InternetAccessible = None
+        self._ExpansionNodeConfigs = None
+        self._DesiredIdleNodeCapacity = None
+        self._DesiredNodeCount = None
+        self._ScaleOutRatio = None
+        self._ScaleOutNodeThreshold = None
+        self._MaxNodesPerCycle = None
+        self._ScaleUpMemRatio = None
+        self._EnhancedService = None
+        self._LaunchTemplateIds = None
+
+    @property
+    def QueueName(self):
+        r"""<p>队列名称。</p>
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+    @property
+    def MinSize(self):
+        r"""<p>队列中弹性节点数量最小值。默认值：0。取值范围：0～200。</p>
+        :rtype: int
+        """
+        return self._MinSize
+
+    @MinSize.setter
+    def MinSize(self, MinSize):
+        self._MinSize = MinSize
+
+    @property
+    def MaxSize(self):
+        r"""<p>队列中弹性节点数量最大值。默认值：10。取值范围：0～200。</p>
+        :rtype: int
+        """
+        return self._MaxSize
+
+    @MaxSize.setter
+    def MaxSize(self, MaxSize):
+        self._MaxSize = MaxSize
+
+    @property
+    def EnableAutoExpansion(self):
+        r"""<p>是否开启自动扩容。</p>
+        :rtype: bool
+        """
+        return self._EnableAutoExpansion
+
+    @EnableAutoExpansion.setter
+    def EnableAutoExpansion(self, EnableAutoExpansion):
+        self._EnableAutoExpansion = EnableAutoExpansion
+
+    @property
+    def EnableAutoShrink(self):
+        r"""<p>是否开启自动缩容。</p>
+        :rtype: bool
+        """
+        return self._EnableAutoShrink
+
+    @EnableAutoShrink.setter
+    def EnableAutoShrink(self, EnableAutoShrink):
+        self._EnableAutoShrink = EnableAutoShrink
+
+    @property
+    def ImageId(self):
+        r"""<p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-xxx</code>。目前仅支持公有镜和特定自定义镜像。</p>
+        :rtype: str
+        """
+        return self._ImageId
+
+    @ImageId.setter
+    def ImageId(self, ImageId):
+        self._ImageId = ImageId
+
+    @property
+    def SystemDisk(self):
+        r"""<p>节点系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.SystemDisk`
+        """
+        return self._SystemDisk
+
+    @SystemDisk.setter
+    def SystemDisk(self, SystemDisk):
+        self._SystemDisk = SystemDisk
+
+    @property
+    def DataDisks(self):
+        r"""<p>节点数据盘配置信息。若不指定该参数，则默认不购买数据盘。支持购买的时候指定21块数据盘，其中最多包含1块LOCAL_BASIC数据盘或者LOCAL_SSD数据盘，最多包含20块CLOUD_BASIC数据盘、CLOUD_PREMIUM数据盘或者CLOUD_SSD数据盘。</p>
+        :rtype: list of DataDisk
+        """
+        return self._DataDisks
+
+    @DataDisks.setter
+    def DataDisks(self, DataDisks):
+        self._DataDisks = DataDisks
+
+    @property
+    def InternetAccessible(self):
+        r"""<p>公网带宽相关信息设置。若不指定该参数，则默认公网带宽为0Mbps。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.InternetAccessible`
+        """
+        return self._InternetAccessible
+
+    @InternetAccessible.setter
+    def InternetAccessible(self, InternetAccessible):
+        self._InternetAccessible = InternetAccessible
+
+    @property
+    def ExpansionNodeConfigs(self):
+        r"""<p>扩容节点配置信息。</p>
+        :rtype: list of ExpansionNodeConfig
+        """
+        return self._ExpansionNodeConfigs
+
+    @ExpansionNodeConfigs.setter
+    def ExpansionNodeConfigs(self, ExpansionNodeConfigs):
+        self._ExpansionNodeConfigs = ExpansionNodeConfigs
+
+    @property
+    def DesiredIdleNodeCapacity(self):
+        r"""<p>队列中期望的空闲节点数量（包含弹性节点和静态节点）。默认值：0。队列中，处于空闲状态的节点小于此值，集群会扩容弹性节点；处于空闲状态的节点大于此值，集群会缩容弹性节点。</p>
+        :rtype: int
+        """
+        return self._DesiredIdleNodeCapacity
+
+    @DesiredIdleNodeCapacity.setter
+    def DesiredIdleNodeCapacity(self, DesiredIdleNodeCapacity):
+        self._DesiredIdleNodeCapacity = DesiredIdleNodeCapacity
+
+    @property
+    def DesiredNodeCount(self):
+        r"""<p>队列中期望的总节点数。</p>
+        :rtype: int
+        """
+        return self._DesiredNodeCount
+
+    @DesiredNodeCount.setter
+    def DesiredNodeCount(self, DesiredNodeCount):
+        self._DesiredNodeCount = DesiredNodeCount
+
+    @property
+    def ScaleOutRatio(self):
+        r"""<p>扩容比例。默认值：100。取值范围：1～100。<br>如果扩容比例为50，那么每轮只会扩容当前作业负载所需的50%数量的节点。</p>
+        :rtype: int
+        """
+        return self._ScaleOutRatio
+
+    @ScaleOutRatio.setter
+    def ScaleOutRatio(self, ScaleOutRatio):
+        self._ScaleOutRatio = ScaleOutRatio
+
+    @property
+    def ScaleOutNodeThreshold(self):
+        r"""<p>比例扩容阈值。默认值：0。取值范围：0～200。<br>当作业负载需要扩容节点数量大于此值，当前扩容轮次按照ScaleOutRatio配置的比例进行扩容。当作业负载需要扩容节点数量小于此值，当前扩容轮次扩容当前作业负载所需数量的节点。<br>此参数配合ScaleOutRatio参数进行使用，用于比例扩容场景下，在作业负载所需节点数量较小时，加快收敛速度。</p>
+        :rtype: int
+        """
+        return self._ScaleOutNodeThreshold
+
+    @ScaleOutNodeThreshold.setter
+    def ScaleOutNodeThreshold(self, ScaleOutNodeThreshold):
+        self._ScaleOutNodeThreshold = ScaleOutNodeThreshold
+
+    @property
+    def MaxNodesPerCycle(self):
+        r"""<p>每轮扩容最大节点个数。默认值：100。取值范围：1～100。</p>
+        :rtype: int
+        """
+        return self._MaxNodesPerCycle
+
+    @MaxNodesPerCycle.setter
+    def MaxNodesPerCycle(self, MaxNodesPerCycle):
+        self._MaxNodesPerCycle = MaxNodesPerCycle
+
+    @property
+    def ScaleUpMemRatio(self):
+        r"""<p>扩容过程中，作业的内存在匹配实例机型时增大比例（不会影响作业提交的内存大小，只影响匹配计算过程）。<br><br>针对场景：由于实例机型的总内存会大于实例内部的可用内存，16GB内存规格的实例，实例操作系统内的可用内存只有约14.9GB内存。假设此时提交一个需要15GB内存的作业，</p><ul><li>当ScaleUpMemRatio=0时，会匹配到16GB内存规格的实例,但是由于操作系统内的可用内存为14.9GB小于作业所需的15GB，扩容出来的实例作业无法运行起来。</li><li>当ScaleUpMemRatio=10时，匹配实例规格会按照15*(1+10%)=16.5GB来进行实例规格匹配，则不会匹配到16GB的实例，而是更大内存规格的实例来保证作业能够被运行起来。</li></ul>
+        :rtype: int
+        """
+        return self._ScaleUpMemRatio
+
+    @ScaleUpMemRatio.setter
+    def ScaleUpMemRatio(self, ScaleUpMemRatio):
+        self._ScaleUpMemRatio = ScaleUpMemRatio
+
+    @property
+    def EnhancedService(self):
+        r"""<p>增强服务。通过该参数可以指定是否开启云安全、腾讯云可观测平台等服务。若不指定该参数，则默认开启腾讯云可观测平台、云安全服务、自动化助手服务。</p>
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.EnhancedService`
+        """
+        return self._EnhancedService
+
+    @EnhancedService.setter
+    def EnhancedService(self, EnhancedService):
+        self._EnhancedService = EnhancedService
+
+    @property
+    def LaunchTemplateIds(self):
+        r"""<p>扩容实例模板，可以在cvm侧进行设置</p>
+        :rtype: list of str
+        """
+        return self._LaunchTemplateIds
+
+    @LaunchTemplateIds.setter
+    def LaunchTemplateIds(self, LaunchTemplateIds):
+        self._LaunchTemplateIds = LaunchTemplateIds
+
+
+    def _deserialize(self, params):
+        self._QueueName = params.get("QueueName")
+        self._MinSize = params.get("MinSize")
+        self._MaxSize = params.get("MaxSize")
+        self._EnableAutoExpansion = params.get("EnableAutoExpansion")
+        self._EnableAutoShrink = params.get("EnableAutoShrink")
+        self._ImageId = params.get("ImageId")
+        if params.get("SystemDisk") is not None:
+            self._SystemDisk = SystemDisk()
+            self._SystemDisk._deserialize(params.get("SystemDisk"))
+        if params.get("DataDisks") is not None:
+            self._DataDisks = []
+            for item in params.get("DataDisks"):
+                obj = DataDisk()
+                obj._deserialize(item)
+                self._DataDisks.append(obj)
+        if params.get("InternetAccessible") is not None:
+            self._InternetAccessible = InternetAccessible()
+            self._InternetAccessible._deserialize(params.get("InternetAccessible"))
+        if params.get("ExpansionNodeConfigs") is not None:
+            self._ExpansionNodeConfigs = []
+            for item in params.get("ExpansionNodeConfigs"):
+                obj = ExpansionNodeConfig()
+                obj._deserialize(item)
+                self._ExpansionNodeConfigs.append(obj)
+        self._DesiredIdleNodeCapacity = params.get("DesiredIdleNodeCapacity")
+        self._DesiredNodeCount = params.get("DesiredNodeCount")
+        self._ScaleOutRatio = params.get("ScaleOutRatio")
+        self._ScaleOutNodeThreshold = params.get("ScaleOutNodeThreshold")
+        self._MaxNodesPerCycle = params.get("MaxNodesPerCycle")
+        self._ScaleUpMemRatio = params.get("ScaleUpMemRatio")
+        if params.get("EnhancedService") is not None:
+            self._EnhancedService = EnhancedService()
+            self._EnhancedService._deserialize(params.get("EnhancedService"))
+        self._LaunchTemplateIds = params.get("LaunchTemplateIds")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class QueueConfigOverview(AbstractModel):
+    r"""扩容队列配置概览。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _QueueName: 队列名称。
+        :type QueueName: str
+        :param _MinSize: 队列中弹性节点数量最小值。取值范围0～200。
+        :type MinSize: int
+        :param _MaxSize: 队列中弹性节点数量最大值。取值范围0～200。
+        :type MaxSize: int
+        :param _EnableAutoExpansion: 是否开启自动扩容。
+        :type EnableAutoExpansion: bool
+        :param _EnableAutoShrink: 是否开启自动缩容。
+        :type EnableAutoShrink: bool
+        :param _ExpansionNodeConfigs: 扩容节点配置信息。
+        :type ExpansionNodeConfigs: list of ExpansionNodeConfigOverview
+        :param _DesiredIdleNodeCapacity: 队列中期望的空闲节点数量（包含弹性节点和静态节点）。默认值：0。队列中，处于空闲状态的节点小于此值，集群会扩容弹性节点；处于空闲状态的节点大于此值，集群会缩容弹性节点。
+        :type DesiredIdleNodeCapacity: int
+        :param _DesiredNodeCount: 队列中期望的总节点数。
+        :type DesiredNodeCount: int
+        :param _ScaleOutRatio: 扩容比例。默认值：100。取值范围：1～100。
+如果扩容比例为50，那么每轮只会扩容当前作业负载所需的50%数量的节点。
+        :type ScaleOutRatio: int
+        :param _ScaleOutNodeThreshold: 比例扩容阈值。默认值：0。取值范围：0～200。
+当作业负载需要扩容节点数量大于此值，当前扩容轮次按照ScaleOutRatio配置的的比例进行扩容。当作业负载需要扩容节点数量小于此值，当前扩容轮次扩容当前作业负载所需数量的节点。
+此参数配合ScaleOutRatio参数进行使用，用于比例扩容场景下，在作业负载所需节点数量较小时，加快收敛速度。
+        :type ScaleOutNodeThreshold: int
+        :param _MaxNodesPerCycle: 每轮扩容最大节点个数。
+        :type MaxNodesPerCycle: int
+        :param _ScaleUpMemRatio: 扩容过程中，作业的内存在匹配实例机型时增大比例（不会影响作业提交的内存大小，只影响匹配计算过程）。<br/>
+针对场景：由于实例机型的总内存会大于实例内部的可用内存，16GB内存规格的实例，实例操作系统内的可用内存只有约14.9GB内存。假设此时提交一个需要15GB内存的作业，
+
+- 当ScaleUpMemRatio=0时，会匹配到16GB内存规格的实例,但是由于操作系统内的可用内存为14.9GB小于作业所需的15GB，扩容出来的实例作业无法运行起来。
+- 当ScaleUpMemRatio=10时，匹配实例规格会按照15*(1+10%)=16.5GB来进行实例规格匹配，则不会匹配到16GB的实例，而是更大内存规格的实例来保证作业能够被运行起来。
+        :type ScaleUpMemRatio: int
+        """
+        self._QueueName = None
+        self._MinSize = None
+        self._MaxSize = None
+        self._EnableAutoExpansion = None
+        self._EnableAutoShrink = None
+        self._ExpansionNodeConfigs = None
+        self._DesiredIdleNodeCapacity = None
+        self._DesiredNodeCount = None
+        self._ScaleOutRatio = None
+        self._ScaleOutNodeThreshold = None
+        self._MaxNodesPerCycle = None
+        self._ScaleUpMemRatio = None
+
+    @property
+    def QueueName(self):
+        r"""队列名称。
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+    @property
+    def MinSize(self):
+        r"""队列中弹性节点数量最小值。取值范围0～200。
+        :rtype: int
+        """
+        return self._MinSize
+
+    @MinSize.setter
+    def MinSize(self, MinSize):
+        self._MinSize = MinSize
+
+    @property
+    def MaxSize(self):
+        r"""队列中弹性节点数量最大值。取值范围0～200。
+        :rtype: int
+        """
+        return self._MaxSize
+
+    @MaxSize.setter
+    def MaxSize(self, MaxSize):
+        self._MaxSize = MaxSize
+
+    @property
+    def EnableAutoExpansion(self):
+        r"""是否开启自动扩容。
+        :rtype: bool
+        """
+        return self._EnableAutoExpansion
+
+    @EnableAutoExpansion.setter
+    def EnableAutoExpansion(self, EnableAutoExpansion):
+        self._EnableAutoExpansion = EnableAutoExpansion
+
+    @property
+    def EnableAutoShrink(self):
+        r"""是否开启自动缩容。
+        :rtype: bool
+        """
+        return self._EnableAutoShrink
+
+    @EnableAutoShrink.setter
+    def EnableAutoShrink(self, EnableAutoShrink):
+        self._EnableAutoShrink = EnableAutoShrink
+
+    @property
+    def ExpansionNodeConfigs(self):
+        r"""扩容节点配置信息。
+        :rtype: list of ExpansionNodeConfigOverview
+        """
+        return self._ExpansionNodeConfigs
+
+    @ExpansionNodeConfigs.setter
+    def ExpansionNodeConfigs(self, ExpansionNodeConfigs):
+        self._ExpansionNodeConfigs = ExpansionNodeConfigs
+
+    @property
+    def DesiredIdleNodeCapacity(self):
+        r"""队列中期望的空闲节点数量（包含弹性节点和静态节点）。默认值：0。队列中，处于空闲状态的节点小于此值，集群会扩容弹性节点；处于空闲状态的节点大于此值，集群会缩容弹性节点。
+        :rtype: int
+        """
+        return self._DesiredIdleNodeCapacity
+
+    @DesiredIdleNodeCapacity.setter
+    def DesiredIdleNodeCapacity(self, DesiredIdleNodeCapacity):
+        self._DesiredIdleNodeCapacity = DesiredIdleNodeCapacity
+
+    @property
+    def DesiredNodeCount(self):
+        r"""队列中期望的总节点数。
+        :rtype: int
+        """
+        return self._DesiredNodeCount
+
+    @DesiredNodeCount.setter
+    def DesiredNodeCount(self, DesiredNodeCount):
+        self._DesiredNodeCount = DesiredNodeCount
+
+    @property
+    def ScaleOutRatio(self):
+        r"""扩容比例。默认值：100。取值范围：1～100。
+如果扩容比例为50，那么每轮只会扩容当前作业负载所需的50%数量的节点。
+        :rtype: int
+        """
+        return self._ScaleOutRatio
+
+    @ScaleOutRatio.setter
+    def ScaleOutRatio(self, ScaleOutRatio):
+        self._ScaleOutRatio = ScaleOutRatio
+
+    @property
+    def ScaleOutNodeThreshold(self):
+        r"""比例扩容阈值。默认值：0。取值范围：0～200。
+当作业负载需要扩容节点数量大于此值，当前扩容轮次按照ScaleOutRatio配置的的比例进行扩容。当作业负载需要扩容节点数量小于此值，当前扩容轮次扩容当前作业负载所需数量的节点。
+此参数配合ScaleOutRatio参数进行使用，用于比例扩容场景下，在作业负载所需节点数量较小时，加快收敛速度。
+        :rtype: int
+        """
+        return self._ScaleOutNodeThreshold
+
+    @ScaleOutNodeThreshold.setter
+    def ScaleOutNodeThreshold(self, ScaleOutNodeThreshold):
+        self._ScaleOutNodeThreshold = ScaleOutNodeThreshold
+
+    @property
+    def MaxNodesPerCycle(self):
+        r"""每轮扩容最大节点个数。
+        :rtype: int
+        """
+        return self._MaxNodesPerCycle
+
+    @MaxNodesPerCycle.setter
+    def MaxNodesPerCycle(self, MaxNodesPerCycle):
+        self._MaxNodesPerCycle = MaxNodesPerCycle
+
+    @property
+    def ScaleUpMemRatio(self):
+        r"""扩容过程中，作业的内存在匹配实例机型时增大比例（不会影响作业提交的内存大小，只影响匹配计算过程）。<br/>
+针对场景：由于实例机型的总内存会大于实例内部的可用内存，16GB内存规格的实例，实例操作系统内的可用内存只有约14.9GB内存。假设此时提交一个需要15GB内存的作业，
+
+- 当ScaleUpMemRatio=0时，会匹配到16GB内存规格的实例,但是由于操作系统内的可用内存为14.9GB小于作业所需的15GB，扩容出来的实例作业无法运行起来。
+- 当ScaleUpMemRatio=10时，匹配实例规格会按照15*(1+10%)=16.5GB来进行实例规格匹配，则不会匹配到16GB的实例，而是更大内存规格的实例来保证作业能够被运行起来。
+        :rtype: int
+        """
+        return self._ScaleUpMemRatio
+
+    @ScaleUpMemRatio.setter
+    def ScaleUpMemRatio(self, ScaleUpMemRatio):
+        self._ScaleUpMemRatio = ScaleUpMemRatio
+
+
+    def _deserialize(self, params):
+        self._QueueName = params.get("QueueName")
+        self._MinSize = params.get("MinSize")
+        self._MaxSize = params.get("MaxSize")
+        self._EnableAutoExpansion = params.get("EnableAutoExpansion")
+        self._EnableAutoShrink = params.get("EnableAutoShrink")
+        if params.get("ExpansionNodeConfigs") is not None:
+            self._ExpansionNodeConfigs = []
+            for item in params.get("ExpansionNodeConfigs"):
+                obj = ExpansionNodeConfigOverview()
+                obj._deserialize(item)
+                self._ExpansionNodeConfigs.append(obj)
+        self._DesiredIdleNodeCapacity = params.get("DesiredIdleNodeCapacity")
+        self._DesiredNodeCount = params.get("DesiredNodeCount")
+        self._ScaleOutRatio = params.get("ScaleOutRatio")
+        self._ScaleOutNodeThreshold = params.get("ScaleOutNodeThreshold")
+        self._MaxNodesPerCycle = params.get("MaxNodesPerCycle")
+        self._ScaleUpMemRatio = params.get("ScaleUpMemRatio")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class QueueOverview(AbstractModel):
+    r"""队列信息概览。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _QueueName: 队列名称。
+        :type QueueName: str
+        """
+        self._QueueName = None
+
+    @property
+    def QueueName(self):
+        r"""队列名称。
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+
+    def _deserialize(self, params):
+        self._QueueName = params.get("QueueName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class RunAutomationServiceEnabled(AbstractModel):
+    r"""描述了 “云自动化助手” 服务相关的信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Enabled: 是否开启云自动化助手。取值范围：<br><li>TRUE：表示开启云自动化助手服务</li><br><li>FALSE：表示不开启云自动化助手服务</li><br><br>默认取值：TRUE。
+        :type Enabled: bool
+        """
+        self._Enabled = None
+
+    @property
+    def Enabled(self):
+        r"""是否开启云自动化助手。取值范围：<br><li>TRUE：表示开启云自动化助手服务</li><br><li>FALSE：表示不开启云自动化助手服务</li><br><br>默认取值：TRUE。
+        :rtype: bool
+        """
+        return self._Enabled
+
+    @Enabled.setter
+    def Enabled(self, Enabled):
+        self._Enabled = Enabled
+
+
+    def _deserialize(self, params):
+        self._Enabled = params.get("Enabled")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class RunMonitorServiceEnabled(AbstractModel):
+    r"""描述了 “腾讯云可观测平台” 服务相关的信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Enabled: 是否开启[腾讯云可观测平台](/document/product/248)服务。取值范围：<br><li>TRUE：表示开启腾讯云可观测平台服务</li><br><li>FALSE：表示不开启腾讯云可观测平台服务</li><br><br>默认取值：TRUE。
+        :type Enabled: bool
+        """
+        self._Enabled = None
+
+    @property
+    def Enabled(self):
+        r"""是否开启[腾讯云可观测平台](/document/product/248)服务。取值范围：<br><li>TRUE：表示开启腾讯云可观测平台服务</li><br><li>FALSE：表示不开启腾讯云可观测平台服务</li><br><br>默认取值：TRUE。
+        :rtype: bool
+        """
+        return self._Enabled
+
+    @Enabled.setter
+    def Enabled(self, Enabled):
+        self._Enabled = Enabled
+
+
+    def _deserialize(self, params):
+        self._Enabled = params.get("Enabled")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class RunSecurityServiceEnabled(AbstractModel):
+    r"""描述了 “云安全” 服务相关的信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Enabled: 是否开启[云安全](/document/product/296)服务。取值范围：<br><li>TRUE：表示开启云安全服务</li><br><li>FALSE：表示不开启云安全服务</li><br><br>默认取值：TRUE。
+        :type Enabled: bool
+        """
+        self._Enabled = None
+
+    @property
+    def Enabled(self):
+        r"""是否开启[云安全](/document/product/296)服务。取值范围：<br><li>TRUE：表示开启云安全服务</li><br><li>FALSE：表示不开启云安全服务</li><br><br>默认取值：TRUE。
+        :rtype: bool
+        """
+        return self._Enabled
+
+    @Enabled.setter
+    def Enabled(self, Enabled):
+        self._Enabled = Enabled
+
+
+    def _deserialize(self, params):
+        self._Enabled = params.get("Enabled")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SetAutoScalingConfigurationRequest(AbstractModel):
+    r"""SetAutoScalingConfiguration请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: <p>集群ID。</p>
+        :type ClusterId: str
+        :param _ExpansionBusyTime: <p>任务连续等待时间，队列的任务处于连续等待的时间。单位秒。默认值120。</p>
+        :type ExpansionBusyTime: int
+        :param _ShrinkIdleTime: <p>节点连续空闲（未运行作业）时间，一个节点连续处于空闲状态时间。单位秒。默认值300。</p>
+        :type ShrinkIdleTime: int
+        :param _QueueConfigs: <p>扩容队列配置列表。</p>
+        :type QueueConfigs: list of QueueConfig
+        :param _DryRun: <p>是否只预检此次请求。<br>true：发送检查请求，不会绑定弹性伸缩组。检查项包括是否填写了必需参数，请求格式，业务限制。<br>如果检查不通过，则返回对应错误码；<br>如果检查通过，则返回RequestId。<br>false（默认）：发送正常请求，通过检查后直接绑定弹性伸缩组。</p>
+        :type DryRun: bool
+        """
+        self._ClusterId = None
+        self._ExpansionBusyTime = None
+        self._ShrinkIdleTime = None
+        self._QueueConfigs = None
+        self._DryRun = None
+
+    @property
+    def ClusterId(self):
+        r"""<p>集群ID。</p>
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def ExpansionBusyTime(self):
+        r"""<p>任务连续等待时间，队列的任务处于连续等待的时间。单位秒。默认值120。</p>
+        :rtype: int
+        """
+        return self._ExpansionBusyTime
+
+    @ExpansionBusyTime.setter
+    def ExpansionBusyTime(self, ExpansionBusyTime):
+        self._ExpansionBusyTime = ExpansionBusyTime
+
+    @property
+    def ShrinkIdleTime(self):
+        r"""<p>节点连续空闲（未运行作业）时间，一个节点连续处于空闲状态时间。单位秒。默认值300。</p>
+        :rtype: int
+        """
+        return self._ShrinkIdleTime
+
+    @ShrinkIdleTime.setter
+    def ShrinkIdleTime(self, ShrinkIdleTime):
+        self._ShrinkIdleTime = ShrinkIdleTime
+
+    @property
+    def QueueConfigs(self):
+        r"""<p>扩容队列配置列表。</p>
+        :rtype: list of QueueConfig
+        """
+        return self._QueueConfigs
+
+    @QueueConfigs.setter
+    def QueueConfigs(self, QueueConfigs):
+        self._QueueConfigs = QueueConfigs
+
+    @property
+    def DryRun(self):
+        r"""<p>是否只预检此次请求。<br>true：发送检查请求，不会绑定弹性伸缩组。检查项包括是否填写了必需参数，请求格式，业务限制。<br>如果检查不通过，则返回对应错误码；<br>如果检查通过，则返回RequestId。<br>false（默认）：发送正常请求，通过检查后直接绑定弹性伸缩组。</p>
+        :rtype: bool
+        """
+        return self._DryRun
+
+    @DryRun.setter
+    def DryRun(self, DryRun):
+        self._DryRun = DryRun
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._ExpansionBusyTime = params.get("ExpansionBusyTime")
+        self._ShrinkIdleTime = params.get("ShrinkIdleTime")
+        if params.get("QueueConfigs") is not None:
+            self._QueueConfigs = []
+            for item in params.get("QueueConfigs"):
+                obj = QueueConfig()
+                obj._deserialize(item)
+                self._QueueConfigs.append(obj)
+        self._DryRun = params.get("DryRun")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SetAutoScalingConfigurationResponse(AbstractModel):
+    r"""SetAutoScalingConfiguration返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class SpaceChargePrepaid(AbstractModel):
+    r"""描述了工作空间的计费模式
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Period: 购买实例的时长，单位：月。取值范围：1, 2, 3, 12, 24, 36。默认取值为1。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type Period: int
+        :param _RenewFlag: 自动续费标识。取值范围：
+
+NOTIFY_AND_AUTO_RENEW：通知过期且自动续费
+
+NOTIFY_AND_MANUAL_RENEW：通知过期不自动续费
+
+DISABLE_NOTIFY_AND_MANUAL_RENEW：不通知过期不自动续费
+
+
+默认取值：NOTIFY_AND_MANUAL_RENEW。若该参数指定为NOTIFY_AND_AUTO_RENEW，在账户余额充足的情况下，实例到期后将按月自动续费。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type RenewFlag: str
+        """
+        self._Period = None
+        self._RenewFlag = None
+
+    @property
+    def Period(self):
+        r"""购买实例的时长，单位：月。取值范围：1, 2, 3, 12, 24, 36。默认取值为1。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._Period
+
+    @Period.setter
+    def Period(self, Period):
+        self._Period = Period
+
+    @property
+    def RenewFlag(self):
+        r"""自动续费标识。取值范围：
+
+NOTIFY_AND_AUTO_RENEW：通知过期且自动续费
+
+NOTIFY_AND_MANUAL_RENEW：通知过期不自动续费
+
+DISABLE_NOTIFY_AND_MANUAL_RENEW：不通知过期不自动续费
+
+
+默认取值：NOTIFY_AND_MANUAL_RENEW。若该参数指定为NOTIFY_AND_AUTO_RENEW，在账户余额充足的情况下，实例到期后将按月自动续费。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._RenewFlag
+
+    @RenewFlag.setter
+    def RenewFlag(self, RenewFlag):
+        self._RenewFlag = RenewFlag
+
+
+    def _deserialize(self, params):
+        self._Period = params.get("Period")
+        self._RenewFlag = params.get("RenewFlag")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SpaceDataDisk(AbstractModel):
+    r"""工作空间数据盘配置
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _DiskType: 数据盘类型。数据盘类型限制详见[存储概述](https://cloud.tencent.com/document/product/213/4952)。取值范围：<br />
+<li>
+  LOCAL_BASIC：本地硬盘<br />
+  <li>
+    LOCAL_SSD：本地SSD硬盘<br />
+    <li>
+      LOCAL_NVME：本地NVME硬盘，与InstanceType强相关，不支持指定<br />
+      <li>
+        LOCAL_PRO：本地HDD硬盘，与InstanceType强相关，不支持指定<br />
+        <li>
+          CLOUD_BASIC：普通云硬盘<br />
+          <li>
+            CLOUD_PREMIUM：高性能云硬盘<br />
+            <li>
+              CLOUD_SSD：SSD云硬盘<br />
+              <li>
+                CLOUD_HSSD：增强型SSD云硬盘<br />
+                <li>
+                  CLOUD_TSSD：极速型SSD云硬盘<br />
+                  <li>
+                    CLOUD_BSSD：通用型SSD云硬盘<br /><br />默认取值：LOCAL_BASIC。<br /><br />该参数对`ResizeInstanceDisk`接口无效。
+                  </li>
+                </li>
+              </li>
+            </li>
+          </li>
+        </li>
+      </li>
+    </li>
+  </li>
+</li>
+        :type DiskType: str
+        :param _DiskId: 数据盘
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DiskId: str
+        :param _DiskSize: 数据盘大小，单位：GB。最小调整步长为10G，不同数据盘类型取值范围不同，具体限制详见：[存储概述](https://cloud.tencent.com/document/product/213/4952)。默认值为0，表示不购买数据盘。更多限制详见产品文档。
+        :type DiskSize: int
+        :param _DeleteWithInstance: 数据盘是否随子机销毁。取值范围：
+<li>TRUE：子机销毁时，销毁数据盘，只支持按小时后付费云盘</li>
+<li>
+  FALSE：子机销毁时，保留数据盘<br />
+  默认取值：TRUE<br />
+  该参数目前仅用于 `RunInstances` 接口。
+</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DeleteWithInstance: bool
+        :param _SnapshotId: 数据盘快照ID。选择的数据盘快照大小需小于数据盘大小。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type SnapshotId: str
+        :param _Encrypt: 数据盘是加密。取值范围：
+<li>true：加密</li>
+<li>
+  false：不加密<br />
+  默认取值：false<br />
+  该参数目前仅用于 `RunInstances` 接口。
+</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :type Encrypt: bool
+        :param _KmsKeyId: 自定义CMK对应的ID，取值为UUID或者类似kms-abcd1234。用于加密云盘。
+
+该参数目前仅用于 `CreateWorkspaces` 接口。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type KmsKeyId: str
+        :param _ThroughputPerformance: 云硬盘性能，单位：MB/s
+注意：此字段可能返回 null，表示取不到有效值。
+        :type ThroughputPerformance: int
+        :param _BurstPerformance: 突发性能
+
+注：内测中。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type BurstPerformance: bool
+        """
+        self._DiskType = None
+        self._DiskId = None
+        self._DiskSize = None
+        self._DeleteWithInstance = None
+        self._SnapshotId = None
+        self._Encrypt = None
+        self._KmsKeyId = None
+        self._ThroughputPerformance = None
+        self._BurstPerformance = None
+
+    @property
+    def DiskType(self):
+        r"""数据盘类型。数据盘类型限制详见[存储概述](https://cloud.tencent.com/document/product/213/4952)。取值范围：<br />
+<li>
+  LOCAL_BASIC：本地硬盘<br />
+  <li>
+    LOCAL_SSD：本地SSD硬盘<br />
+    <li>
+      LOCAL_NVME：本地NVME硬盘，与InstanceType强相关，不支持指定<br />
+      <li>
+        LOCAL_PRO：本地HDD硬盘，与InstanceType强相关，不支持指定<br />
+        <li>
+          CLOUD_BASIC：普通云硬盘<br />
+          <li>
+            CLOUD_PREMIUM：高性能云硬盘<br />
+            <li>
+              CLOUD_SSD：SSD云硬盘<br />
+              <li>
+                CLOUD_HSSD：增强型SSD云硬盘<br />
+                <li>
+                  CLOUD_TSSD：极速型SSD云硬盘<br />
+                  <li>
+                    CLOUD_BSSD：通用型SSD云硬盘<br /><br />默认取值：LOCAL_BASIC。<br /><br />该参数对`ResizeInstanceDisk`接口无效。
+                  </li>
+                </li>
+              </li>
+            </li>
+          </li>
+        </li>
+      </li>
+    </li>
+  </li>
+</li>
+        :rtype: str
+        """
+        return self._DiskType
+
+    @DiskType.setter
+    def DiskType(self, DiskType):
+        self._DiskType = DiskType
+
+    @property
+    def DiskId(self):
+        r"""数据盘
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._DiskId
+
+    @DiskId.setter
+    def DiskId(self, DiskId):
+        self._DiskId = DiskId
+
+    @property
+    def DiskSize(self):
+        r"""数据盘大小，单位：GB。最小调整步长为10G，不同数据盘类型取值范围不同，具体限制详见：[存储概述](https://cloud.tencent.com/document/product/213/4952)。默认值为0，表示不购买数据盘。更多限制详见产品文档。
+        :rtype: int
+        """
+        return self._DiskSize
+
+    @DiskSize.setter
+    def DiskSize(self, DiskSize):
+        self._DiskSize = DiskSize
+
+    @property
+    def DeleteWithInstance(self):
+        r"""数据盘是否随子机销毁。取值范围：
+<li>TRUE：子机销毁时，销毁数据盘，只支持按小时后付费云盘</li>
+<li>
+  FALSE：子机销毁时，保留数据盘<br />
+  默认取值：TRUE<br />
+  该参数目前仅用于 `RunInstances` 接口。
+</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: bool
+        """
+        return self._DeleteWithInstance
+
+    @DeleteWithInstance.setter
+    def DeleteWithInstance(self, DeleteWithInstance):
+        self._DeleteWithInstance = DeleteWithInstance
+
+    @property
+    def SnapshotId(self):
+        r"""数据盘快照ID。选择的数据盘快照大小需小于数据盘大小。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._SnapshotId
+
+    @SnapshotId.setter
+    def SnapshotId(self, SnapshotId):
+        self._SnapshotId = SnapshotId
+
+    @property
+    def Encrypt(self):
+        r"""数据盘是加密。取值范围：
+<li>true：加密</li>
+<li>
+  false：不加密<br />
+  默认取值：false<br />
+  该参数目前仅用于 `RunInstances` 接口。
+</li>
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: bool
+        """
+        return self._Encrypt
+
+    @Encrypt.setter
+    def Encrypt(self, Encrypt):
+        self._Encrypt = Encrypt
+
+    @property
+    def KmsKeyId(self):
+        r"""自定义CMK对应的ID，取值为UUID或者类似kms-abcd1234。用于加密云盘。
+
+该参数目前仅用于 `CreateWorkspaces` 接口。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._KmsKeyId
+
+    @KmsKeyId.setter
+    def KmsKeyId(self, KmsKeyId):
+        self._KmsKeyId = KmsKeyId
+
+    @property
+    def ThroughputPerformance(self):
+        r"""云硬盘性能，单位：MB/s
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._ThroughputPerformance
+
+    @ThroughputPerformance.setter
+    def ThroughputPerformance(self, ThroughputPerformance):
+        self._ThroughputPerformance = ThroughputPerformance
+
+    @property
+    def BurstPerformance(self):
+        r"""突发性能
+
+注：内测中。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: bool
+        """
+        return self._BurstPerformance
+
+    @BurstPerformance.setter
+    def BurstPerformance(self, BurstPerformance):
+        self._BurstPerformance = BurstPerformance
+
+
+    def _deserialize(self, params):
+        self._DiskType = params.get("DiskType")
+        self._DiskId = params.get("DiskId")
+        self._DiskSize = params.get("DiskSize")
+        self._DeleteWithInstance = params.get("DeleteWithInstance")
+        self._SnapshotId = params.get("SnapshotId")
+        self._Encrypt = params.get("Encrypt")
+        self._KmsKeyId = params.get("KmsKeyId")
+        self._ThroughputPerformance = params.get("ThroughputPerformance")
+        self._BurstPerformance = params.get("BurstPerformance")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SpaceInfo(AbstractModel):
+    r"""描述工作空间的信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SpaceId: 工作空间ID
+        :type SpaceId: str
+        :param _SpaceFamily: 工作空间类型
+        :type SpaceFamily: str
+        :param _SpaceType: 工作空间规格
+        :type SpaceType: str
+        :param _SpaceName: 工作空间名称
+        :type SpaceName: str
+        :param _SpaceState: 工作空间状态。取值范围：<br><li>PENDING：表示创建中<br></li><li>LAUNCH_FAILED：表示创建失败<br></li><li>ONLINE：表示运行中<br></li><li>ARREARS：表示隔离中<br></li><li>TERMINATING：表示销毁中。<br></li>
+        :type SpaceState: str
+        :param _SpaceChargeType: 工作空间计费模式
+        :type SpaceChargeType: str
+        :param _ResourceId: 工作空间对应资源ID
+        :type ResourceId: str
+        :param _RenewFlag: 自动续费标识
+        :type RenewFlag: str
+        :param _Tags: 工作空间关联的工作列表
+        :type Tags: list of Tag
+        :param _CreatedTime: 创建时间
+        :type CreatedTime: str
+        :param _ExpiredTime: 到期时间
+        :type ExpiredTime: str
+        :param _Placement: 工作空间所在位置
+        :type Placement: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        :param _LatestOperation: 工作空间的最新操作
+注意：此字段可能返回 null，表示取不到有效值。
+        :type LatestOperation: str
+        :param _LatestOperationState: 工作空间的最新操作状态
+注意：此字段可能返回 null，表示取不到有效值。
+        :type LatestOperationState: str
+        """
+        self._SpaceId = None
+        self._SpaceFamily = None
+        self._SpaceType = None
+        self._SpaceName = None
+        self._SpaceState = None
+        self._SpaceChargeType = None
+        self._ResourceId = None
+        self._RenewFlag = None
+        self._Tags = None
+        self._CreatedTime = None
+        self._ExpiredTime = None
+        self._Placement = None
+        self._LatestOperation = None
+        self._LatestOperationState = None
+
+    @property
+    def SpaceId(self):
+        r"""工作空间ID
+        :rtype: str
+        """
+        return self._SpaceId
+
+    @SpaceId.setter
+    def SpaceId(self, SpaceId):
+        self._SpaceId = SpaceId
+
+    @property
+    def SpaceFamily(self):
+        r"""工作空间类型
+        :rtype: str
+        """
+        return self._SpaceFamily
+
+    @SpaceFamily.setter
+    def SpaceFamily(self, SpaceFamily):
+        self._SpaceFamily = SpaceFamily
+
+    @property
+    def SpaceType(self):
+        r"""工作空间规格
+        :rtype: str
+        """
+        return self._SpaceType
+
+    @SpaceType.setter
+    def SpaceType(self, SpaceType):
+        self._SpaceType = SpaceType
+
+    @property
+    def SpaceName(self):
+        r"""工作空间名称
+        :rtype: str
+        """
+        return self._SpaceName
+
+    @SpaceName.setter
+    def SpaceName(self, SpaceName):
+        self._SpaceName = SpaceName
+
+    @property
+    def SpaceState(self):
+        r"""工作空间状态。取值范围：<br><li>PENDING：表示创建中<br></li><li>LAUNCH_FAILED：表示创建失败<br></li><li>ONLINE：表示运行中<br></li><li>ARREARS：表示隔离中<br></li><li>TERMINATING：表示销毁中。<br></li>
+        :rtype: str
+        """
+        return self._SpaceState
+
+    @SpaceState.setter
+    def SpaceState(self, SpaceState):
+        self._SpaceState = SpaceState
+
+    @property
+    def SpaceChargeType(self):
+        r"""工作空间计费模式
+        :rtype: str
+        """
+        return self._SpaceChargeType
+
+    @SpaceChargeType.setter
+    def SpaceChargeType(self, SpaceChargeType):
+        self._SpaceChargeType = SpaceChargeType
+
+    @property
+    def ResourceId(self):
+        r"""工作空间对应资源ID
+        :rtype: str
+        """
+        return self._ResourceId
+
+    @ResourceId.setter
+    def ResourceId(self, ResourceId):
+        self._ResourceId = ResourceId
+
+    @property
+    def RenewFlag(self):
+        r"""自动续费标识
+        :rtype: str
+        """
+        return self._RenewFlag
+
+    @RenewFlag.setter
+    def RenewFlag(self, RenewFlag):
+        self._RenewFlag = RenewFlag
+
+    @property
+    def Tags(self):
+        r"""工作空间关联的工作列表
+        :rtype: list of Tag
+        """
+        return self._Tags
+
+    @Tags.setter
+    def Tags(self, Tags):
+        self._Tags = Tags
+
+    @property
+    def CreatedTime(self):
+        r"""创建时间
+        :rtype: str
+        """
+        return self._CreatedTime
+
+    @CreatedTime.setter
+    def CreatedTime(self, CreatedTime):
+        self._CreatedTime = CreatedTime
+
+    @property
+    def ExpiredTime(self):
+        r"""到期时间
+        :rtype: str
+        """
+        return self._ExpiredTime
+
+    @ExpiredTime.setter
+    def ExpiredTime(self, ExpiredTime):
+        self._ExpiredTime = ExpiredTime
+
+    @property
+    def Placement(self):
+        r"""工作空间所在位置
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Placement`
+        """
+        return self._Placement
+
+    @Placement.setter
+    def Placement(self, Placement):
+        self._Placement = Placement
+
+    @property
+    def LatestOperation(self):
+        r"""工作空间的最新操作
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._LatestOperation
+
+    @LatestOperation.setter
+    def LatestOperation(self, LatestOperation):
+        self._LatestOperation = LatestOperation
+
+    @property
+    def LatestOperationState(self):
+        r"""工作空间的最新操作状态
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._LatestOperationState
+
+    @LatestOperationState.setter
+    def LatestOperationState(self, LatestOperationState):
+        self._LatestOperationState = LatestOperationState
+
+
+    def _deserialize(self, params):
+        self._SpaceId = params.get("SpaceId")
+        self._SpaceFamily = params.get("SpaceFamily")
+        self._SpaceType = params.get("SpaceType")
+        self._SpaceName = params.get("SpaceName")
+        self._SpaceState = params.get("SpaceState")
+        self._SpaceChargeType = params.get("SpaceChargeType")
+        self._ResourceId = params.get("ResourceId")
+        self._RenewFlag = params.get("RenewFlag")
+        if params.get("Tags") is not None:
+            self._Tags = []
+            for item in params.get("Tags"):
+                obj = Tag()
+                obj._deserialize(item)
+                self._Tags.append(obj)
+        self._CreatedTime = params.get("CreatedTime")
+        self._ExpiredTime = params.get("ExpiredTime")
+        if params.get("Placement") is not None:
+            self._Placement = Placement()
+            self._Placement._deserialize(params.get("Placement"))
+        self._LatestOperation = params.get("LatestOperation")
+        self._LatestOperationState = params.get("LatestOperationState")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SpaceInternetAccessible(AbstractModel):
+    r"""描述了工作空间的公网可访问性，声明了工作空间的公网使用计费模式，最大带宽等
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InternetChargeType: 网络计费类型
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InternetChargeType: str
+        :param _InternetMaxBandwidthOut: 公网出带宽上限，默认为0
+注意：此字段可能返回 null，表示取不到有效值。
+        :type InternetMaxBandwidthOut: int
+        :param _PublicIpAssigned: 是否分配公网IP
+注意：此字段可能返回 null，表示取不到有效值。
+        :type PublicIpAssigned: bool
+        :param _BandwidthPackageId: 带宽包ID
+注意：此字段可能返回 null，表示取不到有效值。
+        :type BandwidthPackageId: str
+        """
+        self._InternetChargeType = None
+        self._InternetMaxBandwidthOut = None
+        self._PublicIpAssigned = None
+        self._BandwidthPackageId = None
+
+    @property
+    def InternetChargeType(self):
+        r"""网络计费类型
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._InternetChargeType
+
+    @InternetChargeType.setter
+    def InternetChargeType(self, InternetChargeType):
+        self._InternetChargeType = InternetChargeType
+
+    @property
+    def InternetMaxBandwidthOut(self):
+        r"""公网出带宽上限，默认为0
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._InternetMaxBandwidthOut
+
+    @InternetMaxBandwidthOut.setter
+    def InternetMaxBandwidthOut(self, InternetMaxBandwidthOut):
+        self._InternetMaxBandwidthOut = InternetMaxBandwidthOut
+
+    @property
+    def PublicIpAssigned(self):
+        r"""是否分配公网IP
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: bool
+        """
+        return self._PublicIpAssigned
+
+    @PublicIpAssigned.setter
+    def PublicIpAssigned(self, PublicIpAssigned):
+        self._PublicIpAssigned = PublicIpAssigned
+
+    @property
+    def BandwidthPackageId(self):
+        r"""带宽包ID
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._BandwidthPackageId
+
+    @BandwidthPackageId.setter
+    def BandwidthPackageId(self, BandwidthPackageId):
+        self._BandwidthPackageId = BandwidthPackageId
+
+
+    def _deserialize(self, params):
+        self._InternetChargeType = params.get("InternetChargeType")
+        self._InternetMaxBandwidthOut = params.get("InternetMaxBandwidthOut")
+        self._PublicIpAssigned = params.get("PublicIpAssigned")
+        self._BandwidthPackageId = params.get("BandwidthPackageId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SpacePlacement(AbstractModel):
+    r"""描述了实例的抽象位置，包括其所在的可用区，所属的项目
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Zone: 可用区
+        :type Zone: str
+        :param _ProjectId: 项目，默认是0
+        :type ProjectId: int
+        """
+        self._Zone = None
+        self._ProjectId = None
+
+    @property
+    def Zone(self):
+        r"""可用区
+        :rtype: str
+        """
+        return self._Zone
+
+    @Zone.setter
+    def Zone(self, Zone):
+        self._Zone = Zone
+
+    @property
+    def ProjectId(self):
+        r"""项目，默认是0
+        :rtype: int
+        """
+        return self._ProjectId
+
+    @ProjectId.setter
+    def ProjectId(self, ProjectId):
+        self._ProjectId = ProjectId
+
+
+    def _deserialize(self, params):
+        self._Zone = params.get("Zone")
+        self._ProjectId = params.get("ProjectId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SpaceSystemDisk(AbstractModel):
+    r"""工作空间系统盘配置
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _DiskType: 系统盘类型。系统盘类型限制详见[存储概述](https://cloud.tencent.com/document/product/213/4952)。取值范围：<ul><li>LOCAL_BASIC：本地硬盘</li><li>LOCAL_SSD：本地SSD硬盘</li><li>CLOUD_BASIC：普通云硬盘</li><li>CLOUD_SSD：SSD云硬盘</li><li>CLOUD_PREMIUM：高性能云硬盘</li><li>CLOUD_BSSD：通用性SSD云硬盘</li><li>CLOUD_HSSD：增强型SSD云硬盘</li><li>CLOUD_TSSD：极速型SSD云硬盘</li></ul>默认取值：当前有库存的硬盘类型。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DiskType: str
+        :param _DiskSize: 系统盘大小，单位：GB。默认值为 50
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DiskSize: int
+        """
+        self._DiskType = None
+        self._DiskSize = None
+
+    @property
+    def DiskType(self):
+        r"""系统盘类型。系统盘类型限制详见[存储概述](https://cloud.tencent.com/document/product/213/4952)。取值范围：<ul><li>LOCAL_BASIC：本地硬盘</li><li>LOCAL_SSD：本地SSD硬盘</li><li>CLOUD_BASIC：普通云硬盘</li><li>CLOUD_SSD：SSD云硬盘</li><li>CLOUD_PREMIUM：高性能云硬盘</li><li>CLOUD_BSSD：通用性SSD云硬盘</li><li>CLOUD_HSSD：增强型SSD云硬盘</li><li>CLOUD_TSSD：极速型SSD云硬盘</li></ul>默认取值：当前有库存的硬盘类型。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._DiskType
+
+    @DiskType.setter
+    def DiskType(self, DiskType):
+        self._DiskType = DiskType
+
+    @property
+    def DiskSize(self):
+        r"""系统盘大小，单位：GB。默认值为 50
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._DiskSize
+
+    @DiskSize.setter
+    def DiskSize(self, DiskSize):
+        self._DiskSize = DiskSize
+
+
+    def _deserialize(self, params):
+        self._DiskType = params.get("DiskType")
+        self._DiskSize = params.get("DiskSize")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SpaceVirtualPrivateCloud(AbstractModel):
+    r"""描述了工作空间VPC相关信息，包括子网，IP信息等
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _VpcId: 私有网络ID
+        :type VpcId: str
+        :param _SubnetId: 私有网络子网ID
+        :type SubnetId: str
+        :param _AsVpcGateway: 是否用作公网网关
+        :type AsVpcGateway: bool
+        :param _PrivateIpAddresses: 私有网络子网 IP 数组
+        :type PrivateIpAddresses: list of str
+        :param _Ipv6AddressCount: 为弹性网卡指定随机生成
+        :type Ipv6AddressCount: int
+        """
+        self._VpcId = None
+        self._SubnetId = None
+        self._AsVpcGateway = None
+        self._PrivateIpAddresses = None
+        self._Ipv6AddressCount = None
+
+    @property
+    def VpcId(self):
+        r"""私有网络ID
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""私有网络子网ID
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def AsVpcGateway(self):
+        r"""是否用作公网网关
+        :rtype: bool
+        """
+        return self._AsVpcGateway
+
+    @AsVpcGateway.setter
+    def AsVpcGateway(self, AsVpcGateway):
+        self._AsVpcGateway = AsVpcGateway
+
+    @property
+    def PrivateIpAddresses(self):
+        r"""私有网络子网 IP 数组
+        :rtype: list of str
+        """
+        return self._PrivateIpAddresses
+
+    @PrivateIpAddresses.setter
+    def PrivateIpAddresses(self, PrivateIpAddresses):
+        self._PrivateIpAddresses = PrivateIpAddresses
+
+    @property
+    def Ipv6AddressCount(self):
+        r"""为弹性网卡指定随机生成
+        :rtype: int
+        """
+        return self._Ipv6AddressCount
+
+    @Ipv6AddressCount.setter
+    def Ipv6AddressCount(self, Ipv6AddressCount):
+        self._Ipv6AddressCount = Ipv6AddressCount
+
+
+    def _deserialize(self, params):
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._AsVpcGateway = params.get("AsVpcGateway")
+        self._PrivateIpAddresses = params.get("PrivateIpAddresses")
+        self._Ipv6AddressCount = params.get("Ipv6AddressCount")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class StorageMount(AbstractModel):
+    r"""存储目录挂载配置。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Source: 挂载源
+        :type Source: str
+        :param _Target: 目标挂载位置
+        :type Target: str
+        :param _StorageType: 挂载的存储类型，目前仅支持：local
+        :type StorageType: str
+        """
+        self._Source = None
+        self._Target = None
+        self._StorageType = None
+
+    @property
+    def Source(self):
+        r"""挂载源
+        :rtype: str
+        """
+        return self._Source
+
+    @Source.setter
+    def Source(self, Source):
+        self._Source = Source
+
+    @property
+    def Target(self):
+        r"""目标挂载位置
+        :rtype: str
+        """
+        return self._Target
+
+    @Target.setter
+    def Target(self, Target):
+        self._Target = Target
+
+    @property
+    def StorageType(self):
+        r"""挂载的存储类型，目前仅支持：local
+        :rtype: str
+        """
+        return self._StorageType
+
+    @StorageType.setter
+    def StorageType(self, StorageType):
+        self._StorageType = StorageType
+
+
+    def _deserialize(self, params):
+        self._Source = params.get("Source")
+        self._Target = params.get("Target")
+        self._StorageType = params.get("StorageType")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class StorageOption(AbstractModel):
+    r"""描述集群文件系统选项
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _CFSOptions: 集群挂载CFS文件系统选项。
+        :type CFSOptions: list of CFSOption
+        :param _GooseFSOptions: 集群挂载GooseFS文件系统选项。
+        :type GooseFSOptions: list of GooseFSOption
+        :param _GooseFSxOptions: 集群挂载GooseFSx文件系统选项。
+        :type GooseFSxOptions: list of GooseFSxOption
+        """
+        self._CFSOptions = None
+        self._GooseFSOptions = None
+        self._GooseFSxOptions = None
+
+    @property
+    def CFSOptions(self):
+        r"""集群挂载CFS文件系统选项。
+        :rtype: list of CFSOption
+        """
+        return self._CFSOptions
+
+    @CFSOptions.setter
+    def CFSOptions(self, CFSOptions):
+        self._CFSOptions = CFSOptions
+
+    @property
+    def GooseFSOptions(self):
+        r"""集群挂载GooseFS文件系统选项。
+        :rtype: list of GooseFSOption
+        """
+        return self._GooseFSOptions
+
+    @GooseFSOptions.setter
+    def GooseFSOptions(self, GooseFSOptions):
+        self._GooseFSOptions = GooseFSOptions
+
+    @property
+    def GooseFSxOptions(self):
+        r"""集群挂载GooseFSx文件系统选项。
+        :rtype: list of GooseFSxOption
+        """
+        return self._GooseFSxOptions
+
+    @GooseFSxOptions.setter
+    def GooseFSxOptions(self, GooseFSxOptions):
+        self._GooseFSxOptions = GooseFSxOptions
+
+
+    def _deserialize(self, params):
+        if params.get("CFSOptions") is not None:
+            self._CFSOptions = []
+            for item in params.get("CFSOptions"):
+                obj = CFSOption()
+                obj._deserialize(item)
+                self._CFSOptions.append(obj)
+        if params.get("GooseFSOptions") is not None:
+            self._GooseFSOptions = []
+            for item in params.get("GooseFSOptions"):
+                obj = GooseFSOption()
+                obj._deserialize(item)
+                self._GooseFSOptions.append(obj)
+        if params.get("GooseFSxOptions") is not None:
+            self._GooseFSxOptions = []
+            for item in params.get("GooseFSxOptions"):
+                obj = GooseFSxOption()
+                obj._deserialize(item)
+                self._GooseFSxOptions.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class StorageOptionOverview(AbstractModel):
+    r"""集群存储选项概览信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _CFSOptions: CFS存储选项概览信息列表。
+        :type CFSOptions: list of CFSOptionOverview
+        :param _GooseFSOptions: GooseFS存储选项概览信息列表。
+        :type GooseFSOptions: list of GooseFSOptionOverview
+        :param _GooseFSxOptions: GooseFSx存储选项概览信息列表。
+        :type GooseFSxOptions: list of GooseFSxOptionOverview
+        """
+        self._CFSOptions = None
+        self._GooseFSOptions = None
+        self._GooseFSxOptions = None
+
+    @property
+    def CFSOptions(self):
+        r"""CFS存储选项概览信息列表。
+        :rtype: list of CFSOptionOverview
+        """
+        return self._CFSOptions
+
+    @CFSOptions.setter
+    def CFSOptions(self, CFSOptions):
+        self._CFSOptions = CFSOptions
+
+    @property
+    def GooseFSOptions(self):
+        r"""GooseFS存储选项概览信息列表。
+        :rtype: list of GooseFSOptionOverview
+        """
+        return self._GooseFSOptions
+
+    @GooseFSOptions.setter
+    def GooseFSOptions(self, GooseFSOptions):
+        self._GooseFSOptions = GooseFSOptions
+
+    @property
+    def GooseFSxOptions(self):
+        r"""GooseFSx存储选项概览信息列表。
+        :rtype: list of GooseFSxOptionOverview
+        """
+        return self._GooseFSxOptions
+
+    @GooseFSxOptions.setter
+    def GooseFSxOptions(self, GooseFSxOptions):
+        self._GooseFSxOptions = GooseFSxOptions
+
+
+    def _deserialize(self, params):
+        if params.get("CFSOptions") is not None:
+            self._CFSOptions = []
+            for item in params.get("CFSOptions"):
+                obj = CFSOptionOverview()
+                obj._deserialize(item)
+                self._CFSOptions.append(obj)
+        if params.get("GooseFSOptions") is not None:
+            self._GooseFSOptions = []
+            for item in params.get("GooseFSOptions"):
+                obj = GooseFSOptionOverview()
+                obj._deserialize(item)
+                self._GooseFSOptions.append(obj)
+        if params.get("GooseFSxOptions") is not None:
+            self._GooseFSxOptions = []
+            for item in params.get("GooseFSxOptions"):
+                obj = GooseFSxOptionOverview()
+                obj._deserialize(item)
+                self._GooseFSxOptions.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SubmitJobRequest(AbstractModel):
+    r"""SubmitJob请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群id
+        :type ClusterId: str
+        :param _Job: 作业任务参数配置
+        :type Job: :class:`tencentcloud.thpc.v20230321.models.Job`
+        :param _QueueName: 队列名称。不指定则为默认队列：
+SLURM默认队列为：compute。 
+SGE默认队列为：all.q。
+        :type QueueName: str
+        """
+        self._ClusterId = None
+        self._Job = None
+        self._QueueName = None
+
+    @property
+    def ClusterId(self):
+        r"""集群id
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def Job(self):
+        r"""作业任务参数配置
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Job`
+        """
+        return self._Job
+
+    @Job.setter
+    def Job(self, Job):
+        self._Job = Job
+
+    @property
+    def QueueName(self):
+        r"""队列名称。不指定则为默认队列：
+SLURM默认队列为：compute。 
+SGE默认队列为：all.q。
+        :rtype: str
+        """
+        return self._QueueName
+
+    @QueueName.setter
+    def QueueName(self, QueueName):
+        self._QueueName = QueueName
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        if params.get("Job") is not None:
+            self._Job = Job()
+            self._Job._deserialize(params.get("Job"))
+        self._QueueName = params.get("QueueName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SubmitJobResponse(AbstractModel):
+    r"""SubmitJob返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobId: 作业任务ID
+        :type JobId: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._JobId = None
+        self._RequestId = None
+
+    @property
+    def JobId(self):
+        r"""作业任务ID
+        :rtype: str
+        """
+        return self._JobId
+
+    @JobId.setter
+    def JobId(self, JobId):
+        self._JobId = JobId
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._JobId = params.get("JobId")
+        self._RequestId = params.get("RequestId")
+
+
+class SystemDisk(AbstractModel):
+    r"""描述了操作系统所在块设备即系统盘的信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _DiskType: 系统盘类型。系统盘类型限制详见存储概述。取值范围：
+CLOUD_BASIC：普通云硬盘
+CLOUD_SSD：SSD云硬盘
+CLOUD_PREMIUM：高性能云硬盘
+
+默认取值：当前有库存的硬盘类型。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DiskType: str
+        :param _DiskSize: 系统盘大小，单位：GB。默认值为 50
+注意：此字段可能返回 null，表示取不到有效值。
+        :type DiskSize: int
+        """
+        self._DiskType = None
+        self._DiskSize = None
+
+    @property
+    def DiskType(self):
+        r"""系统盘类型。系统盘类型限制详见存储概述。取值范围：
+CLOUD_BASIC：普通云硬盘
+CLOUD_SSD：SSD云硬盘
+CLOUD_PREMIUM：高性能云硬盘
+
+默认取值：当前有库存的硬盘类型。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._DiskType
+
+    @DiskType.setter
+    def DiskType(self, DiskType):
+        self._DiskType = DiskType
+
+    @property
+    def DiskSize(self):
+        r"""系统盘大小，单位：GB。默认值为 50
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: int
+        """
+        return self._DiskSize
+
+    @DiskSize.setter
+    def DiskSize(self, DiskSize):
+        self._DiskSize = DiskSize
+
+
+    def _deserialize(self, params):
+        self._DiskType = params.get("DiskType")
+        self._DiskSize = params.get("DiskSize")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class Tag(AbstractModel):
+    r"""标签键值对。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Key: 标签键
+        :type Key: str
+        :param _Value: 标签值
+        :type Value: str
+        """
+        self._Key = None
+        self._Value = None
+
+    @property
+    def Key(self):
+        r"""标签键
+        :rtype: str
+        """
+        return self._Key
+
+    @Key.setter
+    def Key(self, Key):
+        self._Key = Key
+
+    @property
+    def Value(self):
+        r"""标签值
+        :rtype: str
+        """
+        return self._Value
+
+    @Value.setter
+    def Value(self, Value):
+        self._Value = Value
+
+
+    def _deserialize(self, params):
+        self._Key = params.get("Key")
+        self._Value = params.get("Value")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class TagSpecification(AbstractModel):
+    r"""创建资源工作空间时同时绑定的标签对说明
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ResourceType: 标签绑定的资源类型
+        :type ResourceType: str
+        :param _Tags: 标签对列表
+        :type Tags: list of Tag
+        """
+        self._ResourceType = None
+        self._Tags = None
+
+    @property
+    def ResourceType(self):
+        r"""标签绑定的资源类型
+        :rtype: str
+        """
+        return self._ResourceType
+
+    @ResourceType.setter
+    def ResourceType(self, ResourceType):
+        self._ResourceType = ResourceType
+
+    @property
+    def Tags(self):
+        r"""标签对列表
+        :rtype: list of Tag
+        """
+        return self._Tags
+
+    @Tags.setter
+    def Tags(self, Tags):
+        self._Tags = Tags
+
+
+    def _deserialize(self, params):
+        self._ResourceType = params.get("ResourceType")
+        if params.get("Tags") is not None:
+            self._Tags = []
+            for item in params.get("Tags"):
+                obj = Tag()
+                obj._deserialize(item)
+                self._Tags.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class Task(AbstractModel):
+    r"""作业任务配置信息。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Application: 作业任务的应用环境配置信息。
+        :type Application: :class:`tencentcloud.thpc.v20230321.models.Application`
+        :param _TaskName: 作业任务名称。
+        :type TaskName: str
+        :param _TaskInstanceNum: 作业任务所需的节点数/副本数。
+        :type TaskInstanceNum: int
+        :param _Timeout: 任务超时时间(单位：秒)。
+        :type Timeout: int
+        """
+        self._Application = None
+        self._TaskName = None
+        self._TaskInstanceNum = None
+        self._Timeout = None
+
+    @property
+    def Application(self):
+        r"""作业任务的应用环境配置信息。
+        :rtype: :class:`tencentcloud.thpc.v20230321.models.Application`
+        """
+        return self._Application
+
+    @Application.setter
+    def Application(self, Application):
+        self._Application = Application
+
+    @property
+    def TaskName(self):
+        r"""作业任务名称。
+        :rtype: str
+        """
+        return self._TaskName
+
+    @TaskName.setter
+    def TaskName(self, TaskName):
+        self._TaskName = TaskName
+
+    @property
+    def TaskInstanceNum(self):
+        r"""作业任务所需的节点数/副本数。
+        :rtype: int
+        """
+        return self._TaskInstanceNum
+
+    @TaskInstanceNum.setter
+    def TaskInstanceNum(self, TaskInstanceNum):
+        self._TaskInstanceNum = TaskInstanceNum
+
+    @property
+    def Timeout(self):
+        r"""任务超时时间(单位：秒)。
+        :rtype: int
+        """
+        return self._Timeout
+
+    @Timeout.setter
+    def Timeout(self, Timeout):
+        self._Timeout = Timeout
+
+
+    def _deserialize(self, params):
+        if params.get("Application") is not None:
+            self._Application = Application()
+            self._Application._deserialize(params.get("Application"))
+        self._TaskName = params.get("TaskName")
+        self._TaskInstanceNum = params.get("TaskInstanceNum")
+        self._Timeout = params.get("Timeout")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class TaskDependence(AbstractModel):
+    r"""任务的依赖关系。
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _StartTask: 依赖关系的起点任务名称。
+        :type StartTask: str
+        :param _EndTask: 依赖关系的终点任务名称。
+        :type EndTask: str
+        """
+        self._StartTask = None
+        self._EndTask = None
+
+    @property
+    def StartTask(self):
+        r"""依赖关系的起点任务名称。
+        :rtype: str
+        """
+        return self._StartTask
+
+    @StartTask.setter
+    def StartTask(self, StartTask):
+        self._StartTask = StartTask
+
+    @property
+    def EndTask(self):
+        r"""依赖关系的终点任务名称。
+        :rtype: str
+        """
+        return self._EndTask
+
+    @EndTask.setter
+    def EndTask(self, EndTask):
+        self._EndTask = EndTask
+
+
+    def _deserialize(self, params):
+        self._StartTask = params.get("StartTask")
+        self._EndTask = params.get("EndTask")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class TerminateJobRequest(AbstractModel):
+    r"""TerminateJob请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _JobId: 作业任务ID
+        :type JobId: str
+        """
+        self._JobId = None
+
+    @property
+    def JobId(self):
+        r"""作业任务ID
+        :rtype: str
+        """
+        return self._JobId
+
+    @JobId.setter
+    def JobId(self, JobId):
+        self._JobId = JobId
+
+
+    def _deserialize(self, params):
+        self._JobId = params.get("JobId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class TerminateJobResponse(AbstractModel):
+    r"""TerminateJob返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class TerminateWorkspacesRequest(AbstractModel):
+    r"""TerminateWorkspaces请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SpaceIds: 工作空间ID
+        :type SpaceIds: list of str
+        :param _ReleasePrepaidDataDisks: 释放空间挂载的包年包月数据盘。true表示销毁空间同时释放包年包月数据盘，false表示只销毁空间。
+        :type ReleasePrepaidDataDisks: bool
+        """
+        self._SpaceIds = None
+        self._ReleasePrepaidDataDisks = None
+
+    @property
+    def SpaceIds(self):
+        r"""工作空间ID
+        :rtype: list of str
+        """
+        return self._SpaceIds
+
+    @SpaceIds.setter
+    def SpaceIds(self, SpaceIds):
+        self._SpaceIds = SpaceIds
+
+    @property
+    def ReleasePrepaidDataDisks(self):
+        r"""释放空间挂载的包年包月数据盘。true表示销毁空间同时释放包年包月数据盘，false表示只销毁空间。
+        :rtype: bool
+        """
+        return self._ReleasePrepaidDataDisks
+
+    @ReleasePrepaidDataDisks.setter
+    def ReleasePrepaidDataDisks(self, ReleasePrepaidDataDisks):
+        self._ReleasePrepaidDataDisks = ReleasePrepaidDataDisks
+
+
+    def _deserialize(self, params):
+        self._SpaceIds = params.get("SpaceIds")
+        self._ReleasePrepaidDataDisks = params.get("ReleasePrepaidDataDisks")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class TerminateWorkspacesResponse(AbstractModel):
+    r"""TerminateWorkspaces返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class VirtualPrivateCloud(AbstractModel):
+    r"""描述了VPC相关信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _VpcId: 私有网络ID，形如`vpc-xxx`。有效的VpcId可通过登录[控制台](https://console.cloud.tencent.com/vpc/vpc?rid=1)查询；也可以调用接口 [DescribeVpcEx](/document/api/215/1372) ，从接口返回中的`unVpcId`字段获取。若在创建子机时VpcId与SubnetId同时传入`DEFAULT`，则强制使用默认vpc网络。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type VpcId: str
+        :param _SubnetId: 私有网络子网ID，形如`subnet-xxx`。有效的私有网络子网ID可通过登录[控制台](https://console.cloud.tencent.com/vpc/subnet?rid=1)查询；也可以调用接口  [DescribeSubnets](/document/api/215/15784) ，从接口返回中的`unSubnetId`字段获取。若在创建子机时SubnetId与VpcId同时传入`DEFAULT`，则强制使用默认vpc网络。
+注意：此字段可能返回 null，表示取不到有效值。
+        :type SubnetId: str
+        """
+        self._VpcId = None
+        self._SubnetId = None
+
+    @property
+    def VpcId(self):
+        r"""私有网络ID，形如`vpc-xxx`。有效的VpcId可通过登录[控制台](https://console.cloud.tencent.com/vpc/vpc?rid=1)查询；也可以调用接口 [DescribeVpcEx](/document/api/215/1372) ，从接口返回中的`unVpcId`字段获取。若在创建子机时VpcId与SubnetId同时传入`DEFAULT`，则强制使用默认vpc网络。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""私有网络子网ID，形如`subnet-xxx`。有效的私有网络子网ID可通过登录[控制台](https://console.cloud.tencent.com/vpc/subnet?rid=1)查询；也可以调用接口  [DescribeSubnets](/document/api/215/15784) ，从接口返回中的`unSubnetId`字段获取。若在创建子机时SubnetId与VpcId同时传入`DEFAULT`，则强制使用默认vpc网络。
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+
+    def _deserialize(self, params):
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        

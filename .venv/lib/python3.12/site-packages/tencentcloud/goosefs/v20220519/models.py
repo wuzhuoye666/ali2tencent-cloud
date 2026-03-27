@@ -1,0 +1,6007 @@
+# -*- coding: utf8 -*-
+# Copyright (c) 2017-2025 Tencent. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import warnings
+
+from tencentcloud.common.abstract_model import AbstractModel
+
+
+class AddCrossVpcSubnetSupportForClientNodeRequest(AbstractModel):
+    r"""AddCrossVpcSubnetSupportForClientNode请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _SubnetInfo: 子网信息
+        :type SubnetInfo: :class:`tencentcloud.goosefs.v20220519.models.SubnetInfo`
+        """
+        self._FileSystemId = None
+        self._SubnetInfo = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def SubnetInfo(self):
+        r"""子网信息
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.SubnetInfo`
+        """
+        return self._SubnetInfo
+
+    @SubnetInfo.setter
+    def SubnetInfo(self, SubnetInfo):
+        self._SubnetInfo = SubnetInfo
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        if params.get("SubnetInfo") is not None:
+            self._SubnetInfo = SubnetInfo()
+            self._SubnetInfo._deserialize(params.get("SubnetInfo"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class AddCrossVpcSubnetSupportForClientNodeResponse(AbstractModel):
+    r"""AddCrossVpcSubnetSupportForClientNode返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class AttachFileSystemBucketRequest(AbstractModel):
+    r"""AttachFileSystemBucket请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 无
+        :type FileSystemId: str
+        :param _Bucket: 关联新Bucket
+        :type Bucket: :class:`tencentcloud.goosefs.v20220519.models.MappedBucket`
+        """
+        self._FileSystemId = None
+        self._Bucket = None
+
+    @property
+    def FileSystemId(self):
+        r"""无
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def Bucket(self):
+        r"""关联新Bucket
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.MappedBucket`
+        """
+        return self._Bucket
+
+    @Bucket.setter
+    def Bucket(self, Bucket):
+        self._Bucket = Bucket
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        if params.get("Bucket") is not None:
+            self._Bucket = MappedBucket()
+            self._Bucket._deserialize(params.get("Bucket"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class AttachFileSystemBucketResponse(AbstractModel):
+    r"""AttachFileSystemBucket返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class BatchAddClientNodesRequest(AbstractModel):
+    r"""BatchAddClientNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _ClientNodes: 添加客户端节点列表
+        :type ClientNodes: list of LinuxNodeAttribute
+        :param _SingleClusterFlag: 是否单集群默认是false	
+        :type SingleClusterFlag: bool
+        :param _ClusterId: 客户端集群id
+        :type ClusterId: str
+        """
+        self._FileSystemId = None
+        self._ClientNodes = None
+        self._SingleClusterFlag = None
+        self._ClusterId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def ClientNodes(self):
+        r"""添加客户端节点列表
+        :rtype: list of LinuxNodeAttribute
+        """
+        return self._ClientNodes
+
+    @ClientNodes.setter
+    def ClientNodes(self, ClientNodes):
+        self._ClientNodes = ClientNodes
+
+    @property
+    def SingleClusterFlag(self):
+        r"""是否单集群默认是false	
+        :rtype: bool
+        """
+        return self._SingleClusterFlag
+
+    @SingleClusterFlag.setter
+    def SingleClusterFlag(self, SingleClusterFlag):
+        self._SingleClusterFlag = SingleClusterFlag
+
+    @property
+    def ClusterId(self):
+        r"""客户端集群id
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        if params.get("ClientNodes") is not None:
+            self._ClientNodes = []
+            for item in params.get("ClientNodes"):
+                obj = LinuxNodeAttribute()
+                obj._deserialize(item)
+                self._ClientNodes.append(obj)
+        self._SingleClusterFlag = params.get("SingleClusterFlag")
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class BatchAddClientNodesResponse(AbstractModel):
+    r"""BatchAddClientNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class BatchDeleteClientNodesRequest(AbstractModel):
+    r"""BatchDeleteClientNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _ClientNodes: 删除的客户端节点列表
+        :type ClientNodes: list of LinuxNodeAttribute
+        :param _SingleClusterFlag: 是否单集群，默认是false
+        :type SingleClusterFlag: bool
+        :param _ClusterId: 客户端集群id
+        :type ClusterId: str
+        """
+        self._FileSystemId = None
+        self._ClientNodes = None
+        self._SingleClusterFlag = None
+        self._ClusterId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def ClientNodes(self):
+        r"""删除的客户端节点列表
+        :rtype: list of LinuxNodeAttribute
+        """
+        return self._ClientNodes
+
+    @ClientNodes.setter
+    def ClientNodes(self, ClientNodes):
+        self._ClientNodes = ClientNodes
+
+    @property
+    def SingleClusterFlag(self):
+        r"""是否单集群，默认是false
+        :rtype: bool
+        """
+        return self._SingleClusterFlag
+
+    @SingleClusterFlag.setter
+    def SingleClusterFlag(self, SingleClusterFlag):
+        self._SingleClusterFlag = SingleClusterFlag
+
+    @property
+    def ClusterId(self):
+        r"""客户端集群id
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        if params.get("ClientNodes") is not None:
+            self._ClientNodes = []
+            for item in params.get("ClientNodes"):
+                obj = LinuxNodeAttribute()
+                obj._deserialize(item)
+                self._ClientNodes.append(obj)
+        self._SingleClusterFlag = params.get("SingleClusterFlag")
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class BatchDeleteClientNodesResponse(AbstractModel):
+    r"""BatchDeleteClientNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class BuildClientNodeMountCommandRequest(AbstractModel):
+    r"""BuildClientNodeMountCommand请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _CustomMountDir: 自定义挂载目录的绝对路径, 如果未指定, 则会使用默认值, 格式/goosefsx/${fs_id}-proxy. 比如/goosefsx/x-c60-a2b3d4-proxy
+        :type CustomMountDir: str
+        :param _ClusterId: 客户端集群ID
+        :type ClusterId: str
+        """
+        self._FileSystemId = None
+        self._CustomMountDir = None
+        self._ClusterId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def CustomMountDir(self):
+        r"""自定义挂载目录的绝对路径, 如果未指定, 则会使用默认值, 格式/goosefsx/${fs_id}-proxy. 比如/goosefsx/x-c60-a2b3d4-proxy
+        :rtype: str
+        """
+        return self._CustomMountDir
+
+    @CustomMountDir.setter
+    def CustomMountDir(self, CustomMountDir):
+        self._CustomMountDir = CustomMountDir
+
+    @property
+    def ClusterId(self):
+        r"""客户端集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._CustomMountDir = params.get("CustomMountDir")
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class BuildClientNodeMountCommandResponse(AbstractModel):
+    r"""BuildClientNodeMountCommand返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Command: 挂载命令
+        :type Command: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._Command = None
+        self._RequestId = None
+
+    @property
+    def Command(self):
+        r"""挂载命令
+        :rtype: str
+        """
+        return self._Command
+
+    @Command.setter
+    def Command(self, Command):
+        self._Command = Command
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._Command = params.get("Command")
+        self._RequestId = params.get("RequestId")
+
+
+class BuildCustomerClusterRequest(AbstractModel):
+    r"""BuildCustomerCluster请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _VpcId: vpc网络ID
+        :type VpcId: str
+        :param _SubnetId: 子网id
+        :type SubnetId: str
+        :param _ClusterName: 集群名称
+        :type ClusterName: str
+        """
+        self._FileSystemId = None
+        self._VpcId = None
+        self._SubnetId = None
+        self._ClusterName = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def VpcId(self):
+        r"""vpc网络ID
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""子网id
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def ClusterName(self):
+        r"""集群名称
+        :rtype: str
+        """
+        return self._ClusterName
+
+    @ClusterName.setter
+    def ClusterName(self, ClusterName):
+        self._ClusterName = ClusterName
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._ClusterName = params.get("ClusterName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class BuildCustomerClusterResponse(AbstractModel):
+    r"""BuildCustomerCluster返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 客户端集群Id
+        :type ClusterId: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClusterId = None
+        self._RequestId = None
+
+    @property
+    def ClusterId(self):
+        r"""客户端集群Id
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._RequestId = params.get("RequestId")
+
+
+class CancelLoadTaskRequest(AbstractModel):
+    r"""CancelLoadTask请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群 ID
+        :type ClusterId: str
+        :param _TaskId: 预热任务 ID
+        :type TaskId: str
+        """
+        self._ClusterId = None
+        self._TaskId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群 ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def TaskId(self):
+        r"""预热任务 ID
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._TaskId = params.get("TaskId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CancelLoadTaskResponse(AbstractModel):
+    r"""CancelLoadTask返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class ChargeAttribute(AbstractModel):
+    r"""付费信息详情
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _CurDeadline: 到期时间
+        :type CurDeadline: str
+        :param _PayMode: 付费方式
+        :type PayMode: str
+        :param _AutoRenewFlag: 自动付费标识：0:默认未设置 1:自动续费 2 不自动续费
+        :type AutoRenewFlag: int
+        :param _ResourceId: 资源ID
+        :type ResourceId: str
+        """
+        self._CurDeadline = None
+        self._PayMode = None
+        self._AutoRenewFlag = None
+        self._ResourceId = None
+
+    @property
+    def CurDeadline(self):
+        r"""到期时间
+        :rtype: str
+        """
+        return self._CurDeadline
+
+    @CurDeadline.setter
+    def CurDeadline(self, CurDeadline):
+        self._CurDeadline = CurDeadline
+
+    @property
+    def PayMode(self):
+        r"""付费方式
+        :rtype: str
+        """
+        return self._PayMode
+
+    @PayMode.setter
+    def PayMode(self, PayMode):
+        self._PayMode = PayMode
+
+    @property
+    def AutoRenewFlag(self):
+        r"""自动付费标识：0:默认未设置 1:自动续费 2 不自动续费
+        :rtype: int
+        """
+        return self._AutoRenewFlag
+
+    @AutoRenewFlag.setter
+    def AutoRenewFlag(self, AutoRenewFlag):
+        self._AutoRenewFlag = AutoRenewFlag
+
+    @property
+    def ResourceId(self):
+        r"""资源ID
+        :rtype: str
+        """
+        return self._ResourceId
+
+    @ResourceId.setter
+    def ResourceId(self, ResourceId):
+        self._ResourceId = ResourceId
+
+
+    def _deserialize(self, params):
+        self._CurDeadline = params.get("CurDeadline")
+        self._PayMode = params.get("PayMode")
+        self._AutoRenewFlag = params.get("AutoRenewFlag")
+        self._ResourceId = params.get("ResourceId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ClientClusterManagerNodeInfo(AbstractModel):
+    r"""客户侧集群管理节点信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeIp: 客户端节点IP
+        :type NodeIp: str
+        :param _NodeInstanceId: 节点Instance Id
+        :type NodeInstanceId: str
+        :param _InitialPassword: 初始密码
+        :type InitialPassword: str
+        :param _ClusterId: 所属集群id
+        :type ClusterId: str
+        """
+        self._NodeIp = None
+        self._NodeInstanceId = None
+        self._InitialPassword = None
+        self._ClusterId = None
+
+    @property
+    def NodeIp(self):
+        r"""客户端节点IP
+        :rtype: str
+        """
+        return self._NodeIp
+
+    @NodeIp.setter
+    def NodeIp(self, NodeIp):
+        self._NodeIp = NodeIp
+
+    @property
+    def NodeInstanceId(self):
+        r"""节点Instance Id
+        :rtype: str
+        """
+        return self._NodeInstanceId
+
+    @NodeInstanceId.setter
+    def NodeInstanceId(self, NodeInstanceId):
+        self._NodeInstanceId = NodeInstanceId
+
+    @property
+    def InitialPassword(self):
+        r"""初始密码
+        :rtype: str
+        """
+        return self._InitialPassword
+
+    @InitialPassword.setter
+    def InitialPassword(self, InitialPassword):
+        self._InitialPassword = InitialPassword
+
+    @property
+    def ClusterId(self):
+        r"""所属集群id
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._NodeIp = params.get("NodeIp")
+        self._NodeInstanceId = params.get("NodeInstanceId")
+        self._InitialPassword = params.get("InitialPassword")
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ClientNodeAttribute(AbstractModel):
+    r"""客户端节点属性
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClientNodeIp: 客户端节点IP
+        :type ClientNodeIp: str
+        :param _Status: 客户端节点服务状态, Active(运行中), Adding(添加中), Destroying(销毁中), Down(已停止)
+        :type Status: str
+        :param _ClientType: 客户端节点类型，extend(扩展节点)，manager(管理节点)
+        :type ClientType: str
+        :param _VpcId: 节点所属vpcid	
+        :type VpcId: str
+        :param _SubnetId: 节点所属子网id
+        :type SubnetId: str
+        :param _InstanceId: cvmId
+        :type InstanceId: str
+        :param _MountPoint: 自定义挂载点
+        :type MountPoint: str
+        """
+        self._ClientNodeIp = None
+        self._Status = None
+        self._ClientType = None
+        self._VpcId = None
+        self._SubnetId = None
+        self._InstanceId = None
+        self._MountPoint = None
+
+    @property
+    def ClientNodeIp(self):
+        r"""客户端节点IP
+        :rtype: str
+        """
+        return self._ClientNodeIp
+
+    @ClientNodeIp.setter
+    def ClientNodeIp(self, ClientNodeIp):
+        self._ClientNodeIp = ClientNodeIp
+
+    @property
+    def Status(self):
+        r"""客户端节点服务状态, Active(运行中), Adding(添加中), Destroying(销毁中), Down(已停止)
+        :rtype: str
+        """
+        return self._Status
+
+    @Status.setter
+    def Status(self, Status):
+        self._Status = Status
+
+    @property
+    def ClientType(self):
+        r"""客户端节点类型，extend(扩展节点)，manager(管理节点)
+        :rtype: str
+        """
+        return self._ClientType
+
+    @ClientType.setter
+    def ClientType(self, ClientType):
+        self._ClientType = ClientType
+
+    @property
+    def VpcId(self):
+        r"""节点所属vpcid	
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""节点所属子网id
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def InstanceId(self):
+        r"""cvmId
+        :rtype: str
+        """
+        return self._InstanceId
+
+    @InstanceId.setter
+    def InstanceId(self, InstanceId):
+        self._InstanceId = InstanceId
+
+    @property
+    def MountPoint(self):
+        r"""自定义挂载点
+        :rtype: str
+        """
+        return self._MountPoint
+
+    @MountPoint.setter
+    def MountPoint(self, MountPoint):
+        self._MountPoint = MountPoint
+
+
+    def _deserialize(self, params):
+        self._ClientNodeIp = params.get("ClientNodeIp")
+        self._Status = params.get("Status")
+        self._ClientType = params.get("ClientType")
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._InstanceId = params.get("InstanceId")
+        self._MountPoint = params.get("MountPoint")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ClientToken(AbstractModel):
+    r"""查询Client Token
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _NodeIp: 节点 IP
+注意：此字段可能返回 null，表示取不到有效值。
+        :type NodeIp: str
+        :param _LocalDirectory: 挂载点
+注意：此字段可能返回 null，表示取不到有效值。
+        :type LocalDirectory: str
+        :param _GooseFSDirectory: 可以访问的 GooseFS 目录
+注意：此字段可能返回 null，表示取不到有效值。
+        :type GooseFSDirectory: str
+        :param _Token: token
+注意：此字段可能返回 null，表示取不到有效值。
+        :type Token: str
+        """
+        self._NodeIp = None
+        self._LocalDirectory = None
+        self._GooseFSDirectory = None
+        self._Token = None
+
+    @property
+    def NodeIp(self):
+        r"""节点 IP
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._NodeIp
+
+    @NodeIp.setter
+    def NodeIp(self, NodeIp):
+        self._NodeIp = NodeIp
+
+    @property
+    def LocalDirectory(self):
+        r"""挂载点
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._LocalDirectory
+
+    @LocalDirectory.setter
+    def LocalDirectory(self, LocalDirectory):
+        self._LocalDirectory = LocalDirectory
+
+    @property
+    def GooseFSDirectory(self):
+        r"""可以访问的 GooseFS 目录
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._GooseFSDirectory
+
+    @GooseFSDirectory.setter
+    def GooseFSDirectory(self, GooseFSDirectory):
+        self._GooseFSDirectory = GooseFSDirectory
+
+    @property
+    def Token(self):
+        r"""token
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._Token
+
+    @Token.setter
+    def Token(self, Token):
+        self._Token = Token
+
+
+    def _deserialize(self, params):
+        self._NodeIp = params.get("NodeIp")
+        self._LocalDirectory = params.get("LocalDirectory")
+        self._GooseFSDirectory = params.get("GooseFSDirectory")
+        self._Token = params.get("Token")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ClusterMountAttr(AbstractModel):
+    r"""客户端集群挂载信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _StorageFileSystemId: 挂载的文件系统Id
+        :type StorageFileSystemId: str
+        :param _MountPoint: 客户端集群挂载点。入参是节点的自定义挂载点，出参是集群的默认挂载点
+注意：此字段可能返回 null，表示取不到有效值。
+        :type MountPoint: str
+        """
+        self._StorageFileSystemId = None
+        self._MountPoint = None
+
+    @property
+    def StorageFileSystemId(self):
+        r"""挂载的文件系统Id
+        :rtype: str
+        """
+        return self._StorageFileSystemId
+
+    @StorageFileSystemId.setter
+    def StorageFileSystemId(self, StorageFileSystemId):
+        self._StorageFileSystemId = StorageFileSystemId
+
+    @property
+    def MountPoint(self):
+        r"""客户端集群挂载点。入参是节点的自定义挂载点，出参是集群的默认挂载点
+注意：此字段可能返回 null，表示取不到有效值。
+        :rtype: str
+        """
+        return self._MountPoint
+
+    @MountPoint.setter
+    def MountPoint(self, MountPoint):
+        self._MountPoint = MountPoint
+
+
+    def _deserialize(self, params):
+        self._StorageFileSystemId = params.get("StorageFileSystemId")
+        self._MountPoint = params.get("MountPoint")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateDataRepositoryTaskRequest(AbstractModel):
+    r"""CreateDataRepositoryTask请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _TaskType: 数据流通任务类型, FS_TO_COS(文件系统到COS Bucket),或者COS_TO_FS(COS Bucket到文件系统)
+        :type TaskType: str
+        :param _Bucket: COS存储桶名
+        :type Bucket: str
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _TaskPath: 对于FS_TO_COS, TaskPath是Bucket映射目录的相对路径, 对于COS_TO_FS是COS上的路径。如果置为空, 则表示全部数据
+        :type TaskPath: str
+        :param _TaskName: 任务名称
+        :type TaskName: str
+        :param _RepositoryType: 数据流通方式 MSP_AFM 手动加载  RAW_AFM 按需加载
+        :type RepositoryType: str
+        :param _TextLocation: 文件列表下载地址，以http开头
+        :type TextLocation: str
+        :param _EnableDataFlowSubPath: 是否开启自定义路径(暂时仅供预热使用)
+        :type EnableDataFlowSubPath: bool
+        :param _DataFlowSubPath: 自定义路径(暂时仅供预热使用)
+        :type DataFlowSubPath: str
+        """
+        self._TaskType = None
+        self._Bucket = None
+        self._FileSystemId = None
+        self._TaskPath = None
+        self._TaskName = None
+        self._RepositoryType = None
+        self._TextLocation = None
+        self._EnableDataFlowSubPath = None
+        self._DataFlowSubPath = None
+
+    @property
+    def TaskType(self):
+        r"""数据流通任务类型, FS_TO_COS(文件系统到COS Bucket),或者COS_TO_FS(COS Bucket到文件系统)
+        :rtype: str
+        """
+        return self._TaskType
+
+    @TaskType.setter
+    def TaskType(self, TaskType):
+        self._TaskType = TaskType
+
+    @property
+    def Bucket(self):
+        r"""COS存储桶名
+        :rtype: str
+        """
+        return self._Bucket
+
+    @Bucket.setter
+    def Bucket(self, Bucket):
+        self._Bucket = Bucket
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def TaskPath(self):
+        r"""对于FS_TO_COS, TaskPath是Bucket映射目录的相对路径, 对于COS_TO_FS是COS上的路径。如果置为空, 则表示全部数据
+        :rtype: str
+        """
+        return self._TaskPath
+
+    @TaskPath.setter
+    def TaskPath(self, TaskPath):
+        self._TaskPath = TaskPath
+
+    @property
+    def TaskName(self):
+        r"""任务名称
+        :rtype: str
+        """
+        return self._TaskName
+
+    @TaskName.setter
+    def TaskName(self, TaskName):
+        self._TaskName = TaskName
+
+    @property
+    def RepositoryType(self):
+        r"""数据流通方式 MSP_AFM 手动加载  RAW_AFM 按需加载
+        :rtype: str
+        """
+        return self._RepositoryType
+
+    @RepositoryType.setter
+    def RepositoryType(self, RepositoryType):
+        self._RepositoryType = RepositoryType
+
+    @property
+    def TextLocation(self):
+        r"""文件列表下载地址，以http开头
+        :rtype: str
+        """
+        return self._TextLocation
+
+    @TextLocation.setter
+    def TextLocation(self, TextLocation):
+        self._TextLocation = TextLocation
+
+    @property
+    def EnableDataFlowSubPath(self):
+        r"""是否开启自定义路径(暂时仅供预热使用)
+        :rtype: bool
+        """
+        return self._EnableDataFlowSubPath
+
+    @EnableDataFlowSubPath.setter
+    def EnableDataFlowSubPath(self, EnableDataFlowSubPath):
+        self._EnableDataFlowSubPath = EnableDataFlowSubPath
+
+    @property
+    def DataFlowSubPath(self):
+        r"""自定义路径(暂时仅供预热使用)
+        :rtype: str
+        """
+        return self._DataFlowSubPath
+
+    @DataFlowSubPath.setter
+    def DataFlowSubPath(self, DataFlowSubPath):
+        self._DataFlowSubPath = DataFlowSubPath
+
+
+    def _deserialize(self, params):
+        self._TaskType = params.get("TaskType")
+        self._Bucket = params.get("Bucket")
+        self._FileSystemId = params.get("FileSystemId")
+        self._TaskPath = params.get("TaskPath")
+        self._TaskName = params.get("TaskName")
+        self._RepositoryType = params.get("RepositoryType")
+        self._TextLocation = params.get("TextLocation")
+        self._EnableDataFlowSubPath = params.get("EnableDataFlowSubPath")
+        self._DataFlowSubPath = params.get("DataFlowSubPath")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateDataRepositoryTaskResponse(AbstractModel):
+    r"""CreateDataRepositoryTask返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _TaskId: 任务ID
+        :type TaskId: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._TaskId = None
+        self._RequestId = None
+
+    @property
+    def TaskId(self):
+        r"""任务ID
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._TaskId = params.get("TaskId")
+        self._RequestId = params.get("RequestId")
+
+
+class CreateFileSystemRequest(AbstractModel):
+    r"""CreateFileSystem请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Name: 文件系统名
+        :type Name: str
+        :param _Description: 文件系统备注描述
+        :type Description: str
+        :param _VpcId: vpc网络ID
+        :type VpcId: str
+        :param _SubnetId: 子网ID
+        :type SubnetId: str
+        :param _Zone: 子网所在的可用区
+        :type Zone: str
+        :param _Type: 文件系统类型, 可填goosefs和goosefsx
+        :type Type: str
+        :param _Tag: 文件系统关联的tag
+        :type Tag: list of Tag
+        :param _GooseFSxBuildElements: GooseFSx构建时要传递的参数
+        :type GooseFSxBuildElements: :class:`tencentcloud.goosefs.v20220519.models.GooseFSxBuildElement`
+        :param _SecurityGroupId: 客户端集群所属的安全组
+        :type SecurityGroupId: str
+        :param _ClusterPort: 集群ssh通信端口，默认是22
+        :type ClusterPort: int
+        """
+        self._Name = None
+        self._Description = None
+        self._VpcId = None
+        self._SubnetId = None
+        self._Zone = None
+        self._Type = None
+        self._Tag = None
+        self._GooseFSxBuildElements = None
+        self._SecurityGroupId = None
+        self._ClusterPort = None
+
+    @property
+    def Name(self):
+        r"""文件系统名
+        :rtype: str
+        """
+        return self._Name
+
+    @Name.setter
+    def Name(self, Name):
+        self._Name = Name
+
+    @property
+    def Description(self):
+        r"""文件系统备注描述
+        :rtype: str
+        """
+        return self._Description
+
+    @Description.setter
+    def Description(self, Description):
+        self._Description = Description
+
+    @property
+    def VpcId(self):
+        r"""vpc网络ID
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""子网ID
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def Zone(self):
+        r"""子网所在的可用区
+        :rtype: str
+        """
+        return self._Zone
+
+    @Zone.setter
+    def Zone(self, Zone):
+        self._Zone = Zone
+
+    @property
+    def Type(self):
+        warnings.warn("parameter `Type` is deprecated", DeprecationWarning) 
+
+        r"""文件系统类型, 可填goosefs和goosefsx
+        :rtype: str
+        """
+        return self._Type
+
+    @Type.setter
+    def Type(self, Type):
+        warnings.warn("parameter `Type` is deprecated", DeprecationWarning) 
+
+        self._Type = Type
+
+    @property
+    def Tag(self):
+        r"""文件系统关联的tag
+        :rtype: list of Tag
+        """
+        return self._Tag
+
+    @Tag.setter
+    def Tag(self, Tag):
+        self._Tag = Tag
+
+    @property
+    def GooseFSxBuildElements(self):
+        r"""GooseFSx构建时要传递的参数
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.GooseFSxBuildElement`
+        """
+        return self._GooseFSxBuildElements
+
+    @GooseFSxBuildElements.setter
+    def GooseFSxBuildElements(self, GooseFSxBuildElements):
+        self._GooseFSxBuildElements = GooseFSxBuildElements
+
+    @property
+    def SecurityGroupId(self):
+        r"""客户端集群所属的安全组
+        :rtype: str
+        """
+        return self._SecurityGroupId
+
+    @SecurityGroupId.setter
+    def SecurityGroupId(self, SecurityGroupId):
+        self._SecurityGroupId = SecurityGroupId
+
+    @property
+    def ClusterPort(self):
+        r"""集群ssh通信端口，默认是22
+        :rtype: int
+        """
+        return self._ClusterPort
+
+    @ClusterPort.setter
+    def ClusterPort(self, ClusterPort):
+        self._ClusterPort = ClusterPort
+
+
+    def _deserialize(self, params):
+        self._Name = params.get("Name")
+        self._Description = params.get("Description")
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._Zone = params.get("Zone")
+        self._Type = params.get("Type")
+        if params.get("Tag") is not None:
+            self._Tag = []
+            for item in params.get("Tag"):
+                obj = Tag()
+                obj._deserialize(item)
+                self._Tag.append(obj)
+        if params.get("GooseFSxBuildElements") is not None:
+            self._GooseFSxBuildElements = GooseFSxBuildElement()
+            self._GooseFSxBuildElements._deserialize(params.get("GooseFSxBuildElements"))
+        self._SecurityGroupId = params.get("SecurityGroupId")
+        self._ClusterPort = params.get("ClusterPort")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateFileSystemResponse(AbstractModel):
+    r"""CreateFileSystem返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 创建成功返回的文件系统ID：
+        :type FileSystemId: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._FileSystemId = None
+        self._RequestId = None
+
+    @property
+    def FileSystemId(self):
+        r"""创建成功返回的文件系统ID：
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._RequestId = params.get("RequestId")
+
+
+class CreateFilesetRequest(AbstractModel):
+    r"""CreateFileset请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _FsetName: Fileset名称
+        :type FsetName: str
+        :param _FsetDir: Fileset目录
+        :type FsetDir: str
+        :param _QuotaSizeLimit: Fileset容量配额（需带单位G）
+        :type QuotaSizeLimit: str
+        :param _QuotaFilesLimit: Fileset文件数配额
+        :type QuotaFilesLimit: str
+        :param _AuditState: Fileset文件删除操作审计
+        :type AuditState: str
+        """
+        self._FileSystemId = None
+        self._FsetName = None
+        self._FsetDir = None
+        self._QuotaSizeLimit = None
+        self._QuotaFilesLimit = None
+        self._AuditState = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def FsetName(self):
+        r"""Fileset名称
+        :rtype: str
+        """
+        return self._FsetName
+
+    @FsetName.setter
+    def FsetName(self, FsetName):
+        self._FsetName = FsetName
+
+    @property
+    def FsetDir(self):
+        r"""Fileset目录
+        :rtype: str
+        """
+        return self._FsetDir
+
+    @FsetDir.setter
+    def FsetDir(self, FsetDir):
+        self._FsetDir = FsetDir
+
+    @property
+    def QuotaSizeLimit(self):
+        r"""Fileset容量配额（需带单位G）
+        :rtype: str
+        """
+        return self._QuotaSizeLimit
+
+    @QuotaSizeLimit.setter
+    def QuotaSizeLimit(self, QuotaSizeLimit):
+        self._QuotaSizeLimit = QuotaSizeLimit
+
+    @property
+    def QuotaFilesLimit(self):
+        r"""Fileset文件数配额
+        :rtype: str
+        """
+        return self._QuotaFilesLimit
+
+    @QuotaFilesLimit.setter
+    def QuotaFilesLimit(self, QuotaFilesLimit):
+        self._QuotaFilesLimit = QuotaFilesLimit
+
+    @property
+    def AuditState(self):
+        r"""Fileset文件删除操作审计
+        :rtype: str
+        """
+        return self._AuditState
+
+    @AuditState.setter
+    def AuditState(self, AuditState):
+        self._AuditState = AuditState
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._FsetName = params.get("FsetName")
+        self._FsetDir = params.get("FsetDir")
+        self._QuotaSizeLimit = params.get("QuotaSizeLimit")
+        self._QuotaFilesLimit = params.get("QuotaFilesLimit")
+        self._AuditState = params.get("AuditState")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateFilesetResponse(AbstractModel):
+    r"""CreateFileset返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FsetId: Fileset id
+        :type FsetId: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._FsetId = None
+        self._RequestId = None
+
+    @property
+    def FsetId(self):
+        r"""Fileset id
+        :rtype: str
+        """
+        return self._FsetId
+
+    @FsetId.setter
+    def FsetId(self, FsetId):
+        self._FsetId = FsetId
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._FsetId = params.get("FsetId")
+        self._RequestId = params.get("RequestId")
+
+
+class CreateLoadTaskRequest(AbstractModel):
+    r"""CreateLoadTask请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群 ID
+        :type ClusterId: str
+        :param _LoadTaskCreationAttrs: 创建预热任务参数
+        :type LoadTaskCreationAttrs: :class:`tencentcloud.goosefs.v20220519.models.LoadTaskCreationAttrs`
+        """
+        self._ClusterId = None
+        self._LoadTaskCreationAttrs = None
+
+    @property
+    def ClusterId(self):
+        r"""集群 ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def LoadTaskCreationAttrs(self):
+        r"""创建预热任务参数
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.LoadTaskCreationAttrs`
+        """
+        return self._LoadTaskCreationAttrs
+
+    @LoadTaskCreationAttrs.setter
+    def LoadTaskCreationAttrs(self, LoadTaskCreationAttrs):
+        self._LoadTaskCreationAttrs = LoadTaskCreationAttrs
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        if params.get("LoadTaskCreationAttrs") is not None:
+            self._LoadTaskCreationAttrs = LoadTaskCreationAttrs()
+            self._LoadTaskCreationAttrs._deserialize(params.get("LoadTaskCreationAttrs"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class CreateLoadTaskResponse(AbstractModel):
+    r"""CreateLoadTask返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _TaskId: 预热任务 ID
+        :type TaskId: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._TaskId = None
+        self._RequestId = None
+
+    @property
+    def TaskId(self):
+        r"""预热任务 ID
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._TaskId = params.get("TaskId")
+        self._RequestId = params.get("RequestId")
+
+
+class CustomerClusterAttr(AbstractModel):
+    r"""goosefsx客户端集群信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群id
+        :type ClusterId: str
+        :param _VpcId: vpc网络id
+        :type VpcId: str
+        :param _SubnetId: 子网id
+        :type SubnetId: str
+        :param _ClientNum: 客户端数量
+        :type ClientNum: int
+        :param _ClusterName: 集群名称
+        :type ClusterName: str
+        :param _ClusterType: 集群类型：0: 默认集群（文件系统创建时构建，不可销毁）；1: 扩展集群（客户端数量为0时可销毁）
+        :type ClusterType: int
+        :param _ManagerNodes: 管理节点信息
+        :type ManagerNodes: list of ClientClusterManagerNodeInfo
+        :param _Status: 集群状态：0:creating 创建中；1: created 创建完成; 2: deleting 删除中； 3: deleted 删除完成； 4:  failed 创建失败 
+        :type Status: int
+        :param _ClusterMountSet: 客户端集群挂载存储集合
+        :type ClusterMountSet: list of ClusterMountAttr
+        """
+        self._ClusterId = None
+        self._VpcId = None
+        self._SubnetId = None
+        self._ClientNum = None
+        self._ClusterName = None
+        self._ClusterType = None
+        self._ManagerNodes = None
+        self._Status = None
+        self._ClusterMountSet = None
+
+    @property
+    def ClusterId(self):
+        r"""集群id
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def VpcId(self):
+        r"""vpc网络id
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""子网id
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def ClientNum(self):
+        r"""客户端数量
+        :rtype: int
+        """
+        return self._ClientNum
+
+    @ClientNum.setter
+    def ClientNum(self, ClientNum):
+        self._ClientNum = ClientNum
+
+    @property
+    def ClusterName(self):
+        r"""集群名称
+        :rtype: str
+        """
+        return self._ClusterName
+
+    @ClusterName.setter
+    def ClusterName(self, ClusterName):
+        self._ClusterName = ClusterName
+
+    @property
+    def ClusterType(self):
+        r"""集群类型：0: 默认集群（文件系统创建时构建，不可销毁）；1: 扩展集群（客户端数量为0时可销毁）
+        :rtype: int
+        """
+        return self._ClusterType
+
+    @ClusterType.setter
+    def ClusterType(self, ClusterType):
+        self._ClusterType = ClusterType
+
+    @property
+    def ManagerNodes(self):
+        r"""管理节点信息
+        :rtype: list of ClientClusterManagerNodeInfo
+        """
+        return self._ManagerNodes
+
+    @ManagerNodes.setter
+    def ManagerNodes(self, ManagerNodes):
+        self._ManagerNodes = ManagerNodes
+
+    @property
+    def Status(self):
+        r"""集群状态：0:creating 创建中；1: created 创建完成; 2: deleting 删除中； 3: deleted 删除完成； 4:  failed 创建失败 
+        :rtype: int
+        """
+        return self._Status
+
+    @Status.setter
+    def Status(self, Status):
+        self._Status = Status
+
+    @property
+    def ClusterMountSet(self):
+        r"""客户端集群挂载存储集合
+        :rtype: list of ClusterMountAttr
+        """
+        return self._ClusterMountSet
+
+    @ClusterMountSet.setter
+    def ClusterMountSet(self, ClusterMountSet):
+        self._ClusterMountSet = ClusterMountSet
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._ClientNum = params.get("ClientNum")
+        self._ClusterName = params.get("ClusterName")
+        self._ClusterType = params.get("ClusterType")
+        if params.get("ManagerNodes") is not None:
+            self._ManagerNodes = []
+            for item in params.get("ManagerNodes"):
+                obj = ClientClusterManagerNodeInfo()
+                obj._deserialize(item)
+                self._ManagerNodes.append(obj)
+        self._Status = params.get("Status")
+        if params.get("ClusterMountSet") is not None:
+            self._ClusterMountSet = []
+            for item in params.get("ClusterMountSet"):
+                obj = ClusterMountAttr()
+                obj._deserialize(item)
+                self._ClusterMountSet.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteCrossVpcSubnetSupportForClientNodeRequest(AbstractModel):
+    r"""DeleteCrossVpcSubnetSupportForClientNode请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _SubnetInfo: 子网信息
+        :type SubnetInfo: :class:`tencentcloud.goosefs.v20220519.models.SubnetInfo`
+        """
+        self._FileSystemId = None
+        self._SubnetInfo = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def SubnetInfo(self):
+        r"""子网信息
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.SubnetInfo`
+        """
+        return self._SubnetInfo
+
+    @SubnetInfo.setter
+    def SubnetInfo(self, SubnetInfo):
+        self._SubnetInfo = SubnetInfo
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        if params.get("SubnetInfo") is not None:
+            self._SubnetInfo = SubnetInfo()
+            self._SubnetInfo._deserialize(params.get("SubnetInfo"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteCrossVpcSubnetSupportForClientNodeResponse(AbstractModel):
+    r"""DeleteCrossVpcSubnetSupportForClientNode返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DeleteCustomerClusterRequest(AbstractModel):
+    r"""DeleteCustomerCluster请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _ClusterId: 客户端集群ID
+        :type ClusterId: str
+        """
+        self._FileSystemId = None
+        self._ClusterId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def ClusterId(self):
+        r"""客户端集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteCustomerClusterResponse(AbstractModel):
+    r"""DeleteCustomerCluster返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DeleteFileSystemRequest(AbstractModel):
+    r"""DeleteFileSystem请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        """
+        self._FileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteFileSystemResponse(AbstractModel):
+    r"""DeleteFileSystem返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DeleteFilesetRequest(AbstractModel):
+    r"""DeleteFileset请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _FsetId: Fileset id
+        :type FsetId: str
+        """
+        self._FileSystemId = None
+        self._FsetId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def FsetId(self):
+        r"""Fileset id
+        :rtype: str
+        """
+        return self._FsetId
+
+    @FsetId.setter
+    def FsetId(self, FsetId):
+        self._FsetId = FsetId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._FsetId = params.get("FsetId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DeleteFilesetResponse(AbstractModel):
+    r"""DeleteFileset返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeClientNodesRequest(AbstractModel):
+    r"""DescribeClientNodes请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统Id
+        :type FileSystemId: str
+        """
+        self._FileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统Id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeClientNodesResponse(AbstractModel):
+    r"""DescribeClientNodes返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClientNodes: 客户端节点数组
+        :type ClientNodes: list of ClientNodeAttribute
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClientNodes = None
+        self._RequestId = None
+
+    @property
+    def ClientNodes(self):
+        r"""客户端节点数组
+        :rtype: list of ClientNodeAttribute
+        """
+        return self._ClientNodes
+
+    @ClientNodes.setter
+    def ClientNodes(self, ClientNodes):
+        self._ClientNodes = ClientNodes
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("ClientNodes") is not None:
+            self._ClientNodes = []
+            for item in params.get("ClientNodes"):
+                obj = ClientNodeAttribute()
+                obj._deserialize(item)
+                self._ClientNodes.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeClusterClientTokenRequest(AbstractModel):
+    r"""DescribeClusterClientToken请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID
+        :type ClusterId: str
+        """
+        self._ClusterId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeClusterClientTokenResponse(AbstractModel):
+    r"""DescribeClusterClientToken返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClientTokens: 客户端凭证
+        :type ClientTokens: list of ClientToken
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClientTokens = None
+        self._RequestId = None
+
+    @property
+    def ClientTokens(self):
+        r"""客户端凭证
+        :rtype: list of ClientToken
+        """
+        return self._ClientTokens
+
+    @ClientTokens.setter
+    def ClientTokens(self, ClientTokens):
+        self._ClientTokens = ClientTokens
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("ClientTokens") is not None:
+            self._ClientTokens = []
+            for item in params.get("ClientTokens"):
+                obj = ClientToken()
+                obj._deserialize(item)
+                self._ClientTokens.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeClusterRoleTokenRequest(AbstractModel):
+    r"""DescribeClusterRoleToken请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群ID
+        :type ClusterId: str
+        :param _RoleName: 角色名
+        :type RoleName: str
+        """
+        self._ClusterId = None
+        self._RoleName = None
+
+    @property
+    def ClusterId(self):
+        r"""集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def RoleName(self):
+        r"""角色名
+        :rtype: str
+        """
+        return self._RoleName
+
+    @RoleName.setter
+    def RoleName(self, RoleName):
+        self._RoleName = RoleName
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._RoleName = params.get("RoleName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeClusterRoleTokenResponse(AbstractModel):
+    r"""DescribeClusterRoleToken返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RoleTokens: 角色凭证
+        :type RoleTokens: list of RoleToken
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RoleTokens = None
+        self._RequestId = None
+
+    @property
+    def RoleTokens(self):
+        r"""角色凭证
+        :rtype: list of RoleToken
+        """
+        return self._RoleTokens
+
+    @RoleTokens.setter
+    def RoleTokens(self, RoleTokens):
+        self._RoleTokens = RoleTokens
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("RoleTokens") is not None:
+            self._RoleTokens = []
+            for item in params.get("RoleTokens"):
+                obj = RoleToken()
+                obj._deserialize(item)
+                self._RoleTokens.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeCustomerClusterRequest(AbstractModel):
+    r"""DescribeCustomerCluster请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        """
+        self._FileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeCustomerClusterResponse(AbstractModel):
+    r"""DescribeCustomerCluster返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterSet: 客户端集群列表
+        :type ClusterSet: list of CustomerClusterAttr
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._ClusterSet = None
+        self._RequestId = None
+
+    @property
+    def ClusterSet(self):
+        r"""客户端集群列表
+        :rtype: list of CustomerClusterAttr
+        """
+        return self._ClusterSet
+
+    @ClusterSet.setter
+    def ClusterSet(self, ClusterSet):
+        self._ClusterSet = ClusterSet
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("ClusterSet") is not None:
+            self._ClusterSet = []
+            for item in params.get("ClusterSet"):
+                obj = CustomerClusterAttr()
+                obj._deserialize(item)
+                self._ClusterSet.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeDataRepositoryTaskStatusRequest(AbstractModel):
+    r"""DescribeDataRepositoryTaskStatus请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _TaskId: task id
+        :type TaskId: str
+        :param _FileSystemId: file system id
+        :type FileSystemId: str
+        """
+        self._TaskId = None
+        self._FileSystemId = None
+
+    @property
+    def TaskId(self):
+        r"""task id
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+    @property
+    def FileSystemId(self):
+        r"""file system id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._TaskId = params.get("TaskId")
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeDataRepositoryTaskStatusResponse(AbstractModel):
+    r"""DescribeDataRepositoryTaskStatus返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _TaskId: 任务id
+        :type TaskId: str
+        :param _Status: 任务状态 0(初始化中), 1(运行中), 2(已完成), 3(任务失败)
+        :type Status: int
+        :param _FinishedFileNumber: 已完成的文件数量
+        :type FinishedFileNumber: int
+        :param _FinishedCapacity: 已完成的数据量
+        :type FinishedCapacity: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._TaskId = None
+        self._Status = None
+        self._FinishedFileNumber = None
+        self._FinishedCapacity = None
+        self._RequestId = None
+
+    @property
+    def TaskId(self):
+        r"""任务id
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+    @property
+    def Status(self):
+        r"""任务状态 0(初始化中), 1(运行中), 2(已完成), 3(任务失败)
+        :rtype: int
+        """
+        return self._Status
+
+    @Status.setter
+    def Status(self, Status):
+        self._Status = Status
+
+    @property
+    def FinishedFileNumber(self):
+        r"""已完成的文件数量
+        :rtype: int
+        """
+        return self._FinishedFileNumber
+
+    @FinishedFileNumber.setter
+    def FinishedFileNumber(self, FinishedFileNumber):
+        self._FinishedFileNumber = FinishedFileNumber
+
+    @property
+    def FinishedCapacity(self):
+        r"""已完成的数据量
+        :rtype: int
+        """
+        return self._FinishedCapacity
+
+    @FinishedCapacity.setter
+    def FinishedCapacity(self, FinishedCapacity):
+        self._FinishedCapacity = FinishedCapacity
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._TaskId = params.get("TaskId")
+        self._Status = params.get("Status")
+        self._FinishedFileNumber = params.get("FinishedFileNumber")
+        self._FinishedCapacity = params.get("FinishedCapacity")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeFileSystemBucketsRequest(AbstractModel):
+    r"""DescribeFileSystemBuckets请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        """
+        self._FileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeFileSystemBucketsResponse(AbstractModel):
+    r"""DescribeFileSystemBuckets返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _BucketList: bucket列表
+        :type BucketList: list of MappedBucket
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._BucketList = None
+        self._RequestId = None
+
+    @property
+    def BucketList(self):
+        r"""bucket列表
+        :rtype: list of MappedBucket
+        """
+        return self._BucketList
+
+    @BucketList.setter
+    def BucketList(self, BucketList):
+        self._BucketList = BucketList
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("BucketList") is not None:
+            self._BucketList = []
+            for item in params.get("BucketList"):
+                obj = MappedBucket()
+                obj._deserialize(item)
+                self._BucketList.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeFileSystemsRequest(AbstractModel):
+    r"""DescribeFileSystems请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Offset: 偏移量
+        :type Offset: int
+        :param _Limit: 每页的数量
+        :type Limit: int
+        """
+        self._Offset = None
+        self._Limit = None
+
+    @property
+    def Offset(self):
+        r"""偏移量
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""每页的数量
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+
+    def _deserialize(self, params):
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeFileSystemsResponse(AbstractModel):
+    r"""DescribeFileSystems返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FSAttributeList: 文件系统列表
+        :type FSAttributeList: list of FSAttribute
+        :param _TotalCount: 总共的文件系统数量
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._FSAttributeList = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def FSAttributeList(self):
+        r"""文件系统列表
+        :rtype: list of FSAttribute
+        """
+        return self._FSAttributeList
+
+    @FSAttributeList.setter
+    def FSAttributeList(self, FSAttributeList):
+        self._FSAttributeList = FSAttributeList
+
+    @property
+    def TotalCount(self):
+        r"""总共的文件系统数量
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("FSAttributeList") is not None:
+            self._FSAttributeList = []
+            for item in params.get("FSAttributeList"):
+                obj = FSAttribute()
+                obj._deserialize(item)
+                self._FSAttributeList.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeFilesetGeneralConfigRequest(AbstractModel):
+    r"""DescribeFilesetGeneralConfig请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        """
+        self._FileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeFilesetGeneralConfigResponse(AbstractModel):
+    r"""DescribeFilesetGeneralConfig返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _EnforceQuotaOnRoot: 配额对root用户生效
+        :type EnforceQuotaOnRoot: str
+        :param _Status: 配置状态
+        :type Status: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._EnforceQuotaOnRoot = None
+        self._Status = None
+        self._RequestId = None
+
+    @property
+    def EnforceQuotaOnRoot(self):
+        r"""配额对root用户生效
+        :rtype: str
+        """
+        return self._EnforceQuotaOnRoot
+
+    @EnforceQuotaOnRoot.setter
+    def EnforceQuotaOnRoot(self, EnforceQuotaOnRoot):
+        self._EnforceQuotaOnRoot = EnforceQuotaOnRoot
+
+    @property
+    def Status(self):
+        r"""配置状态
+        :rtype: str
+        """
+        return self._Status
+
+    @Status.setter
+    def Status(self, Status):
+        self._Status = Status
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._EnforceQuotaOnRoot = params.get("EnforceQuotaOnRoot")
+        self._Status = params.get("Status")
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeFilesetsRequest(AbstractModel):
+    r"""DescribeFilesets请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _FilesetIds: FsetId列表
+        :type FilesetIds: list of str
+        :param _FilesetDirs: FsetDir列表
+        :type FilesetDirs: list of str
+        """
+        self._FileSystemId = None
+        self._FilesetIds = None
+        self._FilesetDirs = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def FilesetIds(self):
+        r"""FsetId列表
+        :rtype: list of str
+        """
+        return self._FilesetIds
+
+    @FilesetIds.setter
+    def FilesetIds(self, FilesetIds):
+        self._FilesetIds = FilesetIds
+
+    @property
+    def FilesetDirs(self):
+        r"""FsetDir列表
+        :rtype: list of str
+        """
+        return self._FilesetDirs
+
+    @FilesetDirs.setter
+    def FilesetDirs(self, FilesetDirs):
+        self._FilesetDirs = FilesetDirs
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._FilesetIds = params.get("FilesetIds")
+        self._FilesetDirs = params.get("FilesetDirs")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeFilesetsResponse(AbstractModel):
+    r"""DescribeFilesets返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FilesetList: Fileset列表
+        :type FilesetList: list of FilesetInfo
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._FilesetList = None
+        self._RequestId = None
+
+    @property
+    def FilesetList(self):
+        r"""Fileset列表
+        :rtype: list of FilesetInfo
+        """
+        return self._FilesetList
+
+    @FilesetList.setter
+    def FilesetList(self, FilesetList):
+        self._FilesetList = FilesetList
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("FilesetList") is not None:
+            self._FilesetList = []
+            for item in params.get("FilesetList"):
+                obj = FilesetInfo()
+                obj._deserialize(item)
+                self._FilesetList.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class DescribeLoadTaskRequest(AbstractModel):
+    r"""DescribeLoadTask请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群 ID
+        :type ClusterId: str
+        :param _TaskId: 预热任务 ID
+        :type TaskId: str
+        """
+        self._ClusterId = None
+        self._TaskId = None
+
+    @property
+    def ClusterId(self):
+        r"""集群 ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def TaskId(self):
+        r"""预热任务 ID
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._TaskId = params.get("TaskId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DescribeLoadTaskResponse(AbstractModel):
+    r"""DescribeLoadTask返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LoadTaskAttrs: 预热任务参数
+        :type LoadTaskAttrs: :class:`tencentcloud.goosefs.v20220519.models.LoadTaskAttrs`
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._LoadTaskAttrs = None
+        self._RequestId = None
+
+    @property
+    def LoadTaskAttrs(self):
+        r"""预热任务参数
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.LoadTaskAttrs`
+        """
+        return self._LoadTaskAttrs
+
+    @LoadTaskAttrs.setter
+    def LoadTaskAttrs(self, LoadTaskAttrs):
+        self._LoadTaskAttrs = LoadTaskAttrs
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("LoadTaskAttrs") is not None:
+            self._LoadTaskAttrs = LoadTaskAttrs()
+            self._LoadTaskAttrs._deserialize(params.get("LoadTaskAttrs"))
+        self._RequestId = params.get("RequestId")
+
+
+class DetachFileSystemBucketRequest(AbstractModel):
+    r"""DetachFileSystemBucket请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _BucketName: 要解绑的Bucket名
+        :type BucketName: str
+        """
+        self._FileSystemId = None
+        self._BucketName = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def BucketName(self):
+        r"""要解绑的Bucket名
+        :rtype: str
+        """
+        return self._BucketName
+
+    @BucketName.setter
+    def BucketName(self, BucketName):
+        self._BucketName = BucketName
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._BucketName = params.get("BucketName")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class DetachFileSystemBucketResponse(AbstractModel):
+    r"""DetachFileSystemBucket返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class DistributedLoadAttrs(AbstractModel):
+    r"""数据预热任务参数
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LoadType: 预热类型，枚举值 LoadByPath｜LoadByList
+        :type LoadType: str
+        :param _SkipIfExists: 是否跳过相同文件，默认为 true
+        :type SkipIfExists: bool
+        :param _LoadByPath: 预热路径，入参单条挂载路径。入参数LoadType为LoadByPath，该参数不应为空
+        :type LoadByPath: str
+        :param _LoadByList: 通过文件列表批量预热，入参为 cos://bucket-appid/ 开头的 COS 路径，且仅支持 txt 格式文件，长度不能超过255个字符。入参数LoadType为LoadByList，该参数不应为空
+        :type LoadByList: str
+        :param _Replica: 副本数配置，枚举值，可选值 SingleReplica（单副本，默认）｜MaxReplica（最大副本）
+        :type Replica: str
+        :param _MetadataSync: 同步执行元数据预热，并基于预热后的元数据执行 DistributedLoad。默认为 false
+        :type MetadataSync: bool
+        """
+        self._LoadType = None
+        self._SkipIfExists = None
+        self._LoadByPath = None
+        self._LoadByList = None
+        self._Replica = None
+        self._MetadataSync = None
+
+    @property
+    def LoadType(self):
+        r"""预热类型，枚举值 LoadByPath｜LoadByList
+        :rtype: str
+        """
+        return self._LoadType
+
+    @LoadType.setter
+    def LoadType(self, LoadType):
+        self._LoadType = LoadType
+
+    @property
+    def SkipIfExists(self):
+        r"""是否跳过相同文件，默认为 true
+        :rtype: bool
+        """
+        return self._SkipIfExists
+
+    @SkipIfExists.setter
+    def SkipIfExists(self, SkipIfExists):
+        self._SkipIfExists = SkipIfExists
+
+    @property
+    def LoadByPath(self):
+        r"""预热路径，入参单条挂载路径。入参数LoadType为LoadByPath，该参数不应为空
+        :rtype: str
+        """
+        return self._LoadByPath
+
+    @LoadByPath.setter
+    def LoadByPath(self, LoadByPath):
+        self._LoadByPath = LoadByPath
+
+    @property
+    def LoadByList(self):
+        r"""通过文件列表批量预热，入参为 cos://bucket-appid/ 开头的 COS 路径，且仅支持 txt 格式文件，长度不能超过255个字符。入参数LoadType为LoadByList，该参数不应为空
+        :rtype: str
+        """
+        return self._LoadByList
+
+    @LoadByList.setter
+    def LoadByList(self, LoadByList):
+        self._LoadByList = LoadByList
+
+    @property
+    def Replica(self):
+        r"""副本数配置，枚举值，可选值 SingleReplica（单副本，默认）｜MaxReplica（最大副本）
+        :rtype: str
+        """
+        return self._Replica
+
+    @Replica.setter
+    def Replica(self, Replica):
+        self._Replica = Replica
+
+    @property
+    def MetadataSync(self):
+        r"""同步执行元数据预热，并基于预热后的元数据执行 DistributedLoad。默认为 false
+        :rtype: bool
+        """
+        return self._MetadataSync
+
+    @MetadataSync.setter
+    def MetadataSync(self, MetadataSync):
+        self._MetadataSync = MetadataSync
+
+
+    def _deserialize(self, params):
+        self._LoadType = params.get("LoadType")
+        self._SkipIfExists = params.get("SkipIfExists")
+        self._LoadByPath = params.get("LoadByPath")
+        self._LoadByList = params.get("LoadByList")
+        self._Replica = params.get("Replica")
+        self._MetadataSync = params.get("MetadataSync")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ExpandCapacityRequest(AbstractModel):
+    r"""ExpandCapacity请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _ExpandedCapacity: 新增扩容的系统容量
+        :type ExpandedCapacity: int
+        :param _ModifyType: 容量修改类型：add/sub
+        :type ModifyType: str
+        """
+        self._FileSystemId = None
+        self._ExpandedCapacity = None
+        self._ModifyType = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def ExpandedCapacity(self):
+        r"""新增扩容的系统容量
+        :rtype: int
+        """
+        return self._ExpandedCapacity
+
+    @ExpandedCapacity.setter
+    def ExpandedCapacity(self, ExpandedCapacity):
+        self._ExpandedCapacity = ExpandedCapacity
+
+    @property
+    def ModifyType(self):
+        r"""容量修改类型：add/sub
+        :rtype: str
+        """
+        return self._ModifyType
+
+    @ModifyType.setter
+    def ModifyType(self, ModifyType):
+        self._ModifyType = ModifyType
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._ExpandedCapacity = params.get("ExpandedCapacity")
+        self._ModifyType = params.get("ModifyType")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ExpandCapacityResponse(AbstractModel):
+    r"""ExpandCapacity返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class FSAttribute(AbstractModel):
+    r"""文件系统属性
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Type: 文件系统类型, 可填goosefs和goosefsx
+        :type Type: str
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _CreateTime: 创建时间
+        :type CreateTime: str
+        :param _GooseFSxAttribute: GooseFSx文件系统属性
+        :type GooseFSxAttribute: :class:`tencentcloud.goosefs.v20220519.models.GooseFSxAttribute`
+        :param _Status: 文件系统状态 ACTIVE(运行中), CREATING(创建中), DESTROYING(销毁中), FAIL(创建失败),EXPANDING(扩容中),PROBING(容灾中)
+        :type Status: str
+        :param _Name: 文件系统名
+        :type Name: str
+        :param _Description: 文件系统备注描述
+        :type Description: str
+        :param _VpcId: vpc ID
+        :type VpcId: str
+        :param _SubnetId: 子网ID
+        :type SubnetId: str
+        :param _Zone: 子网所在的可用区
+        :type Zone: str
+        :param _Tag: Tag数组
+        :type Tag: list of Tag
+        :param _ModifyTime: 更新属性时间
+        :type ModifyTime: str
+        :param _ChargeAttribute: 文件系统付费信息
+        :type ChargeAttribute: :class:`tencentcloud.goosefs.v20220519.models.ChargeAttribute`
+        """
+        self._Type = None
+        self._FileSystemId = None
+        self._CreateTime = None
+        self._GooseFSxAttribute = None
+        self._Status = None
+        self._Name = None
+        self._Description = None
+        self._VpcId = None
+        self._SubnetId = None
+        self._Zone = None
+        self._Tag = None
+        self._ModifyTime = None
+        self._ChargeAttribute = None
+
+    @property
+    def Type(self):
+        r"""文件系统类型, 可填goosefs和goosefsx
+        :rtype: str
+        """
+        return self._Type
+
+    @Type.setter
+    def Type(self, Type):
+        self._Type = Type
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def CreateTime(self):
+        r"""创建时间
+        :rtype: str
+        """
+        return self._CreateTime
+
+    @CreateTime.setter
+    def CreateTime(self, CreateTime):
+        self._CreateTime = CreateTime
+
+    @property
+    def GooseFSxAttribute(self):
+        r"""GooseFSx文件系统属性
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.GooseFSxAttribute`
+        """
+        return self._GooseFSxAttribute
+
+    @GooseFSxAttribute.setter
+    def GooseFSxAttribute(self, GooseFSxAttribute):
+        self._GooseFSxAttribute = GooseFSxAttribute
+
+    @property
+    def Status(self):
+        r"""文件系统状态 ACTIVE(运行中), CREATING(创建中), DESTROYING(销毁中), FAIL(创建失败),EXPANDING(扩容中),PROBING(容灾中)
+        :rtype: str
+        """
+        return self._Status
+
+    @Status.setter
+    def Status(self, Status):
+        self._Status = Status
+
+    @property
+    def Name(self):
+        r"""文件系统名
+        :rtype: str
+        """
+        return self._Name
+
+    @Name.setter
+    def Name(self, Name):
+        self._Name = Name
+
+    @property
+    def Description(self):
+        r"""文件系统备注描述
+        :rtype: str
+        """
+        return self._Description
+
+    @Description.setter
+    def Description(self, Description):
+        self._Description = Description
+
+    @property
+    def VpcId(self):
+        r"""vpc ID
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""子网ID
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def Zone(self):
+        r"""子网所在的可用区
+        :rtype: str
+        """
+        return self._Zone
+
+    @Zone.setter
+    def Zone(self, Zone):
+        self._Zone = Zone
+
+    @property
+    def Tag(self):
+        r"""Tag数组
+        :rtype: list of Tag
+        """
+        return self._Tag
+
+    @Tag.setter
+    def Tag(self, Tag):
+        self._Tag = Tag
+
+    @property
+    def ModifyTime(self):
+        r"""更新属性时间
+        :rtype: str
+        """
+        return self._ModifyTime
+
+    @ModifyTime.setter
+    def ModifyTime(self, ModifyTime):
+        self._ModifyTime = ModifyTime
+
+    @property
+    def ChargeAttribute(self):
+        r"""文件系统付费信息
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.ChargeAttribute`
+        """
+        return self._ChargeAttribute
+
+    @ChargeAttribute.setter
+    def ChargeAttribute(self, ChargeAttribute):
+        self._ChargeAttribute = ChargeAttribute
+
+
+    def _deserialize(self, params):
+        self._Type = params.get("Type")
+        self._FileSystemId = params.get("FileSystemId")
+        self._CreateTime = params.get("CreateTime")
+        if params.get("GooseFSxAttribute") is not None:
+            self._GooseFSxAttribute = GooseFSxAttribute()
+            self._GooseFSxAttribute._deserialize(params.get("GooseFSxAttribute"))
+        self._Status = params.get("Status")
+        self._Name = params.get("Name")
+        self._Description = params.get("Description")
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._Zone = params.get("Zone")
+        if params.get("Tag") is not None:
+            self._Tag = []
+            for item in params.get("Tag"):
+                obj = Tag()
+                obj._deserialize(item)
+                self._Tag.append(obj)
+        self._ModifyTime = params.get("ModifyTime")
+        if params.get("ChargeAttribute") is not None:
+            self._ChargeAttribute = ChargeAttribute()
+            self._ChargeAttribute._deserialize(params.get("ChargeAttribute"))
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class FilesetInfo(AbstractModel):
+    r"""Fileset信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FsetId: Fileset id
+        :type FsetId: str
+        :param _FsetName: Fileset名称
+        :type FsetName: str
+        :param _FsetDir: Fileset目录
+        :type FsetDir: str
+        :param _QuotaSizeLimit: Fileset容量配额限定值
+        :type QuotaSizeLimit: str
+        :param _QuotaSizeUsed: 已使用容量配额
+        :type QuotaSizeUsed: str
+        :param _QuotaSizeUsedPercent: 容量配额使用占比
+        :type QuotaSizeUsedPercent: str
+        :param _QuotaFilesLimit: Fileset文件数配额限定值
+        :type QuotaFilesLimit: str
+        :param _QuotaFilesUsed: 已使用文件数配额
+        :type QuotaFilesUsed: str
+        :param _QuotaFilesUsedPercent: 文件数配额使用占比
+        :type QuotaFilesUsedPercent: str
+        :param _AuditState: Fileset审计
+        :type AuditState: str
+        :param _CreateTime: 创建时间
+        :type CreateTime: str
+        :param _ModifyTime: 修改时间
+        :type ModifyTime: str
+        :param _Status: Fileset状态：creating 配置中 active 已生效 modify 修改中
+        :type Status: str
+        """
+        self._FsetId = None
+        self._FsetName = None
+        self._FsetDir = None
+        self._QuotaSizeLimit = None
+        self._QuotaSizeUsed = None
+        self._QuotaSizeUsedPercent = None
+        self._QuotaFilesLimit = None
+        self._QuotaFilesUsed = None
+        self._QuotaFilesUsedPercent = None
+        self._AuditState = None
+        self._CreateTime = None
+        self._ModifyTime = None
+        self._Status = None
+
+    @property
+    def FsetId(self):
+        r"""Fileset id
+        :rtype: str
+        """
+        return self._FsetId
+
+    @FsetId.setter
+    def FsetId(self, FsetId):
+        self._FsetId = FsetId
+
+    @property
+    def FsetName(self):
+        r"""Fileset名称
+        :rtype: str
+        """
+        return self._FsetName
+
+    @FsetName.setter
+    def FsetName(self, FsetName):
+        self._FsetName = FsetName
+
+    @property
+    def FsetDir(self):
+        r"""Fileset目录
+        :rtype: str
+        """
+        return self._FsetDir
+
+    @FsetDir.setter
+    def FsetDir(self, FsetDir):
+        self._FsetDir = FsetDir
+
+    @property
+    def QuotaSizeLimit(self):
+        r"""Fileset容量配额限定值
+        :rtype: str
+        """
+        return self._QuotaSizeLimit
+
+    @QuotaSizeLimit.setter
+    def QuotaSizeLimit(self, QuotaSizeLimit):
+        self._QuotaSizeLimit = QuotaSizeLimit
+
+    @property
+    def QuotaSizeUsed(self):
+        r"""已使用容量配额
+        :rtype: str
+        """
+        return self._QuotaSizeUsed
+
+    @QuotaSizeUsed.setter
+    def QuotaSizeUsed(self, QuotaSizeUsed):
+        self._QuotaSizeUsed = QuotaSizeUsed
+
+    @property
+    def QuotaSizeUsedPercent(self):
+        r"""容量配额使用占比
+        :rtype: str
+        """
+        return self._QuotaSizeUsedPercent
+
+    @QuotaSizeUsedPercent.setter
+    def QuotaSizeUsedPercent(self, QuotaSizeUsedPercent):
+        self._QuotaSizeUsedPercent = QuotaSizeUsedPercent
+
+    @property
+    def QuotaFilesLimit(self):
+        r"""Fileset文件数配额限定值
+        :rtype: str
+        """
+        return self._QuotaFilesLimit
+
+    @QuotaFilesLimit.setter
+    def QuotaFilesLimit(self, QuotaFilesLimit):
+        self._QuotaFilesLimit = QuotaFilesLimit
+
+    @property
+    def QuotaFilesUsed(self):
+        r"""已使用文件数配额
+        :rtype: str
+        """
+        return self._QuotaFilesUsed
+
+    @QuotaFilesUsed.setter
+    def QuotaFilesUsed(self, QuotaFilesUsed):
+        self._QuotaFilesUsed = QuotaFilesUsed
+
+    @property
+    def QuotaFilesUsedPercent(self):
+        r"""文件数配额使用占比
+        :rtype: str
+        """
+        return self._QuotaFilesUsedPercent
+
+    @QuotaFilesUsedPercent.setter
+    def QuotaFilesUsedPercent(self, QuotaFilesUsedPercent):
+        self._QuotaFilesUsedPercent = QuotaFilesUsedPercent
+
+    @property
+    def AuditState(self):
+        r"""Fileset审计
+        :rtype: str
+        """
+        return self._AuditState
+
+    @AuditState.setter
+    def AuditState(self, AuditState):
+        self._AuditState = AuditState
+
+    @property
+    def CreateTime(self):
+        r"""创建时间
+        :rtype: str
+        """
+        return self._CreateTime
+
+    @CreateTime.setter
+    def CreateTime(self, CreateTime):
+        self._CreateTime = CreateTime
+
+    @property
+    def ModifyTime(self):
+        r"""修改时间
+        :rtype: str
+        """
+        return self._ModifyTime
+
+    @ModifyTime.setter
+    def ModifyTime(self, ModifyTime):
+        self._ModifyTime = ModifyTime
+
+    @property
+    def Status(self):
+        r"""Fileset状态：creating 配置中 active 已生效 modify 修改中
+        :rtype: str
+        """
+        return self._Status
+
+    @Status.setter
+    def Status(self, Status):
+        self._Status = Status
+
+
+    def _deserialize(self, params):
+        self._FsetId = params.get("FsetId")
+        self._FsetName = params.get("FsetName")
+        self._FsetDir = params.get("FsetDir")
+        self._QuotaSizeLimit = params.get("QuotaSizeLimit")
+        self._QuotaSizeUsed = params.get("QuotaSizeUsed")
+        self._QuotaSizeUsedPercent = params.get("QuotaSizeUsedPercent")
+        self._QuotaFilesLimit = params.get("QuotaFilesLimit")
+        self._QuotaFilesUsed = params.get("QuotaFilesUsed")
+        self._QuotaFilesUsedPercent = params.get("QuotaFilesUsedPercent")
+        self._AuditState = params.get("AuditState")
+        self._CreateTime = params.get("CreateTime")
+        self._ModifyTime = params.get("ModifyTime")
+        self._Status = params.get("Status")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class GooseFSxAttribute(AbstractModel):
+    r"""GooseFSx文件系统的属性
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Model: GooseFSx的型号
+        :type Model: str
+        :param _Capacity: 容量单位是GB, 例如4608(4.5TB)
+        :type Capacity: int
+        :param _MappedBucketList: 要关联映射的bucket列表
+        :type MappedBucketList: list of MappedBucket
+        :param _ClientManagerNodeList: 客户侧管理节点信息
+        :type ClientManagerNodeList: list of ClientClusterManagerNodeInfo
+        """
+        self._Model = None
+        self._Capacity = None
+        self._MappedBucketList = None
+        self._ClientManagerNodeList = None
+
+    @property
+    def Model(self):
+        r"""GooseFSx的型号
+        :rtype: str
+        """
+        return self._Model
+
+    @Model.setter
+    def Model(self, Model):
+        self._Model = Model
+
+    @property
+    def Capacity(self):
+        r"""容量单位是GB, 例如4608(4.5TB)
+        :rtype: int
+        """
+        return self._Capacity
+
+    @Capacity.setter
+    def Capacity(self, Capacity):
+        self._Capacity = Capacity
+
+    @property
+    def MappedBucketList(self):
+        r"""要关联映射的bucket列表
+        :rtype: list of MappedBucket
+        """
+        return self._MappedBucketList
+
+    @MappedBucketList.setter
+    def MappedBucketList(self, MappedBucketList):
+        self._MappedBucketList = MappedBucketList
+
+    @property
+    def ClientManagerNodeList(self):
+        r"""客户侧管理节点信息
+        :rtype: list of ClientClusterManagerNodeInfo
+        """
+        return self._ClientManagerNodeList
+
+    @ClientManagerNodeList.setter
+    def ClientManagerNodeList(self, ClientManagerNodeList):
+        self._ClientManagerNodeList = ClientManagerNodeList
+
+
+    def _deserialize(self, params):
+        self._Model = params.get("Model")
+        self._Capacity = params.get("Capacity")
+        if params.get("MappedBucketList") is not None:
+            self._MappedBucketList = []
+            for item in params.get("MappedBucketList"):
+                obj = MappedBucket()
+                obj._deserialize(item)
+                self._MappedBucketList.append(obj)
+        if params.get("ClientManagerNodeList") is not None:
+            self._ClientManagerNodeList = []
+            for item in params.get("ClientManagerNodeList"):
+                obj = ClientClusterManagerNodeInfo()
+                obj._deserialize(item)
+                self._ClientManagerNodeList.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class GooseFSxBuildElement(AbstractModel):
+    r"""GooseFSx创建时候的属性
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Model: GooseFSx的型号
+        :type Model: str
+        :param _Capacity: 容量单位是GB, 例如4608(4.5TB)
+        :type Capacity: int
+        :param _MappedBucketList: 要关联映射的bucket列表
+        :type MappedBucketList: list of MappedBucket
+        """
+        self._Model = None
+        self._Capacity = None
+        self._MappedBucketList = None
+
+    @property
+    def Model(self):
+        r"""GooseFSx的型号
+        :rtype: str
+        """
+        return self._Model
+
+    @Model.setter
+    def Model(self, Model):
+        self._Model = Model
+
+    @property
+    def Capacity(self):
+        r"""容量单位是GB, 例如4608(4.5TB)
+        :rtype: int
+        """
+        return self._Capacity
+
+    @Capacity.setter
+    def Capacity(self, Capacity):
+        self._Capacity = Capacity
+
+    @property
+    def MappedBucketList(self):
+        warnings.warn("parameter `MappedBucketList` is deprecated", DeprecationWarning) 
+
+        r"""要关联映射的bucket列表
+        :rtype: list of MappedBucket
+        """
+        return self._MappedBucketList
+
+    @MappedBucketList.setter
+    def MappedBucketList(self, MappedBucketList):
+        warnings.warn("parameter `MappedBucketList` is deprecated", DeprecationWarning) 
+
+        self._MappedBucketList = MappedBucketList
+
+
+    def _deserialize(self, params):
+        self._Model = params.get("Model")
+        self._Capacity = params.get("Capacity")
+        if params.get("MappedBucketList") is not None:
+            self._MappedBucketList = []
+            for item in params.get("MappedBucketList"):
+                obj = MappedBucket()
+                obj._deserialize(item)
+                self._MappedBucketList.append(obj)
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class LinuxNodeAttribute(AbstractModel):
+    r"""添加删除客户端节点列表
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _InstanceId: cvmId
+        :type InstanceId: str
+        :param _VpcId: 节点所属vpcid
+        :type VpcId: str
+        :param _SubnetId: 节点所属子网id
+        :type SubnetId: str
+        :param _LinuxClientNodeIp: linux客户端节点地址
+        :type LinuxClientNodeIp: str
+        :param _MountPoint: 自定义挂载点
+        :type MountPoint: str
+        """
+        self._InstanceId = None
+        self._VpcId = None
+        self._SubnetId = None
+        self._LinuxClientNodeIp = None
+        self._MountPoint = None
+
+    @property
+    def InstanceId(self):
+        r"""cvmId
+        :rtype: str
+        """
+        return self._InstanceId
+
+    @InstanceId.setter
+    def InstanceId(self, InstanceId):
+        self._InstanceId = InstanceId
+
+    @property
+    def VpcId(self):
+        r"""节点所属vpcid
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""节点所属子网id
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def LinuxClientNodeIp(self):
+        r"""linux客户端节点地址
+        :rtype: str
+        """
+        return self._LinuxClientNodeIp
+
+    @LinuxClientNodeIp.setter
+    def LinuxClientNodeIp(self, LinuxClientNodeIp):
+        self._LinuxClientNodeIp = LinuxClientNodeIp
+
+    @property
+    def MountPoint(self):
+        r"""自定义挂载点
+        :rtype: str
+        """
+        return self._MountPoint
+
+    @MountPoint.setter
+    def MountPoint(self, MountPoint):
+        self._MountPoint = MountPoint
+
+
+    def _deserialize(self, params):
+        self._InstanceId = params.get("InstanceId")
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._LinuxClientNodeIp = params.get("LinuxClientNodeIp")
+        self._MountPoint = params.get("MountPoint")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ListLoadTasksRequest(AbstractModel):
+    r"""ListLoadTasks请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群 ID
+        :type ClusterId: str
+        :param _Offset: 偏移量
+        :type Offset: int
+        :param _Limit: 偏移量
+        :type Limit: int
+        :param _StartTimestamp: 任务创建起始时间戳，默认为3天前：当前时间戳-86400*3
+        :type StartTimestamp: int
+        :param _EndTimestamp: 任务变更时间戳
+        :type EndTimestamp: int
+        :param _State: 筛选任务状态，枚举Waiting,Running,Canceled,Completed。默认返回所有任务
+        :type State: str
+        :param _Priority: 筛选优先级任务，默认返回所有任务
+        :type Priority: int
+        """
+        self._ClusterId = None
+        self._Offset = None
+        self._Limit = None
+        self._StartTimestamp = None
+        self._EndTimestamp = None
+        self._State = None
+        self._Priority = None
+
+    @property
+    def ClusterId(self):
+        r"""集群 ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def Offset(self):
+        r"""偏移量
+        :rtype: int
+        """
+        return self._Offset
+
+    @Offset.setter
+    def Offset(self, Offset):
+        self._Offset = Offset
+
+    @property
+    def Limit(self):
+        r"""偏移量
+        :rtype: int
+        """
+        return self._Limit
+
+    @Limit.setter
+    def Limit(self, Limit):
+        self._Limit = Limit
+
+    @property
+    def StartTimestamp(self):
+        r"""任务创建起始时间戳，默认为3天前：当前时间戳-86400*3
+        :rtype: int
+        """
+        return self._StartTimestamp
+
+    @StartTimestamp.setter
+    def StartTimestamp(self, StartTimestamp):
+        self._StartTimestamp = StartTimestamp
+
+    @property
+    def EndTimestamp(self):
+        r"""任务变更时间戳
+        :rtype: int
+        """
+        return self._EndTimestamp
+
+    @EndTimestamp.setter
+    def EndTimestamp(self, EndTimestamp):
+        self._EndTimestamp = EndTimestamp
+
+    @property
+    def State(self):
+        r"""筛选任务状态，枚举Waiting,Running,Canceled,Completed。默认返回所有任务
+        :rtype: str
+        """
+        return self._State
+
+    @State.setter
+    def State(self, State):
+        self._State = State
+
+    @property
+    def Priority(self):
+        r"""筛选优先级任务，默认返回所有任务
+        :rtype: int
+        """
+        return self._Priority
+
+    @Priority.setter
+    def Priority(self, Priority):
+        self._Priority = Priority
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._Offset = params.get("Offset")
+        self._Limit = params.get("Limit")
+        self._StartTimestamp = params.get("StartTimestamp")
+        self._EndTimestamp = params.get("EndTimestamp")
+        self._State = params.get("State")
+        self._Priority = params.get("Priority")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ListLoadTasksResponse(AbstractModel):
+    r"""ListLoadTasks返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LoadTaskList: 预热任务参数
+        :type LoadTaskList: list of LoadTaskAttrs
+        :param _TotalCount: 任务数总量
+        :type TotalCount: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._LoadTaskList = None
+        self._TotalCount = None
+        self._RequestId = None
+
+    @property
+    def LoadTaskList(self):
+        r"""预热任务参数
+        :rtype: list of LoadTaskAttrs
+        """
+        return self._LoadTaskList
+
+    @LoadTaskList.setter
+    def LoadTaskList(self, LoadTaskList):
+        self._LoadTaskList = LoadTaskList
+
+    @property
+    def TotalCount(self):
+        r"""任务数总量
+        :rtype: int
+        """
+        return self._TotalCount
+
+    @TotalCount.setter
+    def TotalCount(self, TotalCount):
+        self._TotalCount = TotalCount
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("LoadTaskList") is not None:
+            self._LoadTaskList = []
+            for item in params.get("LoadTaskList"):
+                obj = LoadTaskAttrs()
+                obj._deserialize(item)
+                self._LoadTaskList.append(obj)
+        self._TotalCount = params.get("TotalCount")
+        self._RequestId = params.get("RequestId")
+
+
+class LoadTaskAttrs(AbstractModel):
+    r"""预热任务参数
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _TaskId: 预热任务 ID
+        :type TaskId: str
+        :param _TaskType: 预热任务类型，枚举值，MetadataLoad｜DistributedLoad
+        :type TaskType: str
+        :param _Description: 任务描述，支持中文
+        :type Description: str
+        :param _Priority: 任务优先级，数值越高代表优先级越高，边界值 1-9999，默认值为 1
+        :type Priority: int
+        :param _MetadataLoadAttrs: 元数据预热任务参数，用于仅预热元数据时入参。入参数TaskType为MetadataLoad时，该参数不应为空。
+        :type MetadataLoadAttrs: :class:`tencentcloud.goosefs.v20220519.models.MetadataLoadAttrs`
+        :param _DistributedLoadAttrs: 数据预热任务参数。入参数TaskType为DistributedLoad时，该参数不应为空。
+        :type DistributedLoadAttrs: :class:`tencentcloud.goosefs.v20220519.models.DistributedLoadAttrs`
+        :param _ReportPath: 将任务执行报告写入 COS 的路径，如果不需要报告则入参空
+        :type ReportPath: str
+        :param _State: 枚举，Completed，Running，Waiting，Cancelled
+        :type State: str
+        :param _TaskMessage: 任务执行信息，打印预热文件成功个数，失败个数，预热耗时信息 
+        :type TaskMessage: str
+        :param _CreateTime: 预热任务创建时间
+        :type CreateTime: str
+        :param _ModifyTime: 预热任务变更时间
+        :type ModifyTime: str
+        :param _Requester: 任务提交账号，子账号或服务角色 ID
+        :type Requester: str
+        """
+        self._TaskId = None
+        self._TaskType = None
+        self._Description = None
+        self._Priority = None
+        self._MetadataLoadAttrs = None
+        self._DistributedLoadAttrs = None
+        self._ReportPath = None
+        self._State = None
+        self._TaskMessage = None
+        self._CreateTime = None
+        self._ModifyTime = None
+        self._Requester = None
+
+    @property
+    def TaskId(self):
+        r"""预热任务 ID
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+    @property
+    def TaskType(self):
+        r"""预热任务类型，枚举值，MetadataLoad｜DistributedLoad
+        :rtype: str
+        """
+        return self._TaskType
+
+    @TaskType.setter
+    def TaskType(self, TaskType):
+        self._TaskType = TaskType
+
+    @property
+    def Description(self):
+        r"""任务描述，支持中文
+        :rtype: str
+        """
+        return self._Description
+
+    @Description.setter
+    def Description(self, Description):
+        self._Description = Description
+
+    @property
+    def Priority(self):
+        r"""任务优先级，数值越高代表优先级越高，边界值 1-9999，默认值为 1
+        :rtype: int
+        """
+        return self._Priority
+
+    @Priority.setter
+    def Priority(self, Priority):
+        self._Priority = Priority
+
+    @property
+    def MetadataLoadAttrs(self):
+        r"""元数据预热任务参数，用于仅预热元数据时入参。入参数TaskType为MetadataLoad时，该参数不应为空。
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.MetadataLoadAttrs`
+        """
+        return self._MetadataLoadAttrs
+
+    @MetadataLoadAttrs.setter
+    def MetadataLoadAttrs(self, MetadataLoadAttrs):
+        self._MetadataLoadAttrs = MetadataLoadAttrs
+
+    @property
+    def DistributedLoadAttrs(self):
+        r"""数据预热任务参数。入参数TaskType为DistributedLoad时，该参数不应为空。
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.DistributedLoadAttrs`
+        """
+        return self._DistributedLoadAttrs
+
+    @DistributedLoadAttrs.setter
+    def DistributedLoadAttrs(self, DistributedLoadAttrs):
+        self._DistributedLoadAttrs = DistributedLoadAttrs
+
+    @property
+    def ReportPath(self):
+        r"""将任务执行报告写入 COS 的路径，如果不需要报告则入参空
+        :rtype: str
+        """
+        return self._ReportPath
+
+    @ReportPath.setter
+    def ReportPath(self, ReportPath):
+        self._ReportPath = ReportPath
+
+    @property
+    def State(self):
+        r"""枚举，Completed，Running，Waiting，Cancelled
+        :rtype: str
+        """
+        return self._State
+
+    @State.setter
+    def State(self, State):
+        self._State = State
+
+    @property
+    def TaskMessage(self):
+        r"""任务执行信息，打印预热文件成功个数，失败个数，预热耗时信息 
+        :rtype: str
+        """
+        return self._TaskMessage
+
+    @TaskMessage.setter
+    def TaskMessage(self, TaskMessage):
+        self._TaskMessage = TaskMessage
+
+    @property
+    def CreateTime(self):
+        r"""预热任务创建时间
+        :rtype: str
+        """
+        return self._CreateTime
+
+    @CreateTime.setter
+    def CreateTime(self, CreateTime):
+        self._CreateTime = CreateTime
+
+    @property
+    def ModifyTime(self):
+        r"""预热任务变更时间
+        :rtype: str
+        """
+        return self._ModifyTime
+
+    @ModifyTime.setter
+    def ModifyTime(self, ModifyTime):
+        self._ModifyTime = ModifyTime
+
+    @property
+    def Requester(self):
+        r"""任务提交账号，子账号或服务角色 ID
+        :rtype: str
+        """
+        return self._Requester
+
+    @Requester.setter
+    def Requester(self, Requester):
+        self._Requester = Requester
+
+
+    def _deserialize(self, params):
+        self._TaskId = params.get("TaskId")
+        self._TaskType = params.get("TaskType")
+        self._Description = params.get("Description")
+        self._Priority = params.get("Priority")
+        if params.get("MetadataLoadAttrs") is not None:
+            self._MetadataLoadAttrs = MetadataLoadAttrs()
+            self._MetadataLoadAttrs._deserialize(params.get("MetadataLoadAttrs"))
+        if params.get("DistributedLoadAttrs") is not None:
+            self._DistributedLoadAttrs = DistributedLoadAttrs()
+            self._DistributedLoadAttrs._deserialize(params.get("DistributedLoadAttrs"))
+        self._ReportPath = params.get("ReportPath")
+        self._State = params.get("State")
+        self._TaskMessage = params.get("TaskMessage")
+        self._CreateTime = params.get("CreateTime")
+        self._ModifyTime = params.get("ModifyTime")
+        self._Requester = params.get("Requester")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class LoadTaskCreationAttrs(AbstractModel):
+    r"""创建预热任务
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _TaskType: 预热任务类型，枚举值，MetadataLoad｜DistributedLoad。
+        :type TaskType: str
+        :param _Priority: 任务优先级，数值越高代表优先级越高，边界值 1-9999，默认值为 1
+        :type Priority: int
+        :param _Description: 任务描述，支持中文
+        :type Description: str
+        :param _MetadataLoadAttrs: 元数据预热任务参数，用于仅预热元数据时入参。入参数TaskType为MetadataLoad时，该参数不应为空。
+        :type MetadataLoadAttrs: :class:`tencentcloud.goosefs.v20220519.models.MetadataLoadAttrs`
+        :param _DistributedLoadAttrs: 数据预热任务参数。入参数TaskType为DistributedLoad时，该参数不应为空。
+        :type DistributedLoadAttrs: :class:`tencentcloud.goosefs.v20220519.models.DistributedLoadAttrs`
+        :param _ReportPath: 将任务执行报告写入 COS 的路径，如果不需要报告则入参空
+        :type ReportPath: str
+        """
+        self._TaskType = None
+        self._Priority = None
+        self._Description = None
+        self._MetadataLoadAttrs = None
+        self._DistributedLoadAttrs = None
+        self._ReportPath = None
+
+    @property
+    def TaskType(self):
+        r"""预热任务类型，枚举值，MetadataLoad｜DistributedLoad。
+        :rtype: str
+        """
+        return self._TaskType
+
+    @TaskType.setter
+    def TaskType(self, TaskType):
+        self._TaskType = TaskType
+
+    @property
+    def Priority(self):
+        r"""任务优先级，数值越高代表优先级越高，边界值 1-9999，默认值为 1
+        :rtype: int
+        """
+        return self._Priority
+
+    @Priority.setter
+    def Priority(self, Priority):
+        self._Priority = Priority
+
+    @property
+    def Description(self):
+        r"""任务描述，支持中文
+        :rtype: str
+        """
+        return self._Description
+
+    @Description.setter
+    def Description(self, Description):
+        self._Description = Description
+
+    @property
+    def MetadataLoadAttrs(self):
+        r"""元数据预热任务参数，用于仅预热元数据时入参。入参数TaskType为MetadataLoad时，该参数不应为空。
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.MetadataLoadAttrs`
+        """
+        return self._MetadataLoadAttrs
+
+    @MetadataLoadAttrs.setter
+    def MetadataLoadAttrs(self, MetadataLoadAttrs):
+        self._MetadataLoadAttrs = MetadataLoadAttrs
+
+    @property
+    def DistributedLoadAttrs(self):
+        r"""数据预热任务参数。入参数TaskType为DistributedLoad时，该参数不应为空。
+        :rtype: :class:`tencentcloud.goosefs.v20220519.models.DistributedLoadAttrs`
+        """
+        return self._DistributedLoadAttrs
+
+    @DistributedLoadAttrs.setter
+    def DistributedLoadAttrs(self, DistributedLoadAttrs):
+        self._DistributedLoadAttrs = DistributedLoadAttrs
+
+    @property
+    def ReportPath(self):
+        r"""将任务执行报告写入 COS 的路径，如果不需要报告则入参空
+        :rtype: str
+        """
+        return self._ReportPath
+
+    @ReportPath.setter
+    def ReportPath(self, ReportPath):
+        self._ReportPath = ReportPath
+
+
+    def _deserialize(self, params):
+        self._TaskType = params.get("TaskType")
+        self._Priority = params.get("Priority")
+        self._Description = params.get("Description")
+        if params.get("MetadataLoadAttrs") is not None:
+            self._MetadataLoadAttrs = MetadataLoadAttrs()
+            self._MetadataLoadAttrs._deserialize(params.get("MetadataLoadAttrs"))
+        if params.get("DistributedLoadAttrs") is not None:
+            self._DistributedLoadAttrs = DistributedLoadAttrs()
+            self._DistributedLoadAttrs._deserialize(params.get("DistributedLoadAttrs"))
+        self._ReportPath = params.get("ReportPath")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class MappedBucket(AbstractModel):
+    r"""关联的对象Bucket, 并将其映射到文件系统某个路径上
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _BucketName: 对象存储Bucket名
+        :type BucketName: str
+        :param _FileSystemPath: 映射到的文件系统路径, 默认为/
+        :type FileSystemPath: str
+        :param _DataRepositoryTaskAutoStrategy: 数据流动的自动策略, 包含加载与沉降。策略可以是多种的组合
+按需加载(OnDemandImport)
+自动加载元数据(AutoImportMeta)
+自动加载数据(AutoImportData)
+周期加载(PeriodImport)
+
+周期沉降(PeriodExport)
+立即沉降(ImmediateExport)
+        :type DataRepositoryTaskAutoStrategy: list of str
+        :param _RuleId: 绑定bucket的数据流动策略ID
+        :type RuleId: str
+        :param _RuleDescription: 规则备注与描述
+        :type RuleDescription: str
+        :param _Status: 桶关联状态 0：关联中 1：关联完成
+        :type Status: int
+        :param _AccelerateFlag: 是否使用全球加速域名
+        :type AccelerateFlag: bool
+        :param _BucketRegion: 桶所在的园区
+        :type BucketRegion: str
+        :param _Endpoint: 自定义Endpoint
+        :type Endpoint: str
+        """
+        self._BucketName = None
+        self._FileSystemPath = None
+        self._DataRepositoryTaskAutoStrategy = None
+        self._RuleId = None
+        self._RuleDescription = None
+        self._Status = None
+        self._AccelerateFlag = None
+        self._BucketRegion = None
+        self._Endpoint = None
+
+    @property
+    def BucketName(self):
+        r"""对象存储Bucket名
+        :rtype: str
+        """
+        return self._BucketName
+
+    @BucketName.setter
+    def BucketName(self, BucketName):
+        self._BucketName = BucketName
+
+    @property
+    def FileSystemPath(self):
+        r"""映射到的文件系统路径, 默认为/
+        :rtype: str
+        """
+        return self._FileSystemPath
+
+    @FileSystemPath.setter
+    def FileSystemPath(self, FileSystemPath):
+        self._FileSystemPath = FileSystemPath
+
+    @property
+    def DataRepositoryTaskAutoStrategy(self):
+        r"""数据流动的自动策略, 包含加载与沉降。策略可以是多种的组合
+按需加载(OnDemandImport)
+自动加载元数据(AutoImportMeta)
+自动加载数据(AutoImportData)
+周期加载(PeriodImport)
+
+周期沉降(PeriodExport)
+立即沉降(ImmediateExport)
+        :rtype: list of str
+        """
+        return self._DataRepositoryTaskAutoStrategy
+
+    @DataRepositoryTaskAutoStrategy.setter
+    def DataRepositoryTaskAutoStrategy(self, DataRepositoryTaskAutoStrategy):
+        self._DataRepositoryTaskAutoStrategy = DataRepositoryTaskAutoStrategy
+
+    @property
+    def RuleId(self):
+        r"""绑定bucket的数据流动策略ID
+        :rtype: str
+        """
+        return self._RuleId
+
+    @RuleId.setter
+    def RuleId(self, RuleId):
+        self._RuleId = RuleId
+
+    @property
+    def RuleDescription(self):
+        r"""规则备注与描述
+        :rtype: str
+        """
+        return self._RuleDescription
+
+    @RuleDescription.setter
+    def RuleDescription(self, RuleDescription):
+        self._RuleDescription = RuleDescription
+
+    @property
+    def Status(self):
+        r"""桶关联状态 0：关联中 1：关联完成
+        :rtype: int
+        """
+        return self._Status
+
+    @Status.setter
+    def Status(self, Status):
+        self._Status = Status
+
+    @property
+    def AccelerateFlag(self):
+        r"""是否使用全球加速域名
+        :rtype: bool
+        """
+        return self._AccelerateFlag
+
+    @AccelerateFlag.setter
+    def AccelerateFlag(self, AccelerateFlag):
+        self._AccelerateFlag = AccelerateFlag
+
+    @property
+    def BucketRegion(self):
+        r"""桶所在的园区
+        :rtype: str
+        """
+        return self._BucketRegion
+
+    @BucketRegion.setter
+    def BucketRegion(self, BucketRegion):
+        self._BucketRegion = BucketRegion
+
+    @property
+    def Endpoint(self):
+        r"""自定义Endpoint
+        :rtype: str
+        """
+        return self._Endpoint
+
+    @Endpoint.setter
+    def Endpoint(self, Endpoint):
+        self._Endpoint = Endpoint
+
+
+    def _deserialize(self, params):
+        self._BucketName = params.get("BucketName")
+        self._FileSystemPath = params.get("FileSystemPath")
+        self._DataRepositoryTaskAutoStrategy = params.get("DataRepositoryTaskAutoStrategy")
+        self._RuleId = params.get("RuleId")
+        self._RuleDescription = params.get("RuleDescription")
+        self._Status = params.get("Status")
+        self._AccelerateFlag = params.get("AccelerateFlag")
+        self._BucketRegion = params.get("BucketRegion")
+        self._Endpoint = params.get("Endpoint")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class MetadataLoadAttrs(AbstractModel):
+    r"""元数据预热参数
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _LoadType: 预热类型，枚举值 LoadByPath｜LoadByList
+        :type LoadType: str
+        :param _SkipIfExists: 是否跳过相同文件，默认为 true
+        :type SkipIfExists: bool
+        :param _LoadByPath: 预热路径，入参单条挂载路径，长度不能超过255个字符。入参数LoadType为LoadByPath，该参数不应为空
+        :type LoadByPath: str
+        :param _LoadByList: 通过文件列表批量预热，入参为 cos://bucket-appid/ 开头的 COS 路径，且仅支持 txt 格式文件，长度不能超过255个字符。入参数LoadType为LoadByList，该参数不应为空
+        :type LoadByList: str
+        """
+        self._LoadType = None
+        self._SkipIfExists = None
+        self._LoadByPath = None
+        self._LoadByList = None
+
+    @property
+    def LoadType(self):
+        r"""预热类型，枚举值 LoadByPath｜LoadByList
+        :rtype: str
+        """
+        return self._LoadType
+
+    @LoadType.setter
+    def LoadType(self, LoadType):
+        self._LoadType = LoadType
+
+    @property
+    def SkipIfExists(self):
+        r"""是否跳过相同文件，默认为 true
+        :rtype: bool
+        """
+        return self._SkipIfExists
+
+    @SkipIfExists.setter
+    def SkipIfExists(self, SkipIfExists):
+        self._SkipIfExists = SkipIfExists
+
+    @property
+    def LoadByPath(self):
+        r"""预热路径，入参单条挂载路径，长度不能超过255个字符。入参数LoadType为LoadByPath，该参数不应为空
+        :rtype: str
+        """
+        return self._LoadByPath
+
+    @LoadByPath.setter
+    def LoadByPath(self, LoadByPath):
+        self._LoadByPath = LoadByPath
+
+    @property
+    def LoadByList(self):
+        r"""通过文件列表批量预热，入参为 cos://bucket-appid/ 开头的 COS 路径，且仅支持 txt 格式文件，长度不能超过255个字符。入参数LoadType为LoadByList，该参数不应为空
+        :rtype: str
+        """
+        return self._LoadByList
+
+    @LoadByList.setter
+    def LoadByList(self, LoadByList):
+        self._LoadByList = LoadByList
+
+
+    def _deserialize(self, params):
+        self._LoadType = params.get("LoadType")
+        self._SkipIfExists = params.get("SkipIfExists")
+        self._LoadByPath = params.get("LoadByPath")
+        self._LoadByList = params.get("LoadByList")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyDataRepositoryBandwidthRequest(AbstractModel):
+    r"""ModifyDataRepositoryBandwidth请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        :param _Bandwidth: 带宽, 单位MB/S
+        :type Bandwidth: int
+        """
+        self._FileSystemId = None
+        self._Bandwidth = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def Bandwidth(self):
+        r"""带宽, 单位MB/S
+        :rtype: int
+        """
+        return self._Bandwidth
+
+    @Bandwidth.setter
+    def Bandwidth(self, Bandwidth):
+        self._Bandwidth = Bandwidth
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._Bandwidth = params.get("Bandwidth")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class ModifyDataRepositoryBandwidthResponse(AbstractModel):
+    r"""ModifyDataRepositoryBandwidth返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class MountMultipleStorageFileSystemRequest(AbstractModel):
+    r"""MountMultipleStorageFileSystem请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 客户端集群所属的文件系统id
+        :type FileSystemId: str
+        :param _CustomerClusterId: 客户端集群Id
+        :type CustomerClusterId: str
+        :param _StorageFileSystemId: 挂载的存储集群的id
+        :type StorageFileSystemId: str
+        """
+        self._FileSystemId = None
+        self._CustomerClusterId = None
+        self._StorageFileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""客户端集群所属的文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def CustomerClusterId(self):
+        r"""客户端集群Id
+        :rtype: str
+        """
+        return self._CustomerClusterId
+
+    @CustomerClusterId.setter
+    def CustomerClusterId(self, CustomerClusterId):
+        self._CustomerClusterId = CustomerClusterId
+
+    @property
+    def StorageFileSystemId(self):
+        r"""挂载的存储集群的id
+        :rtype: str
+        """
+        return self._StorageFileSystemId
+
+    @StorageFileSystemId.setter
+    def StorageFileSystemId(self, StorageFileSystemId):
+        self._StorageFileSystemId = StorageFileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._CustomerClusterId = params.get("CustomerClusterId")
+        self._StorageFileSystemId = params.get("StorageFileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class MountMultipleStorageFileSystemResponse(AbstractModel):
+    r"""MountMultipleStorageFileSystem返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class QueryClientNodeMountCommandRequest(AbstractModel):
+    r"""QueryClientNodeMountCommand请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 客户端集群ID
+        :type ClusterId: str
+        :param _ClusterMountInfo: 集群挂载信息
+        :type ClusterMountInfo: list of ClusterMountAttr
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        """
+        self._ClusterId = None
+        self._ClusterMountInfo = None
+        self._FileSystemId = None
+
+    @property
+    def ClusterId(self):
+        r"""客户端集群ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def ClusterMountInfo(self):
+        r"""集群挂载信息
+        :rtype: list of ClusterMountAttr
+        """
+        return self._ClusterMountInfo
+
+    @ClusterMountInfo.setter
+    def ClusterMountInfo(self, ClusterMountInfo):
+        self._ClusterMountInfo = ClusterMountInfo
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        if params.get("ClusterMountInfo") is not None:
+            self._ClusterMountInfo = []
+            for item in params.get("ClusterMountInfo"):
+                obj = ClusterMountAttr()
+                obj._deserialize(item)
+                self._ClusterMountInfo.append(obj)
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class QueryClientNodeMountCommandResponse(AbstractModel):
+    r"""QueryClientNodeMountCommand返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Command: 挂载命令
+        :type Command: str
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._Command = None
+        self._RequestId = None
+
+    @property
+    def Command(self):
+        r"""挂载命令
+        :rtype: str
+        """
+        return self._Command
+
+    @Command.setter
+    def Command(self, Command):
+        self._Command = Command
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._Command = params.get("Command")
+        self._RequestId = params.get("RequestId")
+
+
+class QueryCrossVpcSubnetSupportForClientNodeRequest(AbstractModel):
+    r"""QueryCrossVpcSubnetSupportForClientNode请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        """
+        self._FileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class QueryCrossVpcSubnetSupportForClientNodeResponse(AbstractModel):
+    r"""QueryCrossVpcSubnetSupportForClientNode返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _SubnetInfoCollection: 支持的子网信息集合
+        :type SubnetInfoCollection: list of SubnetInfo
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._SubnetInfoCollection = None
+        self._RequestId = None
+
+    @property
+    def SubnetInfoCollection(self):
+        r"""支持的子网信息集合
+        :rtype: list of SubnetInfo
+        """
+        return self._SubnetInfoCollection
+
+    @SubnetInfoCollection.setter
+    def SubnetInfoCollection(self, SubnetInfoCollection):
+        self._SubnetInfoCollection = SubnetInfoCollection
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        if params.get("SubnetInfoCollection") is not None:
+            self._SubnetInfoCollection = []
+            for item in params.get("SubnetInfoCollection"):
+                obj = SubnetInfo()
+                obj._deserialize(item)
+                self._SubnetInfoCollection.append(obj)
+        self._RequestId = params.get("RequestId")
+
+
+class QueryDataRepositoryBandwidthRequest(AbstractModel):
+    r"""QueryDataRepositoryBandwidth请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统ID
+        :type FileSystemId: str
+        """
+        self._FileSystemId = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统ID
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class QueryDataRepositoryBandwidthResponse(AbstractModel):
+    r"""QueryDataRepositoryBandwidth返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Bandwidth: 数据流动带宽, 单位MB/s
+        :type Bandwidth: int
+        :param _BandwidthStatus: 带宽状态。1:待扩容;2:运行中;3:扩容中
+        :type BandwidthStatus: int
+        :param _MinBandwidth: 能设置的最小带宽, 单位MB/s
+        :type MinBandwidth: int
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._Bandwidth = None
+        self._BandwidthStatus = None
+        self._MinBandwidth = None
+        self._RequestId = None
+
+    @property
+    def Bandwidth(self):
+        r"""数据流动带宽, 单位MB/s
+        :rtype: int
+        """
+        return self._Bandwidth
+
+    @Bandwidth.setter
+    def Bandwidth(self, Bandwidth):
+        self._Bandwidth = Bandwidth
+
+    @property
+    def BandwidthStatus(self):
+        r"""带宽状态。1:待扩容;2:运行中;3:扩容中
+        :rtype: int
+        """
+        return self._BandwidthStatus
+
+    @BandwidthStatus.setter
+    def BandwidthStatus(self, BandwidthStatus):
+        self._BandwidthStatus = BandwidthStatus
+
+    @property
+    def MinBandwidth(self):
+        r"""能设置的最小带宽, 单位MB/s
+        :rtype: int
+        """
+        return self._MinBandwidth
+
+    @MinBandwidth.setter
+    def MinBandwidth(self, MinBandwidth):
+        self._MinBandwidth = MinBandwidth
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._Bandwidth = params.get("Bandwidth")
+        self._BandwidthStatus = params.get("BandwidthStatus")
+        self._MinBandwidth = params.get("MinBandwidth")
+        self._RequestId = params.get("RequestId")
+
+
+class RoleToken(AbstractModel):
+    r"""角色凭证
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RoleName: 角色名
+        :type RoleName: str
+        :param _Token: 用于goosefs client/sdk等
+        :type Token: str
+        """
+        self._RoleName = None
+        self._Token = None
+
+    @property
+    def RoleName(self):
+        r"""角色名
+        :rtype: str
+        """
+        return self._RoleName
+
+    @RoleName.setter
+    def RoleName(self, RoleName):
+        self._RoleName = RoleName
+
+    @property
+    def Token(self):
+        r"""用于goosefs client/sdk等
+        :rtype: str
+        """
+        return self._Token
+
+    @Token.setter
+    def Token(self, Token):
+        self._Token = Token
+
+
+    def _deserialize(self, params):
+        self._RoleName = params.get("RoleName")
+        self._Token = params.get("Token")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class SubnetInfo(AbstractModel):
+    r"""vpc子网信息
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _VpcId: vpc id
+        :type VpcId: str
+        :param _SubnetId: 子网ID
+        :type SubnetId: str
+        :param _UsedCluster: 应用的集群；可以是集群id,也可以是All
+        :type UsedCluster: str
+        :param _CIDR: cidr，只有当IsDirectConnect为true时才生效
+        :type CIDR: str
+        :param _IsDirectConnect: 是否为专线接入场景
+        :type IsDirectConnect: bool
+        """
+        self._VpcId = None
+        self._SubnetId = None
+        self._UsedCluster = None
+        self._CIDR = None
+        self._IsDirectConnect = None
+
+    @property
+    def VpcId(self):
+        r"""vpc id
+        :rtype: str
+        """
+        return self._VpcId
+
+    @VpcId.setter
+    def VpcId(self, VpcId):
+        self._VpcId = VpcId
+
+    @property
+    def SubnetId(self):
+        r"""子网ID
+        :rtype: str
+        """
+        return self._SubnetId
+
+    @SubnetId.setter
+    def SubnetId(self, SubnetId):
+        self._SubnetId = SubnetId
+
+    @property
+    def UsedCluster(self):
+        r"""应用的集群；可以是集群id,也可以是All
+        :rtype: str
+        """
+        return self._UsedCluster
+
+    @UsedCluster.setter
+    def UsedCluster(self, UsedCluster):
+        self._UsedCluster = UsedCluster
+
+    @property
+    def CIDR(self):
+        r"""cidr，只有当IsDirectConnect为true时才生效
+        :rtype: str
+        """
+        return self._CIDR
+
+    @CIDR.setter
+    def CIDR(self, CIDR):
+        self._CIDR = CIDR
+
+    @property
+    def IsDirectConnect(self):
+        r"""是否为专线接入场景
+        :rtype: bool
+        """
+        return self._IsDirectConnect
+
+    @IsDirectConnect.setter
+    def IsDirectConnect(self, IsDirectConnect):
+        self._IsDirectConnect = IsDirectConnect
+
+
+    def _deserialize(self, params):
+        self._VpcId = params.get("VpcId")
+        self._SubnetId = params.get("SubnetId")
+        self._UsedCluster = params.get("UsedCluster")
+        self._CIDR = params.get("CIDR")
+        self._IsDirectConnect = params.get("IsDirectConnect")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class Tag(AbstractModel):
+    r"""文件系统关联的标签
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _Key: 标签键
+        :type Key: str
+        :param _Value: 标签值
+        :type Value: str
+        """
+        self._Key = None
+        self._Value = None
+
+    @property
+    def Key(self):
+        r"""标签键
+        :rtype: str
+        """
+        return self._Key
+
+    @Key.setter
+    def Key(self, Key):
+        self._Key = Key
+
+    @property
+    def Value(self):
+        r"""标签值
+        :rtype: str
+        """
+        return self._Value
+
+    @Value.setter
+    def Value(self, Value):
+        self._Value = Value
+
+
+    def _deserialize(self, params):
+        self._Key = params.get("Key")
+        self._Value = params.get("Value")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class UpdateFilesetGeneralConfigRequest(AbstractModel):
+    r"""UpdateFilesetGeneralConfig请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _EnforceQuotaOnRoot: 配额对root用户生效
+        :type EnforceQuotaOnRoot: str
+        """
+        self._FileSystemId = None
+        self._EnforceQuotaOnRoot = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def EnforceQuotaOnRoot(self):
+        r"""配额对root用户生效
+        :rtype: str
+        """
+        return self._EnforceQuotaOnRoot
+
+    @EnforceQuotaOnRoot.setter
+    def EnforceQuotaOnRoot(self, EnforceQuotaOnRoot):
+        self._EnforceQuotaOnRoot = EnforceQuotaOnRoot
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._EnforceQuotaOnRoot = params.get("EnforceQuotaOnRoot")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class UpdateFilesetGeneralConfigResponse(AbstractModel):
+    r"""UpdateFilesetGeneralConfig返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class UpdateFilesetRequest(AbstractModel):
+    r"""UpdateFileset请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _FileSystemId: 文件系统id
+        :type FileSystemId: str
+        :param _FsetId: Fileset id
+        :type FsetId: str
+        :param _QuotaSizeLimit: 容量配额限定值
+        :type QuotaSizeLimit: str
+        :param _QuotaFilesLimit: 文件数配额限定值
+        :type QuotaFilesLimit: str
+        :param _AuditState: Fileset文件删除操作审计
+        :type AuditState: str
+        """
+        self._FileSystemId = None
+        self._FsetId = None
+        self._QuotaSizeLimit = None
+        self._QuotaFilesLimit = None
+        self._AuditState = None
+
+    @property
+    def FileSystemId(self):
+        r"""文件系统id
+        :rtype: str
+        """
+        return self._FileSystemId
+
+    @FileSystemId.setter
+    def FileSystemId(self, FileSystemId):
+        self._FileSystemId = FileSystemId
+
+    @property
+    def FsetId(self):
+        r"""Fileset id
+        :rtype: str
+        """
+        return self._FsetId
+
+    @FsetId.setter
+    def FsetId(self, FsetId):
+        self._FsetId = FsetId
+
+    @property
+    def QuotaSizeLimit(self):
+        r"""容量配额限定值
+        :rtype: str
+        """
+        return self._QuotaSizeLimit
+
+    @QuotaSizeLimit.setter
+    def QuotaSizeLimit(self, QuotaSizeLimit):
+        self._QuotaSizeLimit = QuotaSizeLimit
+
+    @property
+    def QuotaFilesLimit(self):
+        r"""文件数配额限定值
+        :rtype: str
+        """
+        return self._QuotaFilesLimit
+
+    @QuotaFilesLimit.setter
+    def QuotaFilesLimit(self, QuotaFilesLimit):
+        self._QuotaFilesLimit = QuotaFilesLimit
+
+    @property
+    def AuditState(self):
+        r"""Fileset文件删除操作审计
+        :rtype: str
+        """
+        return self._AuditState
+
+    @AuditState.setter
+    def AuditState(self, AuditState):
+        self._AuditState = AuditState
+
+
+    def _deserialize(self, params):
+        self._FileSystemId = params.get("FileSystemId")
+        self._FsetId = params.get("FsetId")
+        self._QuotaSizeLimit = params.get("QuotaSizeLimit")
+        self._QuotaFilesLimit = params.get("QuotaFilesLimit")
+        self._AuditState = params.get("AuditState")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class UpdateFilesetResponse(AbstractModel):
+    r"""UpdateFileset返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")
+
+
+class UpdateLoadTaskPriorityRequest(AbstractModel):
+    r"""UpdateLoadTaskPriority请求参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _ClusterId: 集群 ID
+        :type ClusterId: str
+        :param _TaskId: 预热任务 ID
+        :type TaskId: str
+        :param _Priority: 任务优先级，数值越高代表优先级越高，边界值 1-9999，默认值为 1
+        :type Priority: int
+        """
+        self._ClusterId = None
+        self._TaskId = None
+        self._Priority = None
+
+    @property
+    def ClusterId(self):
+        r"""集群 ID
+        :rtype: str
+        """
+        return self._ClusterId
+
+    @ClusterId.setter
+    def ClusterId(self, ClusterId):
+        self._ClusterId = ClusterId
+
+    @property
+    def TaskId(self):
+        r"""预热任务 ID
+        :rtype: str
+        """
+        return self._TaskId
+
+    @TaskId.setter
+    def TaskId(self, TaskId):
+        self._TaskId = TaskId
+
+    @property
+    def Priority(self):
+        r"""任务优先级，数值越高代表优先级越高，边界值 1-9999，默认值为 1
+        :rtype: int
+        """
+        return self._Priority
+
+    @Priority.setter
+    def Priority(self, Priority):
+        self._Priority = Priority
+
+
+    def _deserialize(self, params):
+        self._ClusterId = params.get("ClusterId")
+        self._TaskId = params.get("TaskId")
+        self._Priority = params.get("Priority")
+        memeber_set = set(params.keys())
+        for name, value in vars(self).items():
+            property_name = name[1:]
+            if property_name in memeber_set:
+                memeber_set.remove(property_name)
+        if len(memeber_set) > 0:
+            warnings.warn("%s fileds are useless." % ",".join(memeber_set))
+        
+
+
+class UpdateLoadTaskPriorityResponse(AbstractModel):
+    r"""UpdateLoadTaskPriority返回参数结构体
+
+    """
+
+    def __init__(self):
+        r"""
+        :param _RequestId: 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :type RequestId: str
+        """
+        self._RequestId = None
+
+    @property
+    def RequestId(self):
+        r"""唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+        :rtype: str
+        """
+        return self._RequestId
+
+    @RequestId.setter
+    def RequestId(self, RequestId):
+        self._RequestId = RequestId
+
+
+    def _deserialize(self, params):
+        self._RequestId = params.get("RequestId")

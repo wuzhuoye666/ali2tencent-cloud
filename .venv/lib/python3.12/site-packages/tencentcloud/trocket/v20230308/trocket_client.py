@@ -1,0 +1,1228 @@
+# -*- coding: utf8 -*-
+# Copyright (c) 2017-2025 Tencent. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import json
+
+from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
+from tencentcloud.common.abstract_client import AbstractClient
+from tencentcloud.trocket.v20230308 import models
+
+
+class TrocketClient(AbstractClient):
+    _apiVersion = '2023-03-08'
+    _endpoint = 'trocket.tencentcloudapi.com'
+    _service = 'trocket'
+
+
+    def ChangeMigratingTopicToNextStage(self, request):
+        r"""修改迁移中的Topic状态进入下一步
+
+        :param request: Request instance for ChangeMigratingTopicToNextStage.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ChangeMigratingTopicToNextStageRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ChangeMigratingTopicToNextStageResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ChangeMigratingTopicToNextStage", params, headers=headers)
+            response = json.loads(body)
+            model = models.ChangeMigratingTopicToNextStageResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def CreateConsumerGroup(self, request):
+        r"""创建消费组。
+        当前 API 适用集群：5.x 集群。4.x 集群的创建消费组接口文档见 [CreateRocketMQGroup](https://cloud.tencent.com/document/api/1179/63428)。
+
+        :param request: Request instance for CreateConsumerGroup.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.CreateConsumerGroupRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.CreateConsumerGroupResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("CreateConsumerGroup", params, headers=headers)
+            response = json.loads(body)
+            model = models.CreateConsumerGroupResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def CreateInstance(self, request):
+        r"""创建 RocketMQ 5.x 集群。
+        当前 API 适用集群：5.x 集群。创建 4.x 专享/通用集群的接口文档见 [CreateRocketMQVipInstance](https://cloud.tencent.com/document/product/1179/95721)。
+
+        :param request: Request instance for CreateInstance.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.CreateInstanceRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.CreateInstanceResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("CreateInstance", params, headers=headers)
+            response = json.loads(body)
+            model = models.CreateInstanceResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def CreateRole(self, request):
+        r"""添加角色。
+        当前 API 适用集群：5.x 集群。4.x 集群的创建角色接口文档见 [CreateRocketMQRole](https://cloud.tencent.com/document/product/1179/107538)，给角色授权接口文档见 [CreateRocketMQEnvironmentRole](https://cloud.tencent.com/document/product/1179/107539)。
+
+        :param request: Request instance for CreateRole.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.CreateRoleRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.CreateRoleResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("CreateRole", params, headers=headers)
+            response = json.loads(body)
+            model = models.CreateRoleResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def CreateTopic(self, request):
+        r"""创建 RocketMQ 主题。
+        当前 API 适用集群：5.x 集群。4.x 集群的创建主题接口文档见 [CreateRocketMQTopic](https://cloud.tencent.com/document/api/1179/63426)
+
+        :param request: Request instance for CreateTopic.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.CreateTopicRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.CreateTopicResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("CreateTopic", params, headers=headers)
+            response = json.loads(body)
+            model = models.CreateTopicResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteConsumerGroup(self, request):
+        r"""删除消费组。消费者组删除后，消费者组的所有配置和相关数据都会被清空，且无法找回。删除后，在线的消费者客户端会出现报错，建议您提前下线客户端。
+        当前 API 适用集群：5.x 集群。4.x 集群的删除消费组接口文档见 [DeleteRocketMQGroup](https://cloud.tencent.com/document/api/1179/63424)。
+
+        :param request: Request instance for DeleteConsumerGroup.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DeleteConsumerGroupRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DeleteConsumerGroupResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteConsumerGroup", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteConsumerGroupResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteInstance(self, request):
+        r"""删除 RocketMQ 5.x 集群，删除前请先删除正在使用的主题、消费组和角色信息。
+        当前 API 适用集群：5.x 集群。删除 4.x 集群接口文档见 [DeleteRocketMQVipInstance](https://cloud.tencent.com/document/product/1179/95802)。
+
+        :param request: Request instance for DeleteInstance.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DeleteInstanceRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DeleteInstanceResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteInstance", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteInstanceResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteRole(self, request):
+        r"""删除角色。请确保该角色相关信息不在当前代码中被使用。删除角色后，原先使用该角色进行生产或消费消息的密钥（AccessKey 和 SecretKey）将立即失效。
+        当前 API 适用集群：5.x 集群。4.x 集群的删除角色接口文档见 [DeleteRocketMQRoles](https://cloud.tencent.com/document/product/1179/107536)，删除角色授权接口文档见 [DeleteRocketMQEnvironmentRoles](https://cloud.tencent.com/document/product/1179/107537)。
+
+        :param request: Request instance for DeleteRole.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DeleteRoleRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DeleteRoleResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteRole", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteRoleResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteSmoothMigrationTask(self, request):
+        r"""删除平滑迁移任务，只有被取消的任务才可删除
+
+        :param request: Request instance for DeleteSmoothMigrationTask.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DeleteSmoothMigrationTaskRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DeleteSmoothMigrationTaskResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteSmoothMigrationTask", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteSmoothMigrationTaskResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteTopic(self, request):
+        r"""删除主题。主题删除后，主题的所有配置和相关数据都会被清空，且无法找回。
+        当前 API 适用集群：5.x 集群。4.x 集群的删除主题接口文档见 [DeleteRocketMQTopic](https://cloud.tencent.com/document/api/1179/63423)。
+
+        :param request: Request instance for DeleteTopic.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DeleteTopicRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DeleteTopicResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteTopic", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteTopicResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeConsumerClient(self, request):
+        r"""查询消费者客户端详情。
+        当前 API 适用集群：5.x 集群。4.x 集群的查询消费者客户端详情接口文档见 [DescribeRocketMQConsumerConnectionDetail](https://cloud.tencent.com/document/product/1179/102490)。
+
+        :param request: Request instance for DescribeConsumerClient.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerClientRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerClientResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeConsumerClient", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeConsumerClientResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeConsumerClientList(self, request):
+        r"""查询消费组下的客户端连接列表。
+        当前 API 适用集群：5.x 集群。4.x 集群的查询消费组下的客户端列表接口文档见 [DescribeRocketMQConsumerConnections](https://cloud.tencent.com/document/product/1179/100460)。
+
+        :param request: Request instance for DescribeConsumerClientList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerClientListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerClientListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeConsumerClientList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeConsumerClientListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeConsumerGroup(self, request):
+        r"""查询消费组详情。
+        当前 API 适用集群：5.x 集群。4.x 集群的查询消费组详情接口文档见 [DescribeRocketMQConsumerConnections](https://cloud.tencent.com/document/product/1179/100460)。
+
+        :param request: Request instance for DescribeConsumerGroup.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerGroupRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerGroupResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeConsumerGroup", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeConsumerGroupResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeConsumerGroupList(self, request):
+        r"""获取消费组列表，Filter参数使用说明如下：
+
+        - ConsumerGroupName 消费组名称，支持模糊查询，从 [DescribeConsumerGroupList](https://cloud.tencent.com/document/api/1493/101535) 接口返回的 [ConsumeGroupItem](https://cloud.tencent.com/document/api/1493/96031#ConsumeGroupItem) 或控制台获得。
+        - ConsumeMessageOrderly，投递顺序性，枚举值如下：
+            - true 顺序投递
+            - false 并发投递
+
+        Filters示例：
+        [{ "Name": "ConsumeMessageOrderly", "Values": ["true"] }]
+        当前 API 适用集群：5.x 集群。4.x 集群的获取消费组列表接口文档见 [DescribeRocketMQGroups](https://cloud.tencent.com/document/api/1179/63420)。
+
+        :param request: Request instance for DescribeConsumerGroupList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerGroupListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerGroupListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeConsumerGroupList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeConsumerGroupListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeConsumerLag(self, request):
+        r"""查询指定消费组堆积数。
+        当前 API 适用集群：4.x 集群和 5.x 集群。
+
+        :param request: Request instance for DescribeConsumerLag.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerLagRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeConsumerLagResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeConsumerLag", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeConsumerLagResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeFusionInstanceList(self, request):
+        r"""查询集群列表，支持 4.x 和 5.x 集群，其中 Filters 参数使用说明如下：
+
+        - InstanceName 集群名称，支持模糊查询，从本接口返回值或控制台获得
+        - InstanceId 集群ID，精确查询，从当前接口或控制台获得
+        - InstanceType 集群类型，可参考 [InstanceItem](https://cloud.tencent.com/document/api/1493/96031#InstanceItem) 数据结构，支持多选
+        - Version 集群版本，枚举值如下：
+            - 4 RocketMQ 4.x 集群
+            - 5 RocketMQ 5.x 集群
+
+        Filters示例：
+         [{ "Name": "InstanceId", "Values": ["rmq-72mo3a9o"] }]
+
+        :param request: Request instance for DescribeFusionInstanceList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeFusionInstanceListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeFusionInstanceListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeFusionInstanceList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeFusionInstanceListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeInstance(self, request):
+        r"""查询 RocketMQ 5.x 集群信息。
+        当前 API 适用集群：5.x 集群。查询 4.x 专享/通用集群信息的接口文档见 [DescribeRocketMQVipInstanceDetail](https://cloud.tencent.com/document/product/1179/86725)。
+
+        :param request: Request instance for DescribeInstance.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeInstanceRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeInstanceResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeInstance", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeInstanceResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeInstanceList(self, request):
+        r"""查询集群列表，仅支持 5.x 集群。Filters参数使用说明如下：
+
+        - InstanceName 集群名称，支持模糊搜索
+        - InstanceId 腾讯云 RocketMQ 实例 ID，从 [DescribeFusionInstanceList](https://cloud.tencent.com/document/api/1493/106745) 接口或控制台获得
+        - InstanceType 集群类型，可参考 [InstanceItem](https://cloud.tencent.com/document/api/1493/96031#InstanceItem) 数据结构，支持多选
+        - InstanceStatus 集群状态，可参考 [InstanceItem](https://cloud.tencent.com/document/api/1493/96031#InstanceItem) 数据结构，支持多选
+
+        Filters示例：
+        [{
+            "Name": "InstanceId",
+            "Values": ["rmq-72mo3a9o"]
+        }]
+
+        :param request: Request instance for DescribeInstanceList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeInstanceListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeInstanceListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeInstanceList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeInstanceListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeMessage(self, request):
+        r"""查询消息详情。
+        当前 API 适用集群：5.x 集群。4.x 集群的查询消息详情接口文档见 [DescribeRocketMQMsg](https://cloud.tencent.com/document/product/1179/91055)。
+
+        :param request: Request instance for DescribeMessage.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeMessageRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeMessageResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeMessage", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeMessageResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeMessageList(self, request):
+        r"""查询消息列表。如果查询死信消息，请设置ConsumerGroup参数。
+        当前 API 适用集群：5.x 集群。4.x 集群的查询消息列表接口文档见 [DescribeRocketMQTopicMsgs](https://cloud.tencent.com/document/product/1179/97761)。
+
+        :param request: Request instance for DescribeMessageList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeMessageListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeMessageListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeMessageList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeMessageListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeMessageTrace(self, request):
+        r"""根据消息 ID 查询消息轨迹。
+        当前 API 适用集群：5.x 集群。4.x 集群查询消息轨迹接口文档见 [DescribeRocketMQMsgTrace](https://cloud.tencent.com/document/product/1179/97760)。
+
+        :param request: Request instance for DescribeMessageTrace.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeMessageTraceRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeMessageTraceResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeMessageTrace", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeMessageTraceResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeMigratingGroupStats(self, request):
+        r"""查看迁移消费组的实时信息
+
+        :param request: Request instance for DescribeMigratingGroupStats.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeMigratingGroupStatsRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeMigratingGroupStatsResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeMigratingGroupStats", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeMigratingGroupStatsResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeMigratingTopicList(self, request):
+        r"""查询Topic迁移状态列表。
+
+        Filters字段为查询过滤器，支持以下条件：
+        * TopicName 主题名称，支持模糊查询
+        * MigrationStatus 迁移状态，可参考[MigratingTopic](https://cloud.tencent.com/document/api/1493/96031#MigratingTopic)数据结构
+        * Namespace 命名空间，仅4.x集群有效
+
+        Filters示例：
+        [{
+            "Name": "TopicName",
+            "Values": ["topic-a"]
+        }]
+
+        :param request: Request instance for DescribeMigratingTopicList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeMigratingTopicListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeMigratingTopicListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeMigratingTopicList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeMigratingTopicListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeMigratingTopicStats(self, request):
+        r"""用于查询迁移主题的实时数据
+
+        :param request: Request instance for DescribeMigratingTopicStats.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeMigratingTopicStatsRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeMigratingTopicStatsResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeMigratingTopicStats", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeMigratingTopicStatsResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeMigrationTaskList(self, request):
+        r"""获取数据迁移任务列表，Filter参数使用说明如下：
+
+        TaskId，根据任务ID精确查找
+        InstanceId，根据实例ID精确查找
+        Type，根据任务类型精确查找
+
+        :param request: Request instance for DescribeMigrationTaskList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeMigrationTaskListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeMigrationTaskListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeMigrationTaskList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeMigrationTaskListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeProducerList(self, request):
+        r"""查询主题关联的生产者列表信息，Filters支持以下筛选条件：
+        - ClientIP，客户端IP
+        - ClientID，客户端ID
+        当前 API 适用集群：5.x 集群。4.x 集群的查询生产者客户端列表接口文档见 [DescribeRocketMQProducers](https://cloud.tencent.com/document/api/1179/122749)。
+
+        :param request: Request instance for DescribeProducerList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeProducerListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeProducerListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeProducerList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeProducerListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeProductSKUs(self, request):
+        r"""查询产品售卖规格，针对 RocketMQ 5.x 集群。
+
+        :param request: Request instance for DescribeProductSKUs.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeProductSKUsRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeProductSKUsResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeProductSKUs", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeProductSKUsResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeRoleList(self, request):
+        r"""查询角色列表，Filter参数使用说明如下：
+
+        - RoleName 角色名称，支持模糊搜索，从本接口返回值或控制台获得
+        - AccessKey AccessKey，支持模糊搜索，从本接口返回值或控制台获得
+
+        Filters示例：
+        [{ "Name": "RoleName", "Values": ["test_role"] }]
+        当前 API 适用集群：5.x 集群。4.x 集群的查询角色列表接口文档见 [DescribeRocketMQRoles](https://cloud.tencent.com/document/product/1179/107534)，查询角色授权列表接口文档见 [DescribeRocketMQEnvironmentRoles](https://cloud.tencent.com/document/product/1179/107535)。
+
+        :param request: Request instance for DescribeRoleList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeRoleListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeRoleListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeRoleList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeRoleListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeSmoothMigrationTaskList(self, request):
+        r"""用于查询平滑迁移任务列表。
+
+        查询参数Filters， 支持的字段如下：
+        * TaskStatus, 任务状态，支持多选
+        * ConnectionType，网络连接类型，支持多选，参考[SmoothMigrationTaskItem](https://cloud.tencent.com/document/api/1493/96031#SmoothMigrationTaskItem)的说明
+        * InstanceId，实例ID，精确搜索
+        * TaskName，任务名称，支持模糊搜索
+
+        Filters示例：
+        [{
+            "Name": "InstanceId",
+            "Values": ["rmq-1gzecldfg"]
+        }]
+
+        :param request: Request instance for DescribeSmoothMigrationTaskList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeSmoothMigrationTaskListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeSmoothMigrationTaskListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeSmoothMigrationTaskList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeSmoothMigrationTaskListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeSourceClusterGroupList(self, request):
+        r"""平滑迁移过程获取源集群group列表接口。
+
+        Filters字段为查询过滤器，支持以下字段：
+        * GroupName，消费组名称，支持模糊搜索
+        * Imported，是否已导入
+        * ImportStatus，导入状态，参考[SourceClusterGroupConfig](https://cloud.tencent.com/document/api/1493/96031#SourceClusterGroupConfig)的说明
+        * Namespace，命名空间，仅4.x集群有效
+
+        Filters示例：
+        [{
+            "Name": "GroupName",
+            "Values": ["group-a"]
+        }]
+
+        :param request: Request instance for DescribeSourceClusterGroupList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeSourceClusterGroupListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeSourceClusterGroupListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeSourceClusterGroupList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeSourceClusterGroupListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeTopic(self, request):
+        r"""查询主题详情，Offset和Limit参数是指订阅该主题的消费组查询分页参数，Filter参数使用说明如下：
+
+        - ConsumerGroup 消费组名称，从 [DescribeConsumerGroupList](https://cloud.tencent.com/document/api/1493/101535) 接口返回的 [ConsumeGroupItem](https://cloud.tencent.com/document/api/1493/96031#ConsumeGroupItem) 或控制台获得。
+
+        Filters示例：
+        [{ "Name": "ConsumerGroup", "Values": ["test_group"] }]
+
+        :param request: Request instance for DescribeTopic.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeTopicRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeTopicResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeTopic", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeTopicResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeTopicList(self, request):
+        r"""获取主题列表，Filter参数使用说明如下：
+
+        - TopicName 主题名称，支持模糊搜索，从 [DescribeTopicList](https://cloud.tencent.com/document/api/1493/96030) 接口返回的 [TopicItem](https://cloud.tencent.com/document/api/1493/96031#TopicItem) 或控制台获得
+        - TopicType 主题类型查询，支持多选，参考 [DescribeTopic](https://cloud.tencent.com/document/api/1493/97945) 接口 TopicType 字段
+
+        Filters示例：
+         [{ "Name": "TopicName", "Values": ["test_topic"] }]
+        当前 API 适用集群：5.x 集群。4.x 集群的获取主题列表接口文档见 [DescribeRocketMQTopics](https://cloud.tencent.com/document/api/1179/63418)。
+
+        :param request: Request instance for DescribeTopicList.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeTopicListRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeTopicListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeTopicList", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeTopicListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DescribeTopicListByGroup(self, request):
+        r"""查询消费组订阅的主题列表，Filter参数使用说明如下：
+
+        - TopicName 主题名称，从 [DescribeTopicList](https://cloud.tencent.com/document/api/1493/96030) 接口返回的 [TopicItem](https://cloud.tencent.com/document/api/1493/96031#TopicItem) 或控制台获得。
+
+        Filters示例：
+        [{ "Name": "TopicName", "Values": ["test_topic"] }]
+        当前 API 适用集群：5.x 集群。4.x 集群的查询消费组订阅的主题列表接口文档见 [DescribeRocketMQTopicsByGroup](https://cloud.tencent.com/document/product/1179/108863)。
+
+        :param request: Request instance for DescribeTopicListByGroup.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DescribeTopicListByGroupRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DescribeTopicListByGroupResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DescribeTopicListByGroup", params, headers=headers)
+            response = json.loads(body)
+            model = models.DescribeTopicListByGroupResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DoHealthCheckOnMigratingTopic(self, request):
+        r"""检查迁移中的主题是否处于正常状态，只有处于正常状态的主题，才可以进入下一个迁移阶段
+
+        :param request: Request instance for DoHealthCheckOnMigratingTopic.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.DoHealthCheckOnMigratingTopicRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.DoHealthCheckOnMigratingTopicResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DoHealthCheckOnMigratingTopic", params, headers=headers)
+            response = json.loads(body)
+            model = models.DoHealthCheckOnMigratingTopicResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ImportSourceClusterConsumerGroups(self, request):
+        r"""导入消费者组列表
+
+        :param request: Request instance for ImportSourceClusterConsumerGroups.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ImportSourceClusterConsumerGroupsRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ImportSourceClusterConsumerGroupsResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ImportSourceClusterConsumerGroups", params, headers=headers)
+            response = json.loads(body)
+            model = models.ImportSourceClusterConsumerGroupsResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ImportSourceClusterTopics(self, request):
+        r"""导入topic列表
+
+        :param request: Request instance for ImportSourceClusterTopics.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ImportSourceClusterTopicsRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ImportSourceClusterTopicsResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ImportSourceClusterTopics", params, headers=headers)
+            response = json.loads(body)
+            model = models.ImportSourceClusterTopicsResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyConsumerGroup(self, request):
+        r"""修改消费组属性。
+        当前 API 适用集群：5.x 集群。4.x 集群的修改消费组属性接口文档见 [ModifyRocketMQGroup](https://cloud.tencent.com/document/api/1179/63416)。
+
+        :param request: Request instance for ModifyConsumerGroup.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ModifyConsumerGroupRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ModifyConsumerGroupResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyConsumerGroup", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyConsumerGroupResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyInstance(self, request):
+        r"""修改 RocketMQ 5.x 集群属性，仅支持修改运行中的集群。
+        当前 API 适用集群：5.x 集群。修改 4.x 集群属性的接口文档见 [ModifyRocketMQInstance](https://cloud.tencent.com/document/product/1179/108862)。
+
+        :param request: Request instance for ModifyInstance.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ModifyInstanceRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ModifyInstanceResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyInstance", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyInstanceResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyInstanceEndpoint(self, request):
+        r"""修改 RocketMQ 5.x 集群接入点，操作前请先确认接入点已存在。
+
+        :param request: Request instance for ModifyInstanceEndpoint.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ModifyInstanceEndpointRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ModifyInstanceEndpointResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyInstanceEndpoint", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyInstanceEndpointResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyRole(self, request):
+        r"""修改角色。
+        当前 API 适用集群：5.x 集群。4.x 集群的修改角色接口文档见 [ModifyRocketMQRole](https://cloud.tencent.com/document/product/1179/107532)，修改角色的授权接口文档见 [ModifyRocketMQEnvironmentRole](https://cloud.tencent.com/document/product/1179/107533)。
+
+        :param request: Request instance for ModifyRole.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ModifyRoleRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ModifyRoleResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyRole", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyRoleResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyTopic(self, request):
+        r"""修改主题属性。
+        当前 API 适用集群：5.x 集群。4.x 集群的修改主题属性接口文档见 [ModifyRocketMQTopic](https://cloud.tencent.com/document/api/1179/63414)。
+
+        :param request: Request instance for ModifyTopic.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ModifyTopicRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ModifyTopicResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyTopic", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyTopicResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def RemoveMigratingTopic(self, request):
+        r"""从迁移列表中移除主题，仅当主题处于初始状态时有效
+
+        :param request: Request instance for RemoveMigratingTopic.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.RemoveMigratingTopicRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.RemoveMigratingTopicResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("RemoveMigratingTopic", params, headers=headers)
+            response = json.loads(body)
+            model = models.RemoveMigratingTopicResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ResendDeadLetterMessage(self, request):
+        r"""重新发送死信消息。
+        当前 API 适用集群：5.x集群。4.x 集群的重发死信消息接口文档见 [RetryRocketMQDlqMessage](https://cloud.tencent.com/document/api/1179/114595)。
+
+        :param request: Request instance for ResendDeadLetterMessage.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ResendDeadLetterMessageRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ResendDeadLetterMessageResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ResendDeadLetterMessage", params, headers=headers)
+            response = json.loads(body)
+            model = models.ResendDeadLetterMessageResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ResetConsumerGroupOffset(self, request):
+        r"""重置消费位点。
+        当前 API 适用集群：5.x 集群。4.x 集群的重置消费位点接口文档见 [ResetRocketMQConsumerOffSet](https://cloud.tencent.com/document/api/1179/71662)。
+
+        :param request: Request instance for ResetConsumerGroupOffset.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.ResetConsumerGroupOffsetRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.ResetConsumerGroupOffsetResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ResetConsumerGroupOffset", params, headers=headers)
+            response = json.loads(body)
+            model = models.ResetConsumerGroupOffsetResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def RollbackMigratingTopicStage(self, request):
+        r"""回滚正在迁移的主题至前一个阶段
+
+        :param request: Request instance for RollbackMigratingTopicStage.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.RollbackMigratingTopicStageRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.RollbackMigratingTopicStageResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("RollbackMigratingTopicStage", params, headers=headers)
+            response = json.loads(body)
+            model = models.RollbackMigratingTopicStageResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def SendMessage(self, request):
+        r"""发送 RocketMQ 消息，该接口仅用于控制台发送少量测试消息，不保证 SLA，且云 API 存在限流，在真实业务场景下，请使用 RocketMQ SDK 发送消息。
+        当前 API 适用集群：5.x 集群。4.x 集群的发送消息接口文档见 [SendRocketMQMessage](https://cloud.tencent.com/document/api/1179/94179)。
+
+        :param request: Request instance for SendMessage.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.SendMessageRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.SendMessageResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("SendMessage", params, headers=headers)
+            response = json.loads(body)
+            model = models.SendMessageResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def VerifyMessageConsumption(self, request):
+        r"""消息消费验证。
+        当前 API 适用集群：5.x 集群。4.x 集群的消息消费验证接口文档见 [VerifyRocketMQConsume](https://cloud.tencent.com/document/api/1179/101061)。
+
+        :param request: Request instance for VerifyMessageConsumption.
+        :type request: :class:`tencentcloud.trocket.v20230308.models.VerifyMessageConsumptionRequest`
+        :rtype: :class:`tencentcloud.trocket.v20230308.models.VerifyMessageConsumptionResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("VerifyMessageConsumption", params, headers=headers)
+            response = json.loads(body)
+            model = models.VerifyMessageConsumptionResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))

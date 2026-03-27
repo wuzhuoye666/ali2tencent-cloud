@@ -1,0 +1,504 @@
+# -*- coding: utf8 -*-
+# Copyright (c) 2017-2025 Tencent. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import json
+
+from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
+from tencentcloud.common.abstract_client import AbstractClient
+from tencentcloud.dataagent.v20250513 import models
+
+
+class DataagentClient(AbstractClient):
+    _apiVersion = '2025-05-13'
+    _endpoint = 'dataagent.tencentcloudapi.com'
+    _service = 'dataagent'
+
+
+    def AddChunk(self, request):
+        r"""文档切片新增
+
+        :param request: Request instance for AddChunk.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.AddChunkRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.AddChunkResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("AddChunk", params, headers=headers)
+            response = json.loads(body)
+            model = models.AddChunkResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def AddScene(self, request):
+        r"""新增场景
+
+        :param request: Request instance for AddScene.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.AddSceneRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.AddSceneResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("AddScene", params, headers=headers)
+            response = json.loads(body)
+            model = models.AddSceneResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ChatAI(self, request):
+        r"""提供DataAgent 产品服务API
+
+        :param request: Request instance for ChatAI.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.ChatAIRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.ChatAIResponse`
+
+        """
+        try:
+            params = request._serialize()
+            return self._call_and_deserialize("ChatAI", params, models.ChatAIResponse, headers=request.headers)
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def CreateDataAgentSession(self, request):
+        r"""生成DataAgent 会话ID
+
+        :param request: Request instance for CreateDataAgentSession.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.CreateDataAgentSessionRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.CreateDataAgentSessionResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("CreateDataAgentSession", params, headers=headers)
+            response = json.loads(body)
+            model = models.CreateDataAgentSessionResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteChunk(self, request):
+        r"""文档切片删除
+
+        :param request: Request instance for DeleteChunk.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.DeleteChunkRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.DeleteChunkResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteChunk", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteChunkResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteDataAgentSession(self, request):
+        r"""删除会话
+
+        :param request: Request instance for DeleteDataAgentSession.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.DeleteDataAgentSessionRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.DeleteDataAgentSessionResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteDataAgentSession", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteDataAgentSessionResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def DeleteScene(self, request):
+        r"""删除场景
+
+        :param request: Request instance for DeleteScene.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.DeleteSceneRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.DeleteSceneResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("DeleteScene", params, headers=headers)
+            response = json.loads(body)
+            model = models.DeleteSceneResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def GetJobsByKnowledgeBaseId(self, request):
+        r"""根据知识库id查询jobs 列表
+
+        :param request: Request instance for GetJobsByKnowledgeBaseId.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.GetJobsByKnowledgeBaseIdRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.GetJobsByKnowledgeBaseIdResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("GetJobsByKnowledgeBaseId", params, headers=headers)
+            response = json.loads(body)
+            model = models.GetJobsByKnowledgeBaseIdResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def GetKnowledgeBaseFileList(self, request):
+        r"""获取知识库文件信息列表
+
+        :param request: Request instance for GetKnowledgeBaseFileList.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.GetKnowledgeBaseFileListRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.GetKnowledgeBaseFileListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("GetKnowledgeBaseFileList", params, headers=headers)
+            response = json.loads(body)
+            model = models.GetKnowledgeBaseFileListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def GetKnowledgeBaseList(self, request):
+        r"""获取知识库列表
+
+        :param request: Request instance for GetKnowledgeBaseList.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.GetKnowledgeBaseListRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.GetKnowledgeBaseListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("GetKnowledgeBaseList", params, headers=headers)
+            response = json.loads(body)
+            model = models.GetKnowledgeBaseListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def GetSessionDetails(self, request):
+        r"""获取用户会话记录详情列表
+
+        :param request: Request instance for GetSessionDetails.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.GetSessionDetailsRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.GetSessionDetailsResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("GetSessionDetails", params, headers=headers)
+            response = json.loads(body)
+            model = models.GetSessionDetailsResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def GetUploadJobDetails(self, request):
+        r"""查询上传任务
+
+        :param request: Request instance for GetUploadJobDetails.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.GetUploadJobDetailsRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.GetUploadJobDetailsResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("GetUploadJobDetails", params, headers=headers)
+            response = json.loads(body)
+            model = models.GetUploadJobDetailsResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyChunk(self, request):
+        r"""编辑修改分片
+
+        :param request: Request instance for ModifyChunk.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.ModifyChunkRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.ModifyChunkResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyChunk", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyChunkResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyKnowledgeBase(self, request):
+        r"""操作知识库
+
+        :param request: Request instance for ModifyKnowledgeBase.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.ModifyKnowledgeBaseRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.ModifyKnowledgeBaseResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyKnowledgeBase", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyKnowledgeBaseResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def ModifyUserAuthority(self, request):
+        r"""修改对象权限
+
+        :param request: Request instance for ModifyUserAuthority.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.ModifyUserAuthorityRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.ModifyUserAuthorityResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("ModifyUserAuthority", params, headers=headers)
+            response = json.loads(body)
+            model = models.ModifyUserAuthorityResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def QueryChunkList(self, request):
+        r"""文档切片查询
+
+        :param request: Request instance for QueryChunkList.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.QueryChunkListRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.QueryChunkListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("QueryChunkList", params, headers=headers)
+            response = json.loads(body)
+            model = models.QueryChunkListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def QuerySceneList(self, request):
+        r"""查询场景列表
+
+        :param request: Request instance for QuerySceneList.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.QuerySceneListRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.QuerySceneListResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("QuerySceneList", params, headers=headers)
+            response = json.loads(body)
+            model = models.QuerySceneListResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def QueryUserAuthority(self, request):
+        r"""查询对象权限
+
+        :param request: Request instance for QueryUserAuthority.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.QueryUserAuthorityRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.QueryUserAuthorityResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("QueryUserAuthority", params, headers=headers)
+            response = json.loads(body)
+            model = models.QueryUserAuthorityResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def StopChatAI(self, request):
+        r"""中断DataAgent的回答输出
+
+        :param request: Request instance for StopChatAI.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.StopChatAIRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.StopChatAIResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("StopChatAI", params, headers=headers)
+            response = json.loads(body)
+            model = models.StopChatAIResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def UpdateScene(self, request):
+        r"""更新场景
+
+        :param request: Request instance for UpdateScene.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.UpdateSceneRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.UpdateSceneResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("UpdateScene", params, headers=headers)
+            response = json.loads(body)
+            model = models.UpdateSceneResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
+
+
+    def UploadAndCommitFile(self, request):
+        r"""上传提交文件
+
+        :param request: Request instance for UploadAndCommitFile.
+        :type request: :class:`tencentcloud.dataagent.v20250513.models.UploadAndCommitFileRequest`
+        :rtype: :class:`tencentcloud.dataagent.v20250513.models.UploadAndCommitFileResponse`
+
+        """
+        try:
+            params = request._serialize()
+            headers = request.headers
+            body = self.call("UploadAndCommitFile", params, headers=headers)
+            response = json.loads(body)
+            model = models.UploadAndCommitFileResponse()
+            model._deserialize(response["Response"])
+            return model
+        except Exception as e:
+            if isinstance(e, TencentCloudSDKException):
+                raise
+            else:
+                raise TencentCloudSDKException(type(e).__name__, str(e))
