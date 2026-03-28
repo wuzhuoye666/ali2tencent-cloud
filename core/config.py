@@ -35,24 +35,9 @@ class Config:
     ali_image_doc_url: str          # 阿里云 Alibaba Cloud Linux 镜像发布页
     check_interval_hours: int       # 定时检测间隔（小时）
 
-    # ---- CVM 实例参数 ----
-    cvm_instance_type: str          # 测试实例规格，如 S5.MEDIUM2
-    cvm_vpc_id: str                 # 所用 VPC
-    cvm_subnet_id: str              # 所用 Subnet
-    cvm_security_group_id: str      # 安全组
-    cvm_login_password: str         # 实例登录密码（仅用于 benchmark SSH）
-    cvm_disk_size: int              # 系统盘大小 GB
-
-    # ---- SSH / 性能测试 ----
-    ssh_user: str                   # SSH 登录用户名，如 root
-    ssh_private_key_path: str       # 私钥路径（优先；若为空则用密码）
-    benchmark_timeout: int          # 单项测试超时秒数
-
     # ---- 运行行为 ----
-    keep_instance: bool             # 测试后是否保留 CVM 实例
     tmp_dir: str                    # 镜像临时存放目录
     log_dir: str                    # 日志目录
-    report_dir: str                 # 报告输出目录
     state_db: str                   # SQLite 状态库路径
 
     @classmethod
@@ -68,19 +53,8 @@ class Config:
                 "https://mirrors.aliyun.com/alinux/3/image/",
             ),
             check_interval_hours=int(_optional("CHECK_INTERVAL_HOURS", "6")),
-            cvm_instance_type=_optional("CVM_INSTANCE_TYPE", "S5.MEDIUM2"),
-            cvm_vpc_id=_optional("CVM_VPC_ID", ""),
-            cvm_subnet_id=_optional("CVM_SUBNET_ID", ""),
-            cvm_security_group_id=_optional("CVM_SECURITY_GROUP_ID", ""),
-            cvm_login_password=_optional("CVM_LOGIN_PASSWORD", "Ali2Tencent@2024"),
-            cvm_disk_size=int(_optional("CVM_DISK_SIZE", "50")),
-            ssh_user=_optional("SSH_USER", "root"),
-            ssh_private_key_path=_optional("SSH_PRIVATE_KEY_PATH", ""),
-            benchmark_timeout=int(_optional("BENCHMARK_TIMEOUT", "300")),
-            keep_instance=_optional("KEEP_INSTANCE", "false").lower() == "true",
             tmp_dir=_optional("TMP_DIR", os.path.join(root, "tmp")),
             log_dir=_optional("LOG_DIR", os.path.join(root, "logs")),
-            report_dir=_optional("REPORT_DIR", os.path.join(root, "reports")),
             state_db=_optional("STATE_DB", os.path.join(root, "state.db")),
         )
 

@@ -18,9 +18,6 @@ STAGES = [
     "modify",
     "upload",
     "import",
-    "launch",
-    "benchmark",
-    "report",
 ]
 
 StageFunc = Callable[[PipelineContext, Config, StateDB], None]
@@ -40,9 +37,6 @@ class Pipeline:
         from pipeline.image_modifier import run as modify_run
         from pipeline.cos_uploader import run as upload_run
         from pipeline.cvm_importer import run as import_run
-        from pipeline.cvm_launcher import run as launch_run
-        from pipeline.benchmark import run as benchmark_run
-        from pipeline.reporter import run as report_run
 
         self._stages = {
             "monitor": monitor_run,
@@ -50,9 +44,6 @@ class Pipeline:
             "modify": modify_run,
             "upload": upload_run,
             "import": import_run,
-            "launch": launch_run,
-            "benchmark": benchmark_run,
-            "report": report_run,
         }
 
     def run(self, version: str, stop_stage: str | None = None) -> bool:
@@ -88,6 +79,17 @@ class Pipeline:
 
             try:
                 fn(ctx, self.config, self.db)
+
+                # 阶段完成后检查：modify 阶段必须成功注入 cloud-init
+                if stage == "modify" and not ctx.cloud_init_injected:
+                    raise RuntimeError(
+                        "cloud-init 配置注入失败，无法继续后续阶段。\n"
+                        "请确保系统支持以下任一工具：\n"
+                        "  - guestfish (libguestfs-tools)\n"
+                        "  - qemu-nbd + nbd 内核模块\n"
+                        "或在容器/云主机环境中使用特权模式运行。"
+                    )
+
                 self.db.upsert_task(ctx.task_id, version, stage, "done", meta=ctx.to_meta())
                 logger.info("✔ 阶段 [%s] 完成", stage)
             except Exception as exc:
@@ -98,7 +100,7 @@ class Pipeline:
                 return False
 
         self.db.mark_version_processed(version)
-        logger.info("🎉 版本 %s 全流程完成", version)
+        logger.info("🎉 版本 %s 镜像导入完成，image_id=%s", version, ctx.image_id)
         return True
 
     def _restore_context(self, ctx: PipelineContext) -> None:

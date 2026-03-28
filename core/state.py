@@ -1,4 +1,4 @@
-"""SQLite 状态管理：记录镜像版本、流水线任务、性能测试结果。"""
+"""SQLite 状态管理：记录镜像版本、流水线任务。"""
 from __future__ import annotations
 
 import json
@@ -24,26 +24,12 @@ CREATE TABLE IF NOT EXISTS pipeline_tasks (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     task_id      TEXT    NOT NULL UNIQUE,  -- UUID
     version      TEXT    NOT NULL,
-    stage        TEXT    NOT NULL,         -- monitor/download/modify/upload/import/launch/benchmark/report
+    stage        TEXT    NOT NULL,         -- monitor/download/modify/upload/import
     status       TEXT    NOT NULL DEFAULT 'pending',  -- pending/running/done/failed
     started_at   TEXT,
     finished_at  TEXT,
     error_msg    TEXT,
     meta         TEXT                      -- JSON 附加信息（文件路径、资源ID等）
-);
-
-CREATE TABLE IF NOT EXISTS benchmark_results (
-    id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    task_id      TEXT    NOT NULL,
-    version      TEXT    NOT NULL,
-    instance_id  TEXT,
-    tested_at    TEXT    NOT NULL,
-    cpu_score    REAL,
-    mem_score    REAL,
-    disk_read_mb REAL,
-    disk_write_mb REAL,
-    net_bandwidth_mb REAL,
-    raw_json     TEXT                      -- 完整测试结果 JSON
 );
 """
 
@@ -156,42 +142,6 @@ class StateDB:
         if row and row["meta"]:
             return json.loads(row["meta"])
         return {}
-
-    # ---- benchmark_results ----
-
-    def save_benchmark(self, task_id: str, version: str, instance_id: str, result: dict) -> None:
-        with self._conn() as conn:
-            conn.execute(
-                """INSERT INTO benchmark_results
-                   (task_id, version, instance_id, tested_at, cpu_score, mem_score,
-                    disk_read_mb, disk_write_mb, net_bandwidth_mb, raw_json)
-                   VALUES (?,?,?,?,?,?,?,?,?,?)
-                """,
-                (
-                    task_id, version, instance_id, _now(),
-                    result.get("cpu_score"),
-                    result.get("mem_score"),
-                    result.get("disk_read_mb"),
-                    result.get("disk_write_mb"),
-                    result.get("net_bandwidth_mb"),
-                    json.dumps(result, ensure_ascii=False),
-                ),
-            )
-
-    def get_all_benchmarks(self) -> list[dict]:
-        with self._conn() as conn:
-            rows = conn.execute(
-                "SELECT * FROM benchmark_results ORDER BY tested_at DESC"
-            ).fetchall()
-        return [dict(r) for r in rows]
-
-    def get_benchmark_by_version(self, version: str) -> dict | None:
-        with self._conn() as conn:
-            row = conn.execute(
-                "SELECT * FROM benchmark_results WHERE version=? ORDER BY tested_at DESC LIMIT 1",
-                (version,),
-            ).fetchone()
-        return dict(row) if row else None
 
 
 def _now() -> str:

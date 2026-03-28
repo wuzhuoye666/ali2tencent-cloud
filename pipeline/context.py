@@ -35,6 +35,7 @@ class PipelineContext:
 
     # 阶段3：cloud-init 修改
     modified_file_path: str = ""        # 修改后的镜像路径
+    cloud_init_injected: bool = False   # cloud-init 配置是否成功注入镜像
 
     # 阶段4：COS 上传
     cos_object_key: str = ""
@@ -42,16 +43,6 @@ class PipelineContext:
 
     # 阶段5：镜像导入
     image_id: str = ""                  # 腾讯云自定义镜像 ID
-
-    # 阶段6：CVM 创建
-    instance_id: str = ""
-    instance_ip: str = ""
-
-    # 阶段7：性能测试
-    benchmark_result: dict = field(default_factory=dict)
-
-    # 阶段8：报告
-    report_path: str = ""
 
     # 通用附加信息
     extra: dict = field(default_factory=dict)
@@ -64,10 +55,8 @@ class PipelineContext:
             "download_url": self.download_url,
             "local_file_path": self.local_file_path,
             "modified_file_path": self.modified_file_path,
+            "cloud_init_injected": self.cloud_init_injected,
             "cos_object_key": self.cos_object_key,
             "cos_object_url": self.cos_object_url,
             "image_id": self.image_id,
-            "instance_id": self.instance_id,
-            "instance_ip": self.instance_ip,
-            "report_path": self.report_path,
         }

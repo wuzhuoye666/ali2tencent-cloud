@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-ali2tencent-cloud  --  阿里云镜像自动迁移与性能测试流水线
+ali2tencent-cloud  --  阿里云镜像自动迁移到腾讯云流水线
+
 用法：
     python main.py run                  # 检测新版本并执行完整流程
-    python main.py run --version 3.2    # 对指定版本执行完整流程
+    python main.py run --version 3      # 对指定版本执行完整流程
     python main.py run --stage upload   # 从指定阶段恢复执行
     python main.py daemon               # 守护模式，定时检测新版本
     python main.py status               # 查看流水线任务状态
-    python main.py report               # 生成最新对比报告
 """
 from __future__ import annotations
 
@@ -113,33 +113,18 @@ def cmd_status(args: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_report(args: argparse.Namespace) -> int:
-    config = get_config()
-    setup_logger("ali2tencent", config.log_dir)
-    db = StateDB(config.state_db)
-
-    from pipeline.reporter import generate_report
-    from pipeline.context import PipelineContext
-    import uuid
-
-    ctx = PipelineContext(task_id=str(uuid.uuid4()), version="all")
-    generate_report(ctx, config, db)
-    print(f"报告已生成: {ctx.report_path}")
-    return 0
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="ali2tencent",
-        description="阿里云镜像自动迁移与性能测试流水线",
+        description="阿里云镜像自动迁移到腾讯云流水线",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
     # run
     p_run = sub.add_parser("run", help="执行流水线")
-    p_run.add_argument("--version", "-v", help="指定版本号（如 3.2），不指定则自动检测新版本")
-    p_run.add_argument("--stage", "-s", help="从指定阶段开始（monitor/download/modify/upload/import/launch/benchmark/report）")
-    p_run.add_argument("--stop-stage", help="在指定阶段结束（含），例如 --stop-stage import 只跑到导入镜像为止")
+    p_run.add_argument("--version", "-v", help="指定版本号（如 3），不指定则自动检测新版本")
+    p_run.add_argument("--stage", "-s", help="从指定阶段开始（monitor/download/modify/upload/import）")
+    p_run.add_argument("--stop-stage", help="在指定阶段结束（含）")
     p_run.set_defaults(func=cmd_run)
 
     # daemon
@@ -150,10 +135,6 @@ def main() -> int:
     p_status = sub.add_parser("status", help="查看任务状态")
     p_status.add_argument("--version", "-v", help="按版本过滤")
     p_status.set_defaults(func=cmd_status)
-
-    # report
-    p_report = sub.add_parser("report", help="生成对比报告")
-    p_report.set_defaults(func=cmd_report)
 
     args = parser.parse_args()
     return args.func(args)

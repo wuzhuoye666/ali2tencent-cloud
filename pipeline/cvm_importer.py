@@ -60,7 +60,7 @@ def import_image(
     req = models.ImportImageRequest()
     req.Architecture = architecture
     req.OsType = os_type
-    req.OsVersion = "7"   # 通用版本号，ALinux2 基于 CentOS 7 系列
+    req.OsVersion = "8"   # Alinux 3 基于 RHEL 8/CentOS 8
     req.ImageUrl = cos_url
     req.ImageName = image_name
     req.ImageDescription = image_desc
