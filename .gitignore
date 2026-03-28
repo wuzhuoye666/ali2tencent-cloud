@@ -17,3 +17,4 @@ __pycache__/
 /tmp/
 *.qcow2
 *.img
+state.db
